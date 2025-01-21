@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -237,7 +237,7 @@
                             <img src="${product.thumbnail_url}" alt="${product.name}" />
                             <h3>${product.name}</h3>
                             <p>${product.description || 'Customizable product'}</p>
-                            <a href="https://www.printful.com/customize/${product.id}" target="_blank">Customize</a>
+                            <a href="/customize.html?product_id=${product.id}" target="_self">Customize</a>
                         `;
                         productContainer.appendChild(productElement);
                     });
@@ -272,7 +272,20 @@
         <p>Anime, Gaming, Movies, TV, and Books - Create your own!</p>
         <a href="#shop">Start Creating</a>
     </section>
-    <section id
-
+    <section id="custom" class="custom-section">
+        <h2>Let Us Bring Your Vision to Life</h2>
+        <p>Create your perfect product with our customization tools or work one-on-one with us for a unique design.</p>
+        <a href="mailto:contact@nerdyprints.co.uk">Contact Us for Custom Designs</a>
+    </section>
+    <section id="shop" class="shop-section">
+        <h2>Shop Now</h2>
+        <p>Explore our range of customizable products and create your own unique designs.</p>
+        <div id="loader" class="loader">Loading products...</div>
+        <div id="error-message" class="error-message" style="display:none;"></div>
+        <div id="product-container" class="product-container"></div>
+    </section>
+    <footer>
+        <p>&copy; 2025 Nerdy Prints. All rights reserved.</p>
+    </footer>
+</body>
 </html>
-
