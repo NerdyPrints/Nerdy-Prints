@@ -184,11 +184,7 @@
     <script>
         async function fetchPrintfulProducts() {
             try {
-                const response = await fetch('https://api.printful.com/products', {
-                    headers: {
-                        Authorization: 'Bearer wCeijgOFbm5qBt4W9tN9PVxC5F9PKvaDvDUATrdN1797KwjYn5La9jzSTzUqT7Vb'
-                    }
-                });
+                const response = await fetch('https://nerdyprints.netlify.app/.netlify/functions/printful-proxy'); // Updated to Netlify proxy URL
                 const data = await response.json();
                 const productContainer = document.getElementById('product-container');
 
@@ -243,3 +239,4 @@
     </footer>
 </body>
 </html>
+
