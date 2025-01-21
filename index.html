@@ -155,53 +155,101 @@
             background-color: #FFD700;
         }
 
-        .customize-products {
-            text-align: center;
-            padding: 40px 20px;
+        .product-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .product-card {
             background-color: #f9f9f9;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        .customize-products h3 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
+        .product-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
         }
 
-        .customize-products a {
+        .product-card h3 {
+            font-size: 1.2rem;
+            margin: 10px 0;
+        }
+
+        .product-card p {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .product-card a {
             display: inline-block;
             background-color: #00FFFF;
             color: #333;
-            padding: 10px 20px;
+            padding: 10px 15px;
             text-decoration: none;
-            font-size: 1.2rem;
+            font-size: 1rem;
             margin-top: 10px;
+            border-radius: 4px;
         }
 
-        .customize-products a:hover {
+        .product-card a:hover {
             background-color: #FF00FF;
             color: white;
+        }
+
+        .loader {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .error-message {
+            text-align: center;
+            color: red;
+            margin: 20px 0;
         }
     </style>
     <script>
         async function fetchPrintfulProducts() {
-            try {
-                const response = await fetch('https://nerdyprints.netlify.app/.netlify/functions/printful-proxy'); // Updated to Netlify proxy URL
-                const data = await response.json();
-                const productContainer = document.getElementById('product-container');
+            const productContainer = document.getElementById('product-container');
+            const loader = document.getElementById('loader');
+            const errorMessage = document.getElementById('error-message');
 
-                if (data && data.result) {
+            loader.style.display = 'block';
+            errorMessage.style.display = 'none';
+            productContainer.innerHTML = '';
+
+            try {
+                const response = await fetch('https://nerdyprints.netlify.app/.netlify/functions/printful-proxy');
+                const data = await response.json();
+                loader.style.display = 'none';
+
+                if (data && data.result && data.result.length > 0) {
                     data.result.forEach(product => {
                         const productElement = document.createElement('div');
+                        productElement.className = 'product-card';
                         productElement.innerHTML = `
+                            <img src="${product.thumbnail_url}" alt="${product.name}" />
                             <h3>${product.name}</h3>
-                            <img src="${product.thumbnail_url}" alt="${product.name}" style="width:200px;" />
                             <p>${product.description || 'Customizable product'}</p>
-                            <a href="#">Customize</a>
+                            <a href="https://www.printful.com/customize/${product.id}" target="_blank">Customize</a>
                         `;
                         productContainer.appendChild(productElement);
                     });
+                } else {
+                    errorMessage.textContent = 'No products available at the moment.';
+                    errorMessage.style.display = 'block';
                 }
             } catch (error) {
                 console.error('Error fetching Printful products:', error);
+                loader.style.display = 'none';
+                errorMessage.textContent = 'Failed to load products. Please try again later.';
+                errorMessage.style.display = 'block';
             }
         }
 
@@ -224,19 +272,7 @@
         <p>Anime, Gaming, Movies, TV, and Books - Create your own!</p>
         <a href="#shop">Start Creating</a>
     </section>
-    <section id="custom" class="custom-section">
-        <h2>Let Us Bring Your Vision to Life</h2>
-        <p>Create your perfect product with our customization tools or work one-on-one with us for a unique design.</p>
-        <a href="mailto:contact@nerdyprints.co.uk">Contact Us for Custom Designs</a>
-    </section>
-    <section id="shop" class="shop-section">
-        <h2>Shop Now</h2>
-        <p>Explore our range of customizable products and create your own unique designs.</p>
-        <div id="product-container" class="customize-products"></div>
-    </section>
-    <footer>
-        <p>&copy; 2025 Nerdy Prints. All rights reserved.</p>
-    </footer>
-</body>
+    <section id
+
 </html>
 
