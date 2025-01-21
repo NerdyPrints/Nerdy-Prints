@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customize Your Product - Nerdy Prints</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(90deg, #00FFFF, #FF00FF, #FFD700);
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        main {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-details {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .product-details img {
+            max-width: 300px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        .product-details h2 {
+            margin: 10px 0;
+        }
+
+        .product-options {
+            margin-top: 20px;
+        }
+
+        .product-options label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .product-options input,
+        .product-options select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .customize-button {
+            display: inline-block;
+            background-color: #00FFFF;
+            color: #333;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .customize-button:hover {
+            background-color: #FF00FF;
+            color: white;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 20px;
+        }
+    </style>
+    <script>
+        async function loadProductDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('product_id');
+
+            if (!productId) {
+                document.getElementById('product-details').innerHTML = '<p>Product not found. Please go back to the shop.</p>';
+                return;
+            }
+
+            try {
+                const response = await fetch(`https://nerdyprints.netlify.app/.netlify/functions/printful-proxy`);
+                const data = await response.json();
+
+                const product = data.result.find(item => item.id.toString() === productId);
+
+                if (!product) {
+                    document.getElementById('product-details').innerHTML = '<p>Product not found. Please go back to the shop.</p>';
+                    return;
+                }
+
+                document.getElementById('product-details').innerHTML = `
+                    <div class="product-details">
+                        <img src="${product.thumbnail_url}" alt="${product.name}" />
+                        <h2>${product.name}</h2>
+                        <p>${product.description || 'Customize this product to your liking!'}</p>
+
+                        <div class="product-options">
+                            <label for="size">Select Size:</label>
+                            <select id="size">
+                                <option value="S">Small</option>
+                                <option value="M">Medium</option>
+                                <option value="L">Large</option>
+                                <option value="XL">Extra Large</option>
+                            </select>
+
+                            <label for="color">Select Color:</label>
+                            <input type="text" id="color" placeholder="Enter color" />
+
+                            <label for="custom-text">Add Custom Text:</label>
+                            <input type="text" id="custom-text" placeholder="Your text here" />
+                        </div>
+
+                        <a href="#" class="customize-button">Submit Customization</a>
+                    </div>
+                `;
+            } catch (error) {
+                console.error('Error loading product details:', error);
+                document.getElementById('product-details').innerHTML = '<p>Failed to load product details. Please try again later.</p>';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadProductDetails);
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Customize Your Product</h1>
+    </header>
+    <main>
+        <div id="product-details">
+            <p>Loading product details...</p>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 Nerdy Prints. All rights reserved.</p>
+    </footer>
+</body>
+</html>
