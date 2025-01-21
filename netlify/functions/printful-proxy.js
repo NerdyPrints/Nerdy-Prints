@@ -4,8 +4,8 @@ exports.handler = async (event) => {
     try {
         const response = await fetch('https://api.printful.com/products', {
             headers: {
-                Authorization: 'Bearer vdwuBwWE9JefftyUluEMxJwk1yFC17mDXNsX9rxjXMnSWvmAkL9qLxOb72E0aODm'
-            }
+                Authorization: `Bearer ${process.env.PRINTFUL_API_KEY}`,
+            },
         });
         const data = await response.json();
 
@@ -14,9 +14,10 @@ exports.handler = async (event) => {
             body: JSON.stringify(data),
         };
     } catch (error) {
+        console.error('Error fetching data from Printful:', error);
         return {
             statusCode: 500,
-            body: JSON.stringify({ error: 'Failed to fetch products', details: error.message }),
+            body: JSON.stringify({ error: 'Failed to fetch products' }),
         };
     }
 };
