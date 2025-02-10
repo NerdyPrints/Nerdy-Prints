@@ -86,6 +86,7 @@
             font-size: 1.3rem;
             border-radius: 8px;
             margin-top: 20px;
+            cursor: pointer;
         }
 
         .shop-section a:hover {
@@ -172,6 +173,13 @@
             margin-top: 40px;
         }
     </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("shop-button").addEventListener("click", function() {
+                document.getElementById("product-container").scrollIntoView({ behavior: "smooth" });
+            });
+        });
+    </script>
 </head>
 <body>
     <header>
@@ -186,7 +194,7 @@
 
     <section id="shop" class="shop-section">
         <h2>Shop Now</h2>
-        <a href="#product-container">Start Shopping</a>
+        <a id="shop-button">Start Shopping</a>
         <div class="product-container" id="product-container">
             <!-- Products will load here dynamically -->
         </div>
