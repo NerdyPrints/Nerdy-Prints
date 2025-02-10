@@ -119,7 +119,8 @@
                         div.innerHTML = `
                             <img src="${productImage}" alt="${productName}">
                             <h3>${productName}</h3>
-                            <a href="/customize.html?product_id=${product.id}">Customize</a>
+                            <a href="/customize.html?product_id=${product.id}&title=${encodeURIComponent(product.title || product.type_name)}&image=${encodeURIComponent(product.thumbnail_url)}">Customize</a>
+
                         `;
                         container.appendChild(div);
                     });
