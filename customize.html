@@ -66,4 +66,27 @@
         <img id="product-image" class="product-image" src="https://via.placeholder.com/300x300?text=No+Image" alt="Product Image">
         
         <br>
-       
+        <a id="customize-link" class="customize-btn" href="#">Start Customizing</a>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Nerdy Prints. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get("product_id");
+            const productTitle = decodeURIComponent(urlParams.get("title") || "Unknown Product");
+            const productImage = decodeURIComponent(urlParams.get("image") || "https://via.placeholder.com/300x300?text=No+Image");
+
+            document.getElementById("product-name").innerText = productTitle;
+            document.getElementById("product-description").innerText = `Customize your ${productTitle} here!`;
+            document.getElementById("product-image").src = productImage;
+
+            // Link to Printful customization if needed
+            document.getElementById("customize-link").href = `https://www.printful.com/customize?product_id=${productId}`;
+        });
+    </script>
+</body>
+</html>
