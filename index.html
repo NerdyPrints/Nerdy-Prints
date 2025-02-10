@@ -51,6 +51,21 @@
             color: #ddd;
         }
 
+        .hero a {
+            display: inline-block;
+            background-color: #ff0099;
+            color: white;
+            padding: 15px 25px;
+            text-decoration: none;
+            font-size: 1.3rem;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .hero a:hover {
+            background-color: #ff4db8;
+        }
+
         .shop-section {
             text-align: center;
             padding: 40px;
@@ -60,6 +75,21 @@
         .shop-section h2 {
             font-size: 2rem;
             color: #ff0099;
+        }
+
+        .shop-section a {
+            display: inline-block;
+            background-color: #ff0099;
+            color: white;
+            padding: 15px 25px;
+            text-decoration: none;
+            font-size: 1.3rem;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .shop-section a:hover {
+            background-color: #ff4db8;
         }
 
         .product-container {
@@ -116,35 +146,22 @@
             color: #ff0099;
         }
 
-        .contact-section form {
-            max-width: 500px;
-            margin: auto;
+        .contact-section p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
         }
 
-        .contact-section input, .contact-section textarea {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-            border: 1px solid #fff;
-            border-radius: 5px;
-            background-color: #222;
-            color: #fff;
-        }
-
-        .contact-section button {
-            display: block;
+        .contact-section a {
+            display: inline-block;
             background-color: #ff0099;
             color: white;
-            padding: 10px 15px;
+            padding: 15px 25px;
             text-decoration: none;
-            font-size: 1rem;
-            border-radius: 5px;
-            margin-top: 10px;
-            width: 100%;
-            border: none;
+            font-size: 1.3rem;
+            border-radius: 8px;
         }
 
-        .contact-section button:hover {
+        .contact-section a:hover {
             background-color: #ff4db8;
         }
 
@@ -169,6 +186,7 @@
 
     <section id="shop" class="shop-section">
         <h2>Shop Now</h2>
+        <a href="#product-container">Start Shopping</a>
         <div class="product-container" id="product-container">
             <!-- Products will load here dynamically -->
         </div>
@@ -176,12 +194,8 @@
 
     <section id="contact" class="contact-section">
         <h2>Contact Us for a Personalized Design</h2>
-        <form name="contact" method="POST" data-netlify="true">
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="email" name="email" placeholder="Your Email" required>
-            <textarea name="message" placeholder="Describe your custom design request..." required></textarea>
-            <button type="submit">Send Message</button>
-        </form>
+        <p>For a personalized design on an item of your choosing, please contact us at <strong>yourfandomyourstyle@gmail.com</strong> or click the button below:</p>
+        <a href="mailto:yourfandomyourstyle@gmail.com?subject=Custom%20Design%20Request">Email Us</a>
     </section>
 
     <footer>
