@@ -1,21 +1,69 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customize Your Product</title>
-    <script src="customize.js" defer></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #121212;
+            color: #ffffff;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(90deg, #ff0099, #4932db);
+            padding: 20px;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3rem;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .container {
+            margin-top: 20px;
+        }
+
+        .product-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        .customize-btn {
+            display: inline-block;
+            background-color: #ff0099;
+            color: white;
+            padding: 15px 25px;
+            text-decoration: none;
+            font-size: 1.3rem;
+            border-radius: 8px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        .customize-btn:hover {
+            background-color: #ff4db8;
+        }
+    </style>
 </head>
 <body>
     <header>
         <h1>Customize Your Product</h1>
     </header>
-    <main id="product-details">
-        <p>Loading product details...</p>
-    </main>
-    <footer>
-        <p>&copy; 2025 Nerdy Prints. All rights reserved.</p>
-    </footer>
-</body>
-</html>
+
+    <div class="container">
+        <h2 id="product-name">Loading product...</h2>
+        <p id="product-description">Please wait while we load your customization options.</p>
+        <img id="product-image" class="product-image" src="https://via.placeholder.com/300x300?text=No+Image" alt="Product Image">
+        
+        <br>
+       
