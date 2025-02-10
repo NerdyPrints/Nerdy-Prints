@@ -84,8 +84,8 @@
             document.getElementById("product-description").innerText = `Customize your ${productTitle} here!`;
             document.getElementById("product-image").src = productImage;
 
-            // Link to Printful customization if needed
-            document.getElementById("customize-link").href = `https://www.printful.com/customize?product_id=${productId}`;
+            // Remove external redirect to Printful
+            document.getElementById("customize-link").href = "#";
         });
     </script>
 </body>
