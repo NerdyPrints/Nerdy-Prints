@@ -51,21 +51,6 @@
             color: #ddd;
         }
 
-        .hero a {
-            display: inline-block;
-            background-color: #ff0099;
-            color: white;
-            padding: 15px 25px;
-            text-decoration: none;
-            font-size: 1.3rem;
-            border-radius: 8px;
-            margin-top: 20px;
-        }
-
-        .hero a:hover {
-            background-color: #ff4db8;
-        }
-
         .shop-section {
             text-align: center;
             padding: 40px;
@@ -91,49 +76,6 @@
 
         .shop-section a:hover {
             background-color: #ff4db8;
-        }
-
-        .product-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .product-card {
-            background: #333;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            width: 250px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-
-        .product-card img {
-            max-width: 100%;
-            border-radius: 5px;
-        }
-
-        .product-card h3 {
-            font-size: 1.2rem;
-            margin-top: 10px;
-            color: #ff0099;
-        }
-
-        .product-card a {
-            display: inline-block;
-            background-color: #4932db;
-            color: white;
-            padding: 10px 15px;
-            text-decoration: none;
-            font-size: 1rem;
-            border-radius: 5px;
-            margin-top: 10px;
-        }
-
-        .product-card a:hover {
-            background-color: #7055ff;
         }
 
         .contact-section {
@@ -173,13 +115,6 @@
             margin-top: 40px;
         }
     </style>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById("shop-button").addEventListener("click", function() {
-                document.getElementById("product-container").scrollIntoView({ behavior: "smooth" });
-            });
-        });
-    </script>
 </head>
 <body>
     <header>
@@ -194,10 +129,7 @@
 
     <section id="shop" class="shop-section">
         <h2>Shop Now</h2>
-        <a id="shop-button">Start Shopping</a>
-        <div class="product-container" id="product-container">
-            <!-- Products will load here dynamically -->
-        </div>
+        <a href="shop.html">Start Shopping</a>
     </section>
 
     <section id="contact" class="contact-section">
@@ -210,4 +142,6 @@
         <p>&copy; 2025 Nerdy Prints. All rights reserved.</p>
     </footer>
 </body>
+</html>
+
 </html>
