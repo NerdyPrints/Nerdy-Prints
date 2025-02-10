@@ -51,21 +51,6 @@
             color: #ddd;
         }
 
-        .hero a {
-            display: inline-block;
-            background-color: #ff0099;
-            color: white;
-            padding: 15px 25px;
-            text-decoration: none;
-            font-size: 1.3rem;
-            border-radius: 8px;
-            margin-top: 20px;
-        }
-
-        .hero a:hover {
-            background-color: #ff4db8;
-        }
-
         .shop-section {
             text-align: center;
             padding: 40px;
@@ -191,7 +176,7 @@
 
     <section id="contact" class="contact-section">
         <h2>Contact Us for a Personalized Design</h2>
-        <form action="mailto:yourfandomyourstyle@gmail.com" method="POST" enctype="text/plain">
+        <form name="contact" method="POST" data-netlify="true">
             <input type="text" name="name" placeholder="Your Name" required>
             <input type="email" name="email" placeholder="Your Email" required>
             <textarea name="message" placeholder="Describe your custom design request..." required></textarea>
