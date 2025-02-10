@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             data.result.forEach(product => {
                 console.log("Processing product:", product); // Debugging: Check each product's data
 
-                // Try using different fields to find the correct product name
-                const productName = product.title || product.product_name || product.display_name || product.catalog_name || "Unnamed Product";
+                // Use multiple name fields to find the best product name
+                const productName = product.title || product.product_name || product.type_name || product.variant_name || "Unnamed Product";
                 const productImage = product.thumbnail_url ? product.thumbnail_url : 'https://via.placeholder.com/150';
 
                 if (product.id && productName) {
