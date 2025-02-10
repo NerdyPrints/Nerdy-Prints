@@ -119,9 +119,7 @@
                         div.innerHTML = `
                             <img src="${productImage}" alt="${productName}">
                             <h3>${productName}</h3>
-                            <a href="/customize.html?product_id=${product.id}&title=${encodeURIComponent(product.title || product.type_name)}&image=${encodeURIComponent(product.thumbnail_url)}">Customize</a>
-
-                        `;
+                            <a href="/customize.html?product_id=${product.id}&title=${encodeURIComponent(product.title || product.type_name || 'No Name')}&image=${encodeURIComponent(product.thumbnail_url || 'https://via.placeholder.com/300x300?text=No+Image')}">Customize</a>
                         container.appendChild(div);
                     });
                 } else {
