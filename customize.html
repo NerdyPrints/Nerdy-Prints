@@ -69,4 +69,49 @@
         <a id="customize-link" class="customize-btn" href="#">Start Customizing</a>
     </div>
 
-    <
+    <footer>
+        <p>&copy; 2025 Nerdy Prints. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get("product_id");
+            const productTitle = decodeURIComponent(urlParams.get("title") || "Unknown Product");
+            const productImage = decodeURIComponent(urlParams.get("image") || "https://via.placeholder.com/300x300?text=No+Image");
+
+            document.getElementById("product-name").innerText = productTitle;
+            document.getElementById("product-description").innerText = `Customize your ${productTitle} here!`;
+            document.getElementById("product-image").src = productImage;
+
+            // Fetch Printful Mockup Generator URL
+            document.getElementById("customize-link").addEventListener("click", async function () {
+                if (!productId) {
+                    alert("Error: Product ID is missing.");
+                    return;
+                }
+
+                try {
+                    const response = await fetch(`https://api.printful.com/mockup-generator/product/${productId}`, {
+                        method: "GET",
+                        headers: {
+                            "Authorization": "Bearer I3rUXUDVvQRxC9eedtBPzud02LeW5gIPP76qzvGgULmO3EENwcvSzNllwVZp96ud",
+                            "Content-Type": "application/json"
+                        }
+                    });
+
+                    const data = await response.json();
+                    if (data && data.result && data.result.mockup_url) {
+                        window.location.href = data.result.mockup_url;
+                    } else {
+                        alert("Error: Could not fetch customization link.");
+                    }
+                } catch (error) {
+                    console.error("API request failed:", error);
+                    alert("Error: Unable to connect to Printful's API.");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
