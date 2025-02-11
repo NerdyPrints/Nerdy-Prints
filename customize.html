@@ -85,7 +85,14 @@
             document.getElementById("product-image").src = productImage;
 
             // Remove external redirect to Printful
-            document.getElementById("customize-link").href = "#";
+            document.getElementById("customize-link").addEventListener("click", function() {
+    if (productId) {
+        window.location.href = `https://www.printful.com/customize/product/${productId}`;
+    } else {
+        alert("Error: Product customization is not available.");
+    }
+});
+
         });
     </script>
 </body>
