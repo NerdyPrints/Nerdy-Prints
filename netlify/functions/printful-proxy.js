@@ -5,7 +5,7 @@ exports.handler = async (event) => {
         const response = await fetch("https://api.printful.com/sync/products", {
             method: "GET",
             headers: {
-                "Authorization": "Bearer I3rUXUDVvQRxC9eedtBPzud02LeW5gIPP76qzvGgULmO3EENwcvSzNllwVZp96ud",
+                "Authorization": "Bearer vWBya1OJD02RC0ONWNZmshKSfRPE0uS52v8N7ybQ",
                 "Content-Type": "application/json"
             }
         });
