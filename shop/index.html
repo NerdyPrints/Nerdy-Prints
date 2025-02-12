@@ -135,7 +135,9 @@ try {
         data.result.forEach(product => {
             console.log("Product Data:", product);
             const productName = product.name || "Unnamed Product";
-            const productImage = product.thumbnail_url ? product.thumbnail_url : "https://via.placeholder.com/300x300?text=No+Image";
+            const productImage = product.thumbnail_url && product.thumbnail_url !== "null"
+    ? product.thumbnail_url
+    : "https://via.placeholder.com/300x300?text=No+Image";
 
             const div = document.createElement('div');
             div.classList.add('product-card');
