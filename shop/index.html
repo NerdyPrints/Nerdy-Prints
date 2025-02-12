@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nerdy Prints - Shop</title>
-    <meta name="description" content="Browse and customize your favorite fandom products at Nerdy Prints.">
+    <meta name="description" content="Browse and shop your favorite fandom products at Nerdy Prints.">
     <meta name="robots" content="index, follow">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
@@ -100,7 +100,7 @@
     </header>
 
     <section class="shop-container">
-        <h2>Explore Our Customizable Products</h2>
+        <h2>Explore Our Products</h2>
         <div class="product-container" id="product-container">
             <p>Loading products...</p>
         </div>
@@ -144,7 +144,7 @@
                         div.innerHTML = `
                             <img src="${productImage}" alt="${productName}">
                             <h3>${productName}</h3>
-                            <a href="/customize.html?product_id=${product.id}&title=${encodeURIComponent(productName)}&image=${encodeURIComponent(productImage)}">Customize</a>
+                            <a href="https://nerdyprints.co.uk/buy?product_id=${product.id}">Buy Now</a>
                         `;
                         container.appendChild(div);
                     });
