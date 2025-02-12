@@ -1,10 +1,12 @@
 const fetch = require('node-fetch');
 
-exports.handler = async function (event, context) {
+exports.handler = async (event) => {
     try {
-        const response = await fetch('https://api.printful.com/products', {
+        const response = await fetch("https://api.printful.com/sync/products", {
+            method: "GET",
             headers: {
-                'Authorization': `Bearer ${process.env.PRINTFUL_API_KEY}`
+                "Authorization": "Bearer I3rUXUDVvQRxC9eedtBPzud02LeW5gIPP76qzvGgULmO3EENwcvSzNllwVZp96ud",
+                "Content-Type": "application/json"
             }
         });
 
@@ -13,19 +15,15 @@ exports.handler = async function (event, context) {
         return {
             statusCode: 200,
             headers: {
-                'Access-Control-Allow-Origin': '*', // Allows all origins (you can change '*' to 'https://nerdyprints.co.uk' for security)
-                'Access-Control-Allow-Headers': 'Content-Type',
-                'Access-Control-Allow-Methods': 'GET, OPTIONS'
+                "Access-Control-Allow-Origin": "*",
+                "Content-Type": "application/json"
             },
             body: JSON.stringify(data)
         };
     } catch (error) {
         return {
             statusCode: 500,
-            headers: {
-                'Access-Control-Allow-Origin': '*'
-            },
-            body: JSON.stringify({ error: 'Failed to fetch Printful products' })
+            body: JSON.stringify({ error: "Failed to fetch products from Printful" })
         };
     }
 };
