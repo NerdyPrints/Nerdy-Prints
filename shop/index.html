@@ -173,15 +173,18 @@
                     data.result.forEach(product => {
                         const productName = product.name || "Unnamed Product";
                         const productImage = product.thumbnail_url && product.thumbnail_url !== "null" ? product.thumbnail_url : "https://placehold.co/300x300/000000/FFF?text=No+Image";
-                        const productVariants = product.variants.map(v => `<option value="${v.id}">${v.name}</option>`).join('');
 
                         const div = document.createElement('div');
                         div.classList.add('product-card');
                         div.innerHTML = `
                             <img src="${productImage}" alt="${productName}">
                             <h3>${productName}</h3>
-                            <select>${productVariants}</select>
-                            <button onclick="addToCart(this, '${productName}', '${productImage}')">Add to Cart</button>
+                            ${product.variants && Array.isArray(product.variants) && product.variants.length > 0 ? `
+                                <select>${product.variants.map(v => `<option value="${v.id}">${v.name}</option>`).join('')}</select>
+                                <button onclick="addToCart(this, '${productName}', '${productImage}')">Add to Cart</button>
+                            ` : `
+                                <button onclick="addToCartNoVariant('${productName}', '${productImage}')">Add to Cart</button>
+                            `}
                         `;
                         container.appendChild(div);
                     });
@@ -198,6 +201,12 @@
             cart.push({ id: variantId, name, image });
             localStorage.setItem('cart', JSON.stringify(cart));
             alert(`${name} (Variant ID: ${variantId}) added to cart!`);
+        }
+
+        function addToCartNoVariant(name, image) {
+            cart.push({ id: 'no_variant', name, image });
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert(`${name} added to cart!`);
         }
     </script>
 </body>
