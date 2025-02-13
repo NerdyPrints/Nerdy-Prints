@@ -123,6 +123,8 @@
                     const variantSelector = document.getElementById('variant-selector');
                     const select = document.createElement('select');
                     variants.forEach(variant => {
+                        console.log('Variant Data:', variant); // <-- THIS IS THE PRICE DEBUGGING LOG
+
                         let price = variant.retail_price;
 
                         if (price === null || price === undefined) {
