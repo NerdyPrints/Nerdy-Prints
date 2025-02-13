@@ -36,21 +36,22 @@
             border-radius: 10px;
         }
 
-        select, button {
+        select, button, .continue-shopping {
             margin-top: 15px;
             padding: 10px;
             font-size: 1rem;
         }
 
-        button {
+        button, .continue-shopping {
             background-color: #4932db;
             color: white;
             border: none;
             cursor: pointer;
             border-radius: 5px;
+            margin: 10px;
         }
 
-        button:hover {
+        button:hover, .continue-shopping:hover {
             background-color: #7055ff;
         }
 
@@ -79,6 +80,7 @@
         <div id="variant-selector"></div>
         <button id="add-to-cart" style="display:none;">Add to Cart</button>
         <a href="/cart/" class="cart-link" id="go-to-cart" style="display:none;">Go to Cart</a>
+        <button onclick="window.location.href='/shop/'" class="continue-shopping" style="display:none;">Continue Shopping</button>
     </div>
 
     <footer>
@@ -112,13 +114,7 @@
                     const variantSelector = document.getElementById('variant-selector');
                     const select = document.createElement('select');
                     variants.forEach(variant => {
-                        let price = variant.retail_price;
-                        if (!price || price < 100) {
-                            price = variant.product.retail_price;
-                        }
-                        if (!price || price < 100) {
-                            price = 3399; // Fallback default if still bad
-                        }
+                        const price = variant.retail_price || variant.product.retail_price || 3399;
                         const option = document.createElement('option');
                         option.value = variant.id;
                         option.textContent = `${variant.name} - £${(price / 100).toFixed(2)}`;
@@ -128,6 +124,8 @@
 
                     const addToCartButton = document.getElementById('add-to-cart');
                     addToCartButton.style.display = 'block';
+
+                    const continueShoppingButton = document.querySelector('.continue-shopping');
 
                     addToCartButton.addEventListener('click', () => {
                         const selectedVariantId = select.value;
@@ -145,6 +143,7 @@
                         alert(`${product.name} - ${selectedVariant.name} added to cart!`);
 
                         document.getElementById('go-to-cart').style.display = 'inline-block';
+                        continueShoppingButton.style.display = 'inline-block';
                     });
                 } else {
                     document.getElementById('product-name').textContent = 'Error: Product not found.';
