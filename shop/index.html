@@ -30,6 +30,7 @@
             padding: 20px;
             text-align: center;
             font-size: 1.5rem;
+            position: relative;
         }
 
         header h1 {
@@ -37,6 +38,17 @@
             font-size: 3rem;
             text-transform: uppercase;
             font-weight: bold;
+        }
+
+        .cart-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #ff0099;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
         }
 
         .shop-container {
@@ -71,19 +83,27 @@
             color: #ff0099;
         }
 
-        .product-card a {
-            display: inline-block;
+        .product-card button {
             background-color: #4932db;
             color: white;
             padding: 10px 15px;
-            text-decoration: none;
+            border: none;
             font-size: 1rem;
             border-radius: 5px;
             margin-top: 10px;
+            cursor: pointer;
         }
 
-        .product-card a:hover {
+        .product-card button:hover {
             background-color: #7055ff;
+        }
+
+        .back-button {
+            display: block;
+            margin-top: 10px;
+            color: #ff0099;
+            text-decoration: none;
+            font-size: 1.2rem;
         }
 
         footer {
@@ -92,17 +112,31 @@
             padding: 20px;
             margin-top: 40px;
         }
+
+        .custom-design-info {
+            margin-top: 40px;
+            background-color: #222;
+            padding: 20px;
+            border-radius: 10px;
+        }
     </style>
 </head>
 <body>
     <header>
         <h1>Nerdy Prints - Shop</h1>
+        <a href="/cart.html" class="cart-button">View Cart</a>
     </header>
 
     <section class="shop-container">
+        <a href="/" class="back-button">← Back to Home</a>
         <h2>Explore Our Products</h2>
         <div class="product-container" id="product-container">
             <p>Loading products...</p>
+        </div>
+
+        <div class="custom-design-info">
+            <h3>Looking for a Custom Design?</h3>
+            <p>If you'd like a custom design made specifically for you on a product of your choice, please <a href="mailto:yourfandomyourstyle@gmail.com">email us</a> with your request!</p>
         </div>
     </section>
 
@@ -111,6 +145,8 @@
     </footer>
 
     <script>
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
         document.addEventListener('DOMContentLoaded', async () => {
             const container = document.getElementById('product-container');
 
@@ -123,40 +159,35 @@
                 });
 
                 const data = await response.json();
-                console.log("🚀 API Response Data:", data); // Debugging: Check API response
-
-                if (!response.ok) {
-                    throw new Error(`API error: ${response.status} - ${data.result}`);
-                }
 
                 if (data && data.result && Array.isArray(data.result) && data.result.length > 0) {
-                    container.innerHTML = ''; // Clear existing content
+                    container.innerHTML = '';
                     data.result.forEach(product => {
-                        console.log("📦 Product Data:", product); // Debugging: Log each product
-
                         const productName = product.name || "Unnamed Product";
-                        const productImage = product.thumbnail_url && product.thumbnail_url !== "null"
-                            ? product.thumbnail_url
-                            : "https://placehold.co/300x300/000000/FFF?text=No+Image";
+                        const productImage = product.thumbnail_url && product.thumbnail_url !== "null" ? product.thumbnail_url : "https://placehold.co/300x300/000000/FFF?text=No+Image";
 
                         const div = document.createElement('div');
                         div.classList.add('product-card');
                         div.innerHTML = `
                             <img src="${productImage}" alt="${productName}">
                             <h3>${productName}</h3>
-                            <a href="https://nerdyprints.co.uk/buy?product_id=${product.id}">Buy Now</a>
+                            <button onclick="addToCart(${product.id}, '${productName}', '${productImage}')">Add to Cart</button>
                         `;
                         container.appendChild(div);
                     });
                 } else {
-                    console.error("❌ No products returned from API:", data);
                     container.innerHTML = '<p>No products available</p>';
                 }
             } catch (error) {
-                console.error("❌ Error fetching products:", error);
                 container.innerHTML = `<p>Error loading products. Please try again later.<br><small>${error.message}</small></p>`;
             }
         });
+
+        function addToCart(id, name, image) {
+            cart.push({ id, name, image });
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert(`${name} added to cart!`);
+        }
     </script>
 </body>
 </html>
