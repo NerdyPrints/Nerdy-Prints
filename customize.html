@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -114,10 +114,22 @@
                     const variantSelector = document.getElementById('variant-selector');
                     const select = document.createElement('select');
                     variants.forEach(variant => {
-                        const price = variant.retail_price || variant.product.retail_price || 3399;
+                        let price = variant.retail_price;
+
+                        if (price === null || price === undefined) {
+                            price = variant.product.retail_price;
+                        }
+
+                        let priceText;
+                        if (price === null || price === undefined) {
+                            priceText = "Price Not Available";
+                        } else {
+                            priceText = `£${(price / 100).toFixed(2)}`;
+                        }
+
                         const option = document.createElement('option');
                         option.value = variant.id;
-                        option.textContent = `${variant.name} - £${(price / 100).toFixed(2)}`;
+                        option.textContent = `${variant.name} - ${priceText}`;
                         select.appendChild(option);
                     });
                     variantSelector.appendChild(select);
@@ -130,7 +142,7 @@
                     addToCartButton.addEventListener('click', () => {
                         const selectedVariantId = select.value;
                         const selectedVariant = variants.find(v => v.id == selectedVariantId);
-                        const price = selectedVariant.retail_price || selectedVariant.product.retail_price || 3399;
+                        const price = selectedVariant.retail_price || selectedVariant.product.retail_price || null;
 
                         cart.push({
                             id: selectedVariant.id,
