@@ -111,17 +111,19 @@
 
                     const variantSelector = document.getElementById('variant-selector');
                     const select = document.createElement('select');
-
                     variants.forEach(variant => {
+                        let price = variant.retail_price;
+                        if (!price || price < 100) {
+                            price = variant.product.retail_price;
+                        }
+                        if (!price || price < 100) {
+                            price = 3399; // Fallback default if still bad
+                        }
                         const option = document.createElement('option');
                         option.value = variant.id;
-                        const price = variant.retail_price
-                            ? (variant.retail_price / 100).toFixed(2)
-                            : (variant.product.retail_price / 100).toFixed(2);
-                        option.textContent = `${variant.name} - £${price}`;
+                        option.textContent = `${variant.name} - £${(price / 100).toFixed(2)}`;
                         select.appendChild(option);
                     });
-
                     variantSelector.appendChild(select);
 
                     const addToCartButton = document.getElementById('add-to-cart');
@@ -130,9 +132,7 @@
                     addToCartButton.addEventListener('click', () => {
                         const selectedVariantId = select.value;
                         const selectedVariant = variants.find(v => v.id == selectedVariantId);
-                        const price = selectedVariant.retail_price
-                            ? selectedVariant.retail_price
-                            : selectedVariant.product.retail_price;
+                        const price = selectedVariant.retail_price || selectedVariant.product.retail_price || 3399;
 
                         cart.push({
                             id: selectedVariant.id,
