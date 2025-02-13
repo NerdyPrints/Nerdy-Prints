@@ -83,6 +83,15 @@
             color: #ff0099;
         }
 
+        .product-card select, .product-card button {
+            margin-top: 10px;
+        }
+
+        .product-card select {
+            padding: 8px;
+            font-size: 1rem;
+        }
+
         .product-card button {
             background-color: #4932db;
             color: white;
@@ -90,7 +99,6 @@
             border: none;
             font-size: 1rem;
             border-radius: 5px;
-            margin-top: 10px;
             cursor: pointer;
         }
 
@@ -165,13 +173,15 @@
                     data.result.forEach(product => {
                         const productName = product.name || "Unnamed Product";
                         const productImage = product.thumbnail_url && product.thumbnail_url !== "null" ? product.thumbnail_url : "https://placehold.co/300x300/000000/FFF?text=No+Image";
+                        const productVariants = product.variants.map(v => `<option value="${v.id}">${v.name}</option>`).join('');
 
                         const div = document.createElement('div');
                         div.classList.add('product-card');
                         div.innerHTML = `
                             <img src="${productImage}" alt="${productName}">
                             <h3>${productName}</h3>
-                            <button onclick="addToCart(${product.id}, '${productName}', '${productImage}')">Add to Cart</button>
+                            <select>${productVariants}</select>
+                            <button onclick="addToCart(this, '${productName}', '${productImage}')">Add to Cart</button>
                         `;
                         container.appendChild(div);
                     });
@@ -183,10 +193,11 @@
             }
         });
 
-        function addToCart(id, name, image) {
-            cart.push({ id, name, image });
+        function addToCart(button, name, image) {
+            const variantId = button.previousElementSibling.value;
+            cart.push({ id: variantId, name, image });
             localStorage.setItem('cart', JSON.stringify(cart));
-            alert(`${name} added to cart!`);
+            alert(`${name} (Variant ID: ${variantId}) added to cart!`);
         }
     </script>
 </body>
