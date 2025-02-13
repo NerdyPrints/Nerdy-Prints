@@ -42,13 +42,20 @@
             font-size: 1rem;
         }
 
+        .button-group {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
         button, .continue-shopping {
             background-color: #4932db;
             color: white;
             border: none;
             cursor: pointer;
             border-radius: 5px;
-            margin: 10px;
+            padding: 10px 20px;
         }
 
         button:hover, .continue-shopping:hover {
@@ -78,9 +85,11 @@
         <p id="product-description">Please wait while we load your customization options.</p>
         <img id="product-image" class="product-image" src="https://via.placeholder.com/300x300?text=Loading" alt="Product Image">
         <div id="variant-selector"></div>
-        <button id="add-to-cart" style="display:none;">Add to Cart</button>
+        <div class="button-group">
+            <button id="add-to-cart" style="display:none;">Add to Cart</button>
+            <button onclick="window.location.href='/shop/'" class="continue-shopping">Back to Shop</button>
+        </div>
         <a href="/cart/" class="cart-link" id="go-to-cart" style="display:none;">Go to Cart</a>
-        <button onclick="window.location.href='/shop/'" class="continue-shopping" style="display:none;">Continue Shopping</button>
     </div>
 
     <footer>
@@ -137,8 +146,6 @@
                     const addToCartButton = document.getElementById('add-to-cart');
                     addToCartButton.style.display = 'block';
 
-                    const continueShoppingButton = document.querySelector('.continue-shopping');
-
                     addToCartButton.addEventListener('click', () => {
                         const selectedVariantId = select.value;
                         const selectedVariant = variants.find(v => v.id == selectedVariantId);
@@ -155,7 +162,6 @@
                         alert(`${product.name} - ${selectedVariant.name} added to cart!`);
 
                         document.getElementById('go-to-cart').style.display = 'inline-block';
-                        continueShoppingButton.style.display = 'inline-block';
                     });
                 } else {
                     document.getElementById('product-name').textContent = 'Error: Product not found.';
