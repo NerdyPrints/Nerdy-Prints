@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -89,18 +89,18 @@
             }
 
             try {
-                const response = await fetch(`https://api.printful.com/products/${productId}`, {
+                const response = await fetch(`https://api.printful.com/sync/products/${productId}`, {
                     headers: { 'Authorization': 'Bearer vWBya1OJD02RC0ONWNZmshKSfRPE0uS52v8N7ybQ' }
                 });
                 const data = await response.json();
 
-                if (data.result && data.result.product) {
-                    const product = data.result.product;
-                    const variants = data.result.variants;
+                if (data.result && data.result.sync_product) {
+                    const product = data.result.sync_product;
+                    const variants = data.result.sync_variants;
 
-                    document.getElementById('product-name').textContent = product.title;
-                    document.getElementById('product-description').textContent = product.description;
-                    document.getElementById('product-image').src = product.image;
+                    document.getElementById('product-name').textContent = product.name;
+                    document.getElementById('product-description').textContent = "Choose your size and add to cart.";
+                    document.getElementById('product-image').src = product.thumbnail_url;
 
                     const variantSelector = document.getElementById('variant-selector');
                     const select = document.createElement('select');
@@ -120,13 +120,13 @@
 
                         cart.push({
                             id: selectedVariant.id,
-                            name: `${product.title} - ${selectedVariant.name}`,
-                            image: product.image,
+                            name: `${product.name} - ${selectedVariant.name}`,
+                            image: product.thumbnail_url,
                             price: selectedVariant.retail_price
                         });
 
                         localStorage.setItem('cart', JSON.stringify(cart));
-                        alert(`${product.title} - ${selectedVariant.name} added to cart!`);
+                        alert(`${product.name} - ${selectedVariant.name} added to cart!`);
                     });
                 } else {
                     document.getElementById('product-name').textContent = 'Error: Product not found.';
