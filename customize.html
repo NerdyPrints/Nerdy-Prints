@@ -57,6 +57,14 @@
         footer {
             margin-top: 20px;
         }
+
+        .cart-link {
+            margin-top: 20px;
+            display: inline-block;
+            color: #ff0099;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
     </style>
 </head>
 <body>
@@ -70,6 +78,7 @@
         <img id="product-image" class="product-image" src="https://via.placeholder.com/300x300?text=Loading" alt="Product Image">
         <div id="variant-selector"></div>
         <button id="add-to-cart" style="display:none;">Add to Cart</button>
+        <a href="/cart/" class="cart-link" id="go-to-cart" style="display:none;">Go to Cart</a>
     </div>
 
     <footer>
@@ -102,29 +111,40 @@
 
                     const variantSelector = document.getElementById('variant-selector');
                     const select = document.createElement('select');
+
                     variants.forEach(variant => {
                         const option = document.createElement('option');
                         option.value = variant.id;
-                        option.textContent = `${variant.name} - £${(variant.retail_price / 100).toFixed(2)}`;
+                        const price = variant.retail_price
+                            ? (variant.retail_price / 100).toFixed(2)
+                            : (variant.product.retail_price / 100).toFixed(2);
+                        option.textContent = `${variant.name} - £${price}`;
                         select.appendChild(option);
                     });
+
                     variantSelector.appendChild(select);
 
                     const addToCartButton = document.getElementById('add-to-cart');
                     addToCartButton.style.display = 'block';
+
                     addToCartButton.addEventListener('click', () => {
                         const selectedVariantId = select.value;
                         const selectedVariant = variants.find(v => v.id == selectedVariantId);
+                        const price = selectedVariant.retail_price
+                            ? selectedVariant.retail_price
+                            : selectedVariant.product.retail_price;
 
                         cart.push({
                             id: selectedVariant.id,
                             name: `${product.name} - ${selectedVariant.name}`,
                             image: product.thumbnail_url,
-                            price: selectedVariant.retail_price
+                            price: price
                         });
 
                         localStorage.setItem('cart', JSON.stringify(cart));
                         alert(`${product.name} - ${selectedVariant.name} added to cart!`);
+
+                        document.getElementById('go-to-cart').style.display = 'inline-block';
                     });
                 } else {
                     document.getElementById('product-name').textContent = 'Error: Product not found.';
