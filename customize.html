@@ -89,9 +89,7 @@
             }
 
             try {
-                const response = await fetch(`https://api.printful.com/sync/products/${productId}`, {
-                    headers: { 'Authorization': 'Bearer vWBya1OJD02RC0ONWNZmshKSfRPE0uS52v8N7ybQ' }
-                });
+                const response = await fetch(`/.netlify/functions/printful-proxy?product_id=${productId}`);
                 const data = await response.json();
 
                 if (data.result && data.result.sync_product) {
