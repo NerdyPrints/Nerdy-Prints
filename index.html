@@ -42,6 +42,7 @@
             margin: 30px auto;
             text-align: center;
             position: relative;
+            max-width: 90%;
         }
 
         .speech-bubble {
@@ -53,8 +54,9 @@
             position: relative;
             font-family: 'Comic Neue', cursive;
             box-shadow: 5px 5px 0px #000;
-            max-width: 80%;
             transition: transform 0.2s ease-in-out;
+            max-width: 300px;
+            margin: 10px;
         }
 
         .speech-bubble:hover {
@@ -75,7 +77,7 @@
             color: #ff0099;
             text-decoration: none;
             font-weight: bold;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
         }
 
         .comic-button:hover a {
@@ -91,8 +93,10 @@
         }
 
         @media (max-width: 768px) {
-            header h1 { font-size: 2.2rem; }
-            header p { font-size: 1rem; }
+            header h1 { font-size: 2rem; }
+            header p { font-size: 0.9rem; }
+            .speech-bubble { max-width: 90%; padding: 10px; font-size: 0.9rem; }
+            .comic-button a { font-size: 1rem; }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue&family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -105,13 +109,13 @@
 
     <div class="comic-section">
         <div class="speech-bubble comic-button">
-            <a href="/shop/">START SHOPPING - BOOM!</a>
+            <a href="/shop/">Start Shopping - BOOM!</a>
         </div>
     </div>
 
     <div class="comic-section">
         <div class="speech-bubble">
-            <p>Looking for a custom design? <a href="mailto:yourfandomyourstyle@gmail.com">CLICK HERE - ZAP!</a></p>
+            <p>Looking for a custom design? <a href="mailto:yourfandomyourstyle@gmail.com">Click here to contact us - ZAP!</a></p>
         </div>
     </div>
 
