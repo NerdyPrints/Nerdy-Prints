@@ -19,44 +19,51 @@
         }
 
         header {
-            background: rgba(0, 0, 0, 0.8);
-            padding: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 20px 10px;
             text-align: center;
             border-bottom: 4px solid #FFD700;
         }
 
         header h1 {
             margin: 0;
-            font-size: 4rem;
+            font-size: 3rem;
             font-family: 'Bangers', cursive;
             color: white;
         }
 
         header p {
-            margin: 0;
-            font-size: 1.5rem;
+            margin: 5px 0 0;
+            font-size: 1.2rem;
             font-family: 'Press Start 2P', cursive;
             color: #FFD700;
         }
 
         .main-content {
             text-align: center;
-            padding: 50px 20px;
+            padding: 40px 15px;
             background: rgba(0, 0, 0, 0.85);
             border-radius: 10px;
-            margin: 20px auto;
-            max-width: 800px;
+            margin: 30px auto;
+            max-width: 90%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+        }
+
+        .main-content p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
         }
 
         .cta-button {
             background-color: #ff0099;
             color: white;
-            padding: 15px 30px;
-            font-size: 1.5rem;
+            padding: 12px 25px;
+            font-size: 1.2rem;
             text-decoration: none;
-            border-radius: 10px;
+            border-radius: 8px;
             font-family: 'Press Start 2P', cursive;
-            border: 3px solid #FFD700;
+            border: 2px solid #FFD700;
+            display: inline-block;
         }
 
         .cta-button:hover {
@@ -64,11 +71,11 @@
         }
 
         .footer {
-            margin-top: 30px;
+            margin-top: 40px;
             text-align: center;
             color: #aaa;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 10px 0;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 15px 10px;
         }
 
         .contact-button {
@@ -82,6 +89,25 @@
 
         .contact-button:hover {
             background-color: #ff4db8;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5rem;
+            }
+            header p {
+                font-size: 1rem;
+            }
+            .main-content p {
+                font-size: 1rem;
+            }
+            .cta-button {
+                font-size: 1rem;
+                padding: 10px 20px;
+            }
+            .contact-button {
+                font-size: 0.9rem;
+            }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue&family=Press+Start+2P&display=swap" rel="stylesheet">
