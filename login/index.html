@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Nerdy Prints</title>
+    <style>
+        body {
+            font-family: 'Comic Neue', sans-serif;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://github.com/NerdyPrints/Nerdy-Prints/blob/main/assets/comic-colorful-explosions-seamless-pattern_225004-812.jpg?raw=true');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 15px;
+            text-align: center;
+            border-bottom: 5px solid #FFD700;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3rem;
+            font-family: 'Bangers', cursive;
+            color: #FFD700;
+        }
+
+        .form-section {
+            margin: 30px auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 12px;
+            max-width: 400px;
+            box-shadow: 5px 5px 0px #000;
+            text-align: center;
+        }
+
+        .form-section label {
+            font-family: 'Bangers', cursive;
+            font-size: 1.2rem;
+        }
+
+        .form-section input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 8px;
+        }
+
+        .submit-button {
+            background-color: #ff0099;
+            color: #ffffff;
+            padding: 12px;
+            font-size: 1.2rem;
+            font-family: 'Bangers', cursive;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 0 10px #ff0099;
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        .submit-button:hover {
+            box-shadow: 0 0 15px #ff0099, 0 0 25px #FFD700;
+        }
+
+        .footer {
+            margin-top: auto;
+            text-align: center;
+            color: #ffffff;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 15px 10px;
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 2rem; }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>Login - Nerdy Prints</h1>
+    </header>
+
+    <div class="form-section">
+        <form id="loginForm">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit" class="submit-button">Login - POW!</button>
+        </form>
+        <p id="errorMessage" style="color: red; display: none;">Invalid email or password. Please try again.</p>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2025 Nerdy Prints. All rights reserved. | <a href="/privacy/" style="color:#FFD700;">Privacy Policy</a></p>
+    </div>
+
+    <script>
+        const form = document.getElementById('loginForm');
+        const errorMessage = document.getElementById('errorMessage');
+        const scriptURL = 'https://script.google.com/macros/s/YOUR_LOGIN_SCRIPT_URL/exec';
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+
+            fetch(scriptURL, {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.text())
+            .then(text => {
+                if (text.trim() === 'Success') {
+                    window.location.href = '/members/';
+                } else {
+                    errorMessage.style.display = 'block';
+                }
+            })
+            .catch(error => {
+                alert('An error occurred. Please try again later.');
+                console.error('Login error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
