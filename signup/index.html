@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -114,7 +114,7 @@
     </header>
 
     <div class="form-section">
-        <form action="https://script.google.com/macros/s/AKfycbydIlQsmnDDIeJY9xYkpXwdcmZ6NB-cEkatGZRA775wAbBGDpWgrICNWjfOEb9LJRPj/exec" method="POST">
+        <form id="signupForm">
             <label for="name">Full Name</label>
             <input type="text" id="name" name="name" required>
 
@@ -141,6 +141,33 @@
             <button type="submit" class="submit-button">Sign Up - KABOOM!</button>
         </form>
     </div>
+
+    <script>
+        const form = document.getElementById('signupForm');
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbydIlQsmnDDIeJY9xYkpXwdcmZ6NB-cEkatGZRA775wAbBGDpWgrICNWjfOEb9LJRPj/exec';
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+
+            fetch(scriptURL, {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = 'https://nerdyprints.co.uk/thankyou/';
+                } else {
+                    alert('Something went wrong. Please try again.');
+                }
+            })
+            .catch(error => {
+                alert('An error occurred. Please try again later.');
+                console.error('Form submission error:', error);
+            });
+        });
+    </script>
 
     <div class="footer">
         <p>&copy; 2025 Nerdy Prints. All rights reserved.</p>
