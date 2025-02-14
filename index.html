@@ -2,119 +2,84 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nerdy Prints - Your Fandom. Your Style.</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
+            font-family: 'Comic Neue', sans-serif;
             background-color: #121212;
             color: #ffffff;
+            margin: 0;
+            padding: 0;
         }
 
         header {
             background: linear-gradient(90deg, #ff0099, #4932db);
             padding: 20px;
             text-align: center;
-            font-size: 1.5rem;
+            border-bottom: 4px solid #FFD700;
         }
 
         header h1 {
             margin: 0;
-            font-size: 3rem;
-            text-transform: uppercase;
-            font-weight: bold;
+            font-size: 4rem;
+            font-family: 'Bangers', cursive;
+            color: white;
         }
 
         header p {
-            font-size: 1.2rem;
-            margin-top: 5px;
-            font-style: italic;
+            margin: 0;
+            font-size: 1.5rem;
+            font-family: 'Press Start 2P', cursive;
+            color: #FFD700;
         }
 
-        .hero {
-            background: url('https://via.placeholder.com/1920x600') no-repeat center center/cover;
-            padding: 80px 20px;
+        .main-content {
             text-align: center;
+            padding: 50px 20px;
         }
 
-        .hero h2 {
-            font-size: 2.5rem;
-            color: #fff;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            margin-top: 10px;
-            color: #ddd;
-        }
-
-        .shop-section {
-            text-align: center;
-            padding: 40px;
-            background-color: #222;
-        }
-
-        .shop-section h2 {
-            font-size: 2rem;
-            color: #ff0099;
-        }
-
-        .shop-section a {
-            display: inline-block;
+        .cta-button {
             background-color: #ff0099;
             color: white;
-            padding: 15px 25px;
+            padding: 15px 30px;
+            font-size: 1.5rem;
             text-decoration: none;
-            font-size: 1.3rem;
-            border-radius: 8px;
-            margin-top: 20px;
-            cursor: pointer;
+            border-radius: 10px;
+            font-family: 'Press Start 2P', cursive;
+            border: 3px solid #FFD700;
         }
 
-        .shop-section a:hover {
+        .cta-button:hover {
             background-color: #ff4db8;
         }
 
-        .contact-section {
-            text-align: center;
-            padding: 40px;
-            background-color: #333;
-        }
-
-        .contact-section h2 {
-            font-size: 2rem;
-            color: #ff0099;
-        }
-
-        .contact-section p {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-        }
-
-        .contact-section a {
-            display: inline-block;
-            background-color: #ff0099;
-            color: white;
-            padding: 15px 25px;
-            text-decoration: none;
-            font-size: 1.3rem;
-            border-radius: 8px;
-        }
-
-        .contact-section a:hover {
-            background-color: #ff4db8;
-        }
-
-        footer {
-            background-color: #111;
-            text-align: center;
+        .background-pattern {
+            background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
             padding: 20px;
-            margin-top: 40px;
+        }
+
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            color: #aaa;
+        }
+
+        .contact-button {
+            background-color: #ff0099;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        .contact-button:hover {
+            background-color: #ff4db8;
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue&family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -122,26 +87,16 @@
         <p>Your Fandom. Your Style.</p>
     </header>
 
-    <section class="hero">
-        <h2>Customizable Merchandise for Every Fandom</h2>
-        <p>Gaming, Movies, Anime, Books, Music & More!</p>
-    </section>
+    <div class="background-pattern">
+        <div class="main-content">
+            <p>Explore our range of customizable products and create your own unique designs.</p>
+            <a href="/shop/" class="cta-button">Start Shopping</a>
+        </div>
+    </div>
 
-    <section id="shop" class="shop-section">
-        <h2>Shop Now</h2>
-        <a href="/shop/">Start Shopping</a>
-    </section>
-
-    <section id="contact" class="contact-section">
-        <h2>Contact Us for a Personalized Design</h2>
-        <p>For a personalized design on an item of your choosing, please contact us at <strong>yourfandomyourstyle@gmail.com</strong> or click the button below:</p>
-        <a href="mailto:yourfandomyourstyle@gmail.com?subject=Custom%20Design%20Request">Email Us</a>
-    </section>
-
-    <footer>
+    <div class="footer">
         <p>&copy; 2025 Nerdy Prints. All rights reserved.</p>
-    </footer>
+        <a href="mailto:yourfandomyourstyle@gmail.com" class="contact-button">Contact Us</a>
+    </div>
 </body>
-</html>
-
 </html>
