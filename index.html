@@ -78,16 +78,29 @@
             padding: 15px 10px;
         }
 
-        .contact-button {
-            background-color: #ff0099;
+        .contact-bubble {
+            background: #ff0099;
             color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-family: 'Press Start 2P', cursive;
+            padding: 15px;
+            border-radius: 15px;
+            display: inline-block;
+            font-family: 'Comic Neue', cursive;
+            position: relative;
+            cursor: pointer;
+            margin-top: 20px;
         }
 
-        .contact-button:hover {
+        .contact-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 20px;
+            border-width: 10px;
+            border-style: solid;
+            border-color: #ff0099 transparent transparent transparent;
+        }
+
+        .contact-bubble:hover {
             background-color: #ff4db8;
         }
 
@@ -105,9 +118,6 @@
                 font-size: 1rem;
                 padding: 10px 20px;
             }
-            .contact-button {
-                font-size: 0.9rem;
-            }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue&family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -121,11 +131,13 @@
     <div class="main-content">
         <p>Explore our range of customizable products and create your own unique designs.</p>
         <a href="/shop/" class="cta-button">Start Shopping</a>
+        <div class="contact-bubble" onclick="window.location.href='mailto:yourfandomyourstyle@gmail.com';">
+            Got a Custom Design in Mind? Click Here to Contact Us!
+        </div>
     </div>
 
     <div class="footer">
         <p>&copy; 2025 Nerdy Prints. All rights reserved.</p>
-        <a href="mailto:yourfandomyourstyle@gmail.com" class="contact-button">Contact Us</a>
     </div>
 </body>
 </html>
