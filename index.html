@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up - Nerdy Prints</title>
+    <title>Nerdy Prints - Your Fandom. Your Style.</title>
     <style>
         body {
             font-family: 'Comic Neue', sans-serif;
@@ -14,9 +14,6 @@
             background-size: cover;
             background-attachment: fixed;
             background-position: center;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
 
         header {
@@ -32,6 +29,13 @@
             font-size: 3rem;
             font-family: 'Bangers', cursive;
             color: #FFD700;
+        }
+
+        header p {
+            margin: 5px 0 0;
+            font-size: 1.2rem;
+            font-family: 'Press Start 2P', cursive;
+            color: #ffffff;
         }
 
         .login-button {
@@ -54,57 +58,37 @@
             box-shadow: 0 0 15px #ff0099, 0 0 25px #FFD700;
         }
 
-        .form-section {
+        .main-section {
             margin: 30px auto;
-            background-color: rgba(0, 0, 0, 0.8);
-            padding: 20px;
+            padding: 30px 20px;
+            background: rgba(0, 0, 0, 0.85);
             border-radius: 12px;
-            max-width: 400px;
-            box-shadow: 5px 5px 0px #000;
             text-align: center;
+            max-width: 90%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
         }
 
-        .form-section label {
-            font-family: 'Bangers', cursive;
+        .main-section p {
             font-size: 1.2rem;
-        }
-
-        .form-section input, .form-section select {
-            width: 100%;
-            padding: 10px;
             margin-bottom: 15px;
-            border: none;
-            border-radius: 8px;
         }
 
-        .submit-button, .back-button, .shop-button {
+        .cta-button {
             background-color: #ff0099;
-            color: #ffffff;
-            padding: 12px;
+            color: white;
+            padding: 12px 25px;
             font-size: 1.2rem;
-            font-family: 'Bangers', cursive;
-            border: none;
+            text-decoration: none;
             border-radius: 8px;
-            cursor: pointer;
-            box-shadow: 0 0 10px #ff0099;
+            font-family: 'Press Start 2P', cursive;
+            border: 3px solid #FFD700;
+            display: inline-block;
             transition: box-shadow 0.3s ease-in-out;
-            margin: 5px;
         }
 
-        .submit-button:hover, .back-button:hover, .shop-button:hover {
+        .cta-button:hover {
+            background-color: #ff4db8;
             box-shadow: 0 0 15px #ff0099, 0 0 25px #FFD700;
-        }
-
-        .footer {
-            margin-top: auto;
-            text-align: center;
-            color: #ffffff;
-            background: rgba(0, 0, 0, 0.9);
-            padding: 15px 10px;
-        }
-
-        @media (max-width: 768px) {
-            header h1 { font-size: 2rem; }
         }
 
         .speech-bubble {
@@ -132,22 +116,49 @@
             text-decoration: underline;
             font-weight: bold;
         }
+
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            color: #aaa;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 15px 10px;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.2rem;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+
+            .cta-button {
+                font-size: 1rem;
+                padding: 10px 20px;
+            }
+        }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue&family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <h1>Sign Up - Nerdy Prints</h1>
+        <h1>Nerdy Prints</h1>
+        <p>Your Fandom. Your Style.</p>
         <button class="login-button" onclick="window.location.href='/login/'">Login</button>
     </header>
 
-    <div class="form-section">
+    <div class="main-section">
+        <p>Explore our range of customizable products and create your own unique designs.</p>
+        <a href="/shop/" class="cta-button">Start Shopping</a>
+    </div>
+
+    <div class="main-section">
         <div class="speech-bubble">
             <p>New here? <a href="/signup/">Sign up now!</a></p>
             <p>Already a member? <a href="/login/">Click here to log in!</a></p>
         </div>
-        <button class="back-button" onclick="window.history.back()">Back</button>
-        <button class="shop-button" onclick="window.location.href='/shop/'">Continue to Shop</button>
     </div>
 
     <div class="footer">
