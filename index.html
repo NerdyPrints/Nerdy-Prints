@@ -15,6 +15,9 @@
             background-size: cover;
             background-attachment: fixed;
             background-position: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         header {
@@ -48,9 +51,9 @@
         .speech-bubble {
             background: #fff;
             color: #000;
-            padding: 15px;
+            padding: 20px;
             display: inline-block;
-            border-radius: 12px;
+            border-radius: 50px;
             position: relative;
             font-family: 'Comic Neue', cursive;
             box-shadow: 5px 5px 0px #000;
@@ -59,18 +62,18 @@
             margin: 10px;
         }
 
-        .speech-bubble:hover {
-            transform: scale(1.05);
-        }
-
         .speech-bubble::after {
             content: '';
             position: absolute;
             bottom: -20px;
-            left: 20px;
-            border-width: 20px 20px 0;
+            left: 30px;
+            border-width: 20px 15px 0;
             border-style: solid;
             border-color: #ffffff transparent transparent transparent;
+        }
+
+        .speech-bubble:hover {
+            transform: scale(1.05);
         }
 
         .comic-button a {
@@ -85,17 +88,18 @@
         }
 
         .footer {
-            margin-top: 40px;
+            margin-top: auto;
             text-align: center;
-            color: #aaa;
+            color: #ffffff;
             background: rgba(0, 0, 0, 0.9);
             padding: 15px 10px;
+            font-family: 'Comic Neue', sans-serif;
         }
 
         @media (max-width: 768px) {
             header h1 { font-size: 2rem; }
             header p { font-size: 0.9rem; }
-            .speech-bubble { max-width: 90%; padding: 10px; font-size: 0.9rem; }
+            .speech-bubble { max-width: 90%; padding: 15px; font-size: 0.9rem; }
             .comic-button a { font-size: 1rem; }
         }
     </style>
@@ -115,7 +119,7 @@
 
     <div class="comic-section">
         <div class="speech-bubble">
-            <p>Looking for a custom design? <a href="mailto:yourfandomyourstyle@gmail.com">Click here to contact us - ZAP!</a></p>
+            <p style="font-family: 'Bangers', cursive; font-size: 1.2rem;">Looking for a custom design? <a href="mailto:yourfandomyourstyle@gmail.com" style="color: #ff0099; text-decoration: underline;">Click here to contact us - ZAP!</a></p>
         </div>
     </div>
 
@@ -123,4 +127,4 @@
         <p>&copy; 2025 Nerdy Prints. All rights reserved.</p>
     </div>
 </body>
-</html>
+</html
