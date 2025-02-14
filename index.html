@@ -12,8 +12,9 @@
             color: #ffffff;
             margin: 0;
             padding: 0;
-            background-image: url('https://www.pixelstalk.net/wp-content/uploads/images6/Retro-Gaming-Background-HD-Wallpaper.jpg');
-            background-size: cover;
+            background-image: url('https://www.pixelstalk.net/wp-content/uploads/images6/Retro-Gaming-Background-HD-Wallpaper.jpg'), url('https://www.pixelstalk.net/wp-content/uploads/2016/07/Comic-Book-Backgrounds.jpg');
+            background-size: cover, cover;
+            background-blend-mode: overlay;
             background-attachment: fixed;
             background-position: center;
         }
@@ -27,47 +28,74 @@
 
         header h1 {
             margin: 0;
-            font-size: 3rem;
+            font-size: 3.5rem;
             font-family: 'Bangers', cursive;
-            color: white;
+            color: #FFD700;
         }
 
         header p {
             margin: 5px 0 0;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             font-family: 'Press Start 2P', cursive;
-            color: #FFD700;
+            color: #ffffff;
         }
 
-        .main-content {
-            text-align: center;
-            padding: 40px 15px;
+        .main-section {
+            margin: 40px auto;
+            padding: 30px 20px;
             background: rgba(0, 0, 0, 0.85);
             border-radius: 10px;
-            margin: 30px auto;
+            text-align: center;
             max-width: 90%;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
         }
 
-        .main-content p {
-            font-size: 1.2rem;
+        .main-section p {
+            font-size: 1.3rem;
             margin-bottom: 20px;
         }
 
         .cta-button {
             background-color: #ff0099;
             color: white;
-            padding: 12px 25px;
-            font-size: 1.2rem;
+            padding: 12px 30px;
+            font-size: 1.3rem;
             text-decoration: none;
             border-radius: 8px;
             font-family: 'Press Start 2P', cursive;
-            border: 2px solid #FFD700;
+            border: 3px solid #FFD700;
             display: inline-block;
         }
 
         .cta-button:hover {
             background-color: #ff4db8;
+        }
+
+        .speech-bubble {
+            position: relative;
+            background: #ff0099;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: inline-block;
+            font-family: 'Comic Neue', cursive;
+        }
+
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 20px;
+            border-width: 15px 15px 0;
+            border-style: solid;
+            border-color: #ff0099 transparent transparent transparent;
+        }
+
+        .speech-bubble a {
+            color: #FFD700;
+            text-decoration: underline;
+            font-weight: bold;
         }
 
         .footer {
@@ -78,42 +106,15 @@
             padding: 15px 10px;
         }
 
-        .contact-bubble {
-            background: #ff0099;
-            color: white;
-            padding: 15px;
-            border-radius: 15px;
-            display: inline-block;
-            font-family: 'Comic Neue', cursive;
-            position: relative;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-
-        .contact-bubble::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 20px;
-            border-width: 10px;
-            border-style: solid;
-            border-color: #ff0099 transparent transparent transparent;
-        }
-
-        .contact-bubble:hover {
-            background-color: #ff4db8;
-        }
-
         @media (max-width: 768px) {
             header h1 {
                 font-size: 2.5rem;
             }
+
             header p {
                 font-size: 1rem;
             }
-            .main-content p {
-                font-size: 1rem;
-            }
+
             .cta-button {
                 font-size: 1rem;
                 padding: 10px 20px;
@@ -128,11 +129,14 @@
         <p>Your Fandom. Your Style.</p>
     </header>
 
-    <div class="main-content">
+    <div class="main-section">
         <p>Explore our range of customizable products and create your own unique designs.</p>
         <a href="/shop/" class="cta-button">Start Shopping</a>
-        <div class="contact-bubble" onclick="window.location.href='mailto:yourfandomyourstyle@gmail.com';">
-            Got a Custom Design in Mind? Click Here to Contact Us!
+    </div>
+
+    <div class="main-section">
+        <div class="speech-bubble">
+            <p>Looking for a custom design? <a href="mailto:yourfandomyourstyle@gmail.com">Click here to contact us!</a></p>
         </div>
     </div>
 
