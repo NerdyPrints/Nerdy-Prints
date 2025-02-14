@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Members Area - Nerdy Prints</title>
+    <title>Nerdy Prints - Your Fandom. Your Style.</title>
     <style>
         body {
             font-family: 'Comic Neue', sans-serif;
@@ -34,34 +34,62 @@
             color: #FFD700;
         }
 
-        .coming-soon-section {
-            margin: auto;
-            text-align: center;
-            font-family: 'Bangers', cursive;
-            font-size: 2rem;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 5px 5px 0px #000;
+        header p {
+            margin: 5px 0 0;
+            font-size: 1.2rem;
+            font-family: 'Press Start 2P', cursive;
+            color: #ffffff;
         }
 
-        .back-button {
+        .comic-section {
+            margin: 30px auto;
             text-align: center;
-            margin-bottom: 20px;
+            position: relative;
+            max-width: 90%;
         }
 
-        .back-button a {
-            font-family: 'Bangers', cursive;
-            background-color: #ffffff;
+        .speech-bubble {
+            background: #fff;
             color: #000;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 8px;
-            box-shadow: 3px 3px 0px #000;
+            padding: 20px;
+            display: inline-block;
+            border-radius: 50px;
+            position: relative;
+            font-family: 'Comic Neue', cursive;
+            box-shadow: 5px 5px 0px #000;
+            transition: transform 0.2s ease-in-out;
+            max-width: 300px;
+            margin: 20px;
         }
 
-        .back-button a:hover {
-            background-color: #ffd700;
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 30px;
+            border-width: 20px 15px 0;
+            border-style: solid;
+            border-color: #ffffff transparent transparent transparent;
+        }
+
+        .speech-bubble:hover {
+            transform: scale(1.05);
+        }
+
+        .comic-button a {
+            color: #ff0099;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-shadow: 2px 2px #ffd700;
+        }
+
+        .comic-button:hover a {
+            color: #ff4db8;
+        }
+
+        .speech-bubble.comic-button:hover {
+            box-shadow: 0 0 15px #ff0099, 0 0 25px #ffd700;
         }
 
         .footer {
@@ -70,26 +98,43 @@
             color: #ffffff;
             background: rgba(0, 0, 0, 0.9);
             padding: 15px 10px;
+            font-family: 'Comic Neue', sans-serif;
         }
 
         @media (max-width: 768px) {
             header h1 { font-size: 2rem; }
-            .coming-soon-section { font-size: 1.5rem; padding: 15px; }
+            header p { font-size: 0.9rem; }
+            .speech-bubble { max-width: 90%; padding: 15px; font-size: 0.9rem; }
+            .comic-button a { font-size: 1rem; }
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue&family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <h1>Members Area - Gallery</h1>
+        <h1>Nerdy Prints</h1>
+        <p>Your Fandom. Your Style.</p>
     </header>
 
-    <div class="coming-soon-section">
-        <p>Members Area Coming Soon!</p>
+    <div class="comic-section">
+        <div class="speech-bubble comic-button">
+            <a href="/shop/">Start Shopping - BOOM!</a>
+        </div>
+        <div class="speech-bubble comic-button">
+            <a href="/members/">Members Area - WHAM!</a>
+        </div>
     </div>
 
-    <div class="back-button">
-        <a href="/">← Back to Home</a>
+    <div class="comic-section">
+        <div class="speech-bubble">
+            <p style="font-family: 'Bangers', cursive; font-size: 1.2rem;">Looking for a custom design? <a href="mailto:yourfandomyourstyle@gmail.com" style="color: #ff0099; text-decoration: underline;">Click here to contact us - ZAP!</a></p>
+        </div>
+    </div>
+
+    <div class="comic-section">
+        <div class="speech-bubble comic-button">
+            <a href="/signup/">New Here? Sign Up Now! - KAPOW!</a>
+        </div>
     </div>
 
     <div class="footer">
