@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -155,11 +155,13 @@
                 method: 'POST',
                 body: formData,
             })
-            .then(response => {
-                if (response.ok) {
+            .then(response => response.text())
+            .then(text => {
+                console.log('Response Text:', text);
+                if (text.trim() === "Success") {
                     window.location.href = 'https://nerdyprints.co.uk/thankyou/';
                 } else {
-                    alert('Something went wrong. Please try again.');
+                    alert('Unexpected response: ' + text);
                 }
             })
             .catch(error => {
