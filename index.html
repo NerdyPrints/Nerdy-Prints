@@ -11,7 +11,7 @@
             color: #ffffff;
             margin: 0;
             padding: 0;
-            background-image: url('https://i.imgur.com/8c7b824.jpg'); /* Comic book style background */
+            background-image: url('https://i.imgur.com/8c7b824.jpg');
             background-size: cover;
             background-attachment: fixed;
             background-position: center;
@@ -38,61 +38,48 @@
             color: #ffffff;
         }
 
-        .main-section {
+        .comic-section {
             margin: 30px auto;
-            padding: 30px 20px;
-            background: rgba(0, 0, 0, 0.85);
-            border-radius: 12px;
             text-align: center;
-            max-width: 90%;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
-        }
-
-        .main-section p {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-        }
-
-        .cta-button {
-            background-color: #ff0099;
-            color: white;
-            padding: 12px 25px;
-            font-size: 1.2rem;
-            text-decoration: none;
-            border-radius: 8px;
-            font-family: 'Press Start 2P', cursive;
-            border: 3px solid #FFD700;
-            display: inline-block;
-        }
-
-        .cta-button:hover {
-            background-color: #ff4db8;
+            position: relative;
         }
 
         .speech-bubble {
-            background-color: #ffffff;
+            background: #fff;
             color: #000;
-            padding: 20px;
-            border-radius: 12px;
+            padding: 15px;
             display: inline-block;
+            border-radius: 12px;
             position: relative;
             font-family: 'Comic Neue', cursive;
+            box-shadow: 5px 5px 0px #000;
+            max-width: 80%;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .speech-bubble:hover {
+            transform: scale(1.05);
         }
 
         .speech-bubble::after {
             content: '';
             position: absolute;
-            bottom: -15px;
+            bottom: -20px;
             left: 20px;
-            border-width: 15px 15px 0;
+            border-width: 20px 20px 0;
             border-style: solid;
             border-color: #ffffff transparent transparent transparent;
         }
 
-        .speech-bubble a {
+        .comic-button a {
             color: #ff0099;
-            text-decoration: underline;
+            text-decoration: none;
             font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .comic-button:hover a {
+            color: #ff4db8;
         }
 
         .footer {
@@ -104,18 +91,8 @@
         }
 
         @media (max-width: 768px) {
-            header h1 {
-                font-size: 2.2rem;
-            }
-
-            header p {
-                font-size: 1rem;
-            }
-
-            .cta-button {
-                font-size: 1rem;
-                padding: 10px 20px;
-            }
+            header h1 { font-size: 2.2rem; }
+            header p { font-size: 1rem; }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue&family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -126,14 +103,15 @@
         <p>Your Fandom. Your Style.</p>
     </header>
 
-    <div class="main-section">
-        <p>Explore our range of customizable products and create your own unique designs.</p>
-        <a href="/shop/" class="cta-button">Start Shopping</a>
+    <div class="comic-section">
+        <div class="speech-bubble comic-button">
+            <a href="/shop/">START SHOPPING - BOOM!</a>
+        </div>
     </div>
 
-    <div class="main-section">
+    <div class="comic-section">
         <div class="speech-bubble">
-            <p>Looking for a custom design? <a href="mailto:yourfandomyourstyle@gmail.com">Click here to contact us!</a></p>
+            <p>Looking for a custom design? <a href="mailto:yourfandomyourstyle@gmail.com">CLICK HERE - ZAP!</a></p>
         </div>
     </div>
 
