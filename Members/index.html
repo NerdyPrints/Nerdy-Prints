@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Members Area - Nerdy Prints</title>
     <style>
@@ -18,6 +17,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            text-align: center;
         }
 
         header {
@@ -34,36 +34,48 @@
             color: #FFD700;
         }
 
-        .coming-soon-section {
-            margin: auto;
-            text-align: center;
+        #welcomeMessage {
+            margin-top: 20px;
             font-family: 'Bangers', cursive;
-            font-size: 2rem;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 5px 5px 0px #000;
+            font-size: 1.5rem;
         }
 
         .back-button {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .back-button a {
-            font-family: 'Bangers', cursive;
+            margin-top: 20px;
+            display: inline-block;
             background-color: #ffffff;
-            color: #000;
+            color: #ff0033;
             padding: 10px 20px;
             text-decoration: none;
+            font-family: 'Bangers', cursive;
+            font-size: 1.2rem;
             border-radius: 8px;
             box-shadow: 3px 3px 0px #000;
             transition: box-shadow 0.3s ease-in-out;
+            text-shadow: 2px 2px 0 #FFD700;
         }
 
-        .back-button a:hover {
-            background-color: #ffd700;
-            box-shadow: 0 0 15px #ff0099, 0 0 25px #ffd700;
+        .back-button:hover {
+            box-shadow: 0 0 15px #ff0099, 0 0 25px #FFD700;
+        }
+
+        #logoutButton {
+            margin-top: 20px;
+            background-color: #ffffff;
+            color: #ff0033;
+            padding: 10px 20px;
+            font-family: 'Bangers', cursive;
+            font-size: 1.2rem;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 3px 3px 0px #000;
+            transition: box-shadow 0.3s ease-in-out;
+            text-shadow: 2px 2px 0 #FFD700;
+        }
+
+        #logoutButton:hover {
+            box-shadow: 0 0 15px #ff0099, 0 0 25px #FFD700;
         }
 
         .footer {
@@ -73,29 +85,41 @@
             background: rgba(0, 0, 0, 0.9);
             padding: 15px 10px;
         }
-
-        @media (max-width: 768px) {
-            header h1 { font-size: 2rem; }
-            .coming-soon-section { font-size: 1.5rem; padding: 15px; }
-        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <h1>Members Area - Gallery</h1>
+        <h1>Members Area</h1>
+        <p id="welcomeMessage">Loading...</p>
     </header>
 
-    <div class="coming-soon-section">
-        <p>Members Area Coming Soon!</p>
-    </div>
+    <button id="logoutButton">Logout</button>
 
-    <div class="back-button">
-        <a href="/">← Back to Home</a>
-    </div>
+    <a href="/" class="back-button">Back to Home</a>
 
     <div class="footer">
-    <p>&copy; 2025 Nerdy Prints. All rights reserved. | <a href="/privacy/" style="color:#FFD700;">Privacy Policy</a></p>
-</div>
+        <p>&copy; 2025 Nerdy Prints. All rights reserved. | <a href="/privacy/" style="color:#FFD700;">Privacy Policy</a></p>
+    </div>
+
+    <script>
+        // Check if the user is logged in
+        const userEmail = sessionStorage.getItem('userEmail');
+
+        if (!userEmail) {
+            // Not logged in – send to login page
+            window.location.href = '/login/';
+        } else {
+            // Logged in – display email
+            document.getElementById('welcomeMessage').innerText = `Welcome, ${userEmail}!`;
+        }
+
+        // Logout button function
+        document.getElementById('logoutButton').addEventListener('click', () => {
+            sessionStorage.removeItem('userEmail'); // Clear session
+            window.location.href = '/'; // Send back to home
+        });
+    </script>
 </body>
 </html>
+
