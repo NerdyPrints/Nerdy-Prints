@@ -35,12 +35,13 @@
         }
 
         #welcomeMessage {
+            display: none; /* Start hidden */
             margin-top: 20px;
             font-family: 'Bangers', cursive;
             font-size: 1.5rem;
         }
 
-        .back-button {
+        .back-button, #logoutButton {
             margin-top: 20px;
             display: inline-block;
             background-color: #ffffff;
@@ -53,28 +54,11 @@
             box-shadow: 3px 3px 0px #000;
             transition: box-shadow 0.3s ease-in-out;
             text-shadow: 2px 2px 0 #FFD700;
-        }
-
-        .back-button:hover {
-            box-shadow: 0 0 15px #ff0099, 0 0 25px #FFD700;
-        }
-
-        #logoutButton {
-            margin-top: 20px;
-            background-color: #ffffff;
-            color: #ff0033;
-            padding: 10px 20px;
-            font-family: 'Bangers', cursive;
-            font-size: 1.2rem;
-            border-radius: 8px;
-            border: none;
             cursor: pointer;
-            box-shadow: 3px 3px 0px #000;
-            transition: box-shadow 0.3s ease-in-out;
-            text-shadow: 2px 2px 0 #FFD700;
+            border: none;
         }
 
-        #logoutButton:hover {
+        .back-button:hover, #logoutButton:hover {
             box-shadow: 0 0 15px #ff0099, 0 0 25px #FFD700;
         }
 
@@ -91,7 +75,7 @@
 <body>
     <header>
         <h1>Members Area</h1>
-        <p id="welcomeMessage">Loading...</p>
+        <p id="welcomeMessage"></p>
     </header>
 
     <button id="logoutButton">Logout</button>
@@ -103,23 +87,26 @@
     </div>
 
     <script>
-        // Check if the user is logged in
         const userEmail = sessionStorage.getItem('userEmail');
 
         if (!userEmail) {
-            // Not logged in – send to login page
             window.location.href = '/login/';
         } else {
-            // Logged in – display email
-            document.getElementById('welcomeMessage').innerText = `Welcome, ${userEmail}!`;
+            const welcomeMessage = document.getElementById('welcomeMessage');
+            welcomeMessage.innerText = `Welcome, ${userEmail}!`;
+            welcomeMessage.style.display = 'block';
+            welcomeMessage.style.opacity = 0;
+
+            setTimeout(() => {
+                welcomeMessage.style.transition = 'opacity 0.5s ease-in-out';
+                welcomeMessage.style.opacity = 1;
+            }, 200);
         }
 
-        // Logout button function
         document.getElementById('logoutButton').addEventListener('click', () => {
-            sessionStorage.removeItem('userEmail'); // Clear session
-            window.location.href = '/'; // Send back to home
+            sessionStorage.removeItem('userEmail');
+            window.location.href = '/';
         });
     </script>
 </body>
 </html>
-
