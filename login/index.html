@@ -82,6 +82,25 @@
             padding: 15px 10px;
         }
 
+        .back-button {
+            margin-top: 10px;
+            display: inline-block;
+            background-color: #ffffff;
+            color: #ff0033;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-family: 'Bangers', cursive;
+            font-size: 1.2rem;
+            border-radius: 8px;
+            box-shadow: 3px 3px 0px #000;
+            transition: box-shadow 0.3s ease-in-out;
+            text-shadow: 2px 2px 0 #FFD700;
+        }
+
+        .back-button:hover {
+            box-shadow: 0 0 15px #ff0099, 0 0 25px #FFD700;
+        }
+
         @media (max-width: 768px) {
             header h1 { font-size: 2rem; }
         }
@@ -105,6 +124,8 @@
         </form>
 
         <p id="errorMessage" style="color: red; display: none;">Invalid email or password. Please try again.</p>
+
+        <a href="/" class="back-button">Back to Home</a>
     </div>
 
     <div class="footer">
@@ -127,8 +148,9 @@
             })
             .then(response => response.text())
             .then(text => {
-                console.log('Response:', text);
                 if (text.trim() === 'Success') {
+                    const email = formData.get('email');
+                    sessionStorage.setItem('userEmail', email);
                     window.location.href = '/members/';
                 } else {
                     errorMessage.style.display = 'block';
