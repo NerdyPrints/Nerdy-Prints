@@ -44,16 +44,17 @@
             position: absolute;
             top: 10px;
             right: 10px;
-            background-color: #ff0099;
-            color: white;
+            background-color: #ffffff;
+            color: #ff0033;
             padding: 10px 20px;
             font-family: 'Comic Neue', cursive;
             font-size: 1rem;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            box-shadow: 0 0 10px #ff0099;
+            box-shadow: 3px 3px 0px #000;
             transition: box-shadow 0.3s ease-in-out;
+            text-shadow: 2px 2px 0 #FFD700;
         }
 
         .login-button:hover {
@@ -139,7 +140,7 @@
     <header>
         <h1>Nerdy Prints</h1>
         <p>Your Fandom. Your Style.</p>
-        <button class="login-button" onclick="window.location.href='/login/'">Login</button>
+        <button id="accountButton" class="login-button">Loading...</button>
     </header>
 
     <div class="main-content">
@@ -154,5 +155,18 @@
     <div class="footer">
         <p>&copy; 2025 Nerdy Prints. All rights reserved. | <a href="/privacy/" style="color:#FFD700;">Privacy Policy</a></p>
     </div>
+
+    <script>
+        const accountButton = document.getElementById('accountButton');
+        const userSessionEmail = sessionStorage.getItem('userEmail');
+
+        if (userSessionEmail) {
+            accountButton.textContent = 'Account';
+            accountButton.onclick = () => window.location.href = '/members/';
+        } else {
+            accountButton.textContent = 'Login';
+            accountButton.onclick = () => window.location.href = '/login/';
+        }
+    </script>
 </body>
 </html>
