@@ -6,7 +6,7 @@
     <title>Nerdy Prints - Your Fandom. Your Style.</title>
     <style>
         body {
-            font-family: 'Comic Neue', sans-serif;
+            font-family: 'Bangers', cursive;
             color: #ffffff;
             margin: 0;
             padding: 0;
@@ -67,7 +67,12 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            position: relative;
+            gap: 20px;
+        }
+
+        .bubble-row {
+            display: flex;
+            gap: 30px;
         }
 
         .bubble-button {
@@ -75,7 +80,6 @@
             padding: 20px 40px;
             border-radius: 30px;
             display: inline-block;
-            position: absolute;
             font-family: 'Bangers', cursive;
             font-size: 1.5rem;
             text-decoration: none;
@@ -84,6 +88,7 @@
             transition: box-shadow 0.3s ease-in-out;
             color: #ff0033;
             text-shadow: 2px 2px 0 #FFD700;
+            text-align: center;
         }
 
         .bubble-button:hover {
@@ -100,11 +105,6 @@
             border-color: #ffffff transparent transparent transparent;
         }
 
-        #shop-button { top: 15%; left: 15%; }
-        #members-button { top: 15%; right: 15%; }
-        #custom-button { top: 40%; left: 50%; transform: translateX(-50%); }
-        #signup-button { top: 55%; left: 50%; transform: translateX(-50%); }
-
         .footer {
             margin-top: auto;
             text-align: center;
@@ -114,13 +114,11 @@
         }
 
         @media (max-width: 768px) {
-            header h1 { font-size: 2.2rem; }
-            header p { font-size: 1rem; }
-            .bubble-button { font-size: 1.2rem; padding: 15px 30px; }
-            #shop-button { top: 10%; left: 5%; }
-            #members-button { top: 10%; right: 5%; }
-            #custom-button { top: 35%; }
-            #signup-button { top: 50%; }
+            .bubble-row {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue&family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -133,10 +131,12 @@
     </header>
 
     <div class="main-content">
-        <a href="/shop/" class="bubble-button" id="shop-button">Start Shopping - BOOM!</a>
-        <a href="/members/" class="bubble-button" id="members-button">Members Area - WHAM!</a>
-        <a href="mailto:yourfandomyourstyle@gmail.com" class="bubble-button" id="custom-button">Looking for a Custom Design? - ZAP!</a>
-        <a href="/signup/" class="bubble-button" id="signup-button">New Here? Sign Up Now! - KAPOW!</a>
+        <div class="bubble-row">
+            <a href="/shop/" class="bubble-button">Start Shopping - BOOM!</a>
+            <a href="/members/" class="bubble-button">Members Area - WHAM!</a>
+        </div>
+        <a href="mailto:yourfandomyourstyle@gmail.com" class="bubble-button">Looking for a Custom Design? - ZAP!</a>
+        <a href="/signup/" class="bubble-button">New Here? Sign Up Now! - KAPOW!</a>
     </div>
 
     <div class="footer">
