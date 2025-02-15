@@ -57,16 +57,17 @@
         }
 
         .submit-button {
-            background-color: #ff0099;
-            color: #ffffff;
-            padding: 12px;
-            font-size: 1.2rem;
+            background-color: #ffffff;
+            color: #ff0033;
+            padding: 12px 30px;
+            font-size: 1.3rem;
             font-family: 'Bangers', cursive;
             border: none;
-            border-radius: 8px;
+            border-radius: 30px;
             cursor: pointer;
-            box-shadow: 0 0 10px #ff0099;
+            box-shadow: 3px 3px 0px #000;
             transition: box-shadow 0.3s ease-in-out;
+            text-shadow: 2px 2px 0 #FFD700;
         }
 
         .submit-button:hover {
@@ -112,7 +113,8 @@
     <script>
         const form = document.getElementById('loginForm');
         const errorMessage = document.getElementById('errorMessage');
-        const scriptURL = 'https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbxdLKczLtzZrrlL5APfhomDd86HJ7H0j-rgFDvkMj-GwDo2iwoS0SlYmsKANom_QgFEyg/exec
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxdLKczLtzZrrlL5APfhomDd86HJ7H0j-rgFDvkMj-GwDo2iwoS0SlYmsKANom_QgFEyg/exec';
+
         form.addEventListener('submit', function(e) {
             e.preventDefault();
 
