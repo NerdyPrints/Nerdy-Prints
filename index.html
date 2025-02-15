@@ -72,17 +72,18 @@
 
         .bubble-button {
             background-color: #ffffff;
-            color: #000;
-            padding: 15px 30px;
+            padding: 20px 40px;
             border-radius: 30px;
             display: inline-block;
             position: absolute;
             font-family: 'Bangers', cursive;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             text-decoration: none;
             font-weight: bold;
             box-shadow: 3px 3px 0 #000;
             transition: box-shadow 0.3s ease-in-out;
+            color: #ff0033;
+            text-shadow: 2px 2px 0 #FFD700;
         }
 
         .bubble-button:hover {
@@ -99,12 +100,13 @@
             border-color: #ffffff transparent transparent transparent;
         }
 
-        #shop-button { top: 5%; left: 10%; }
-        #members-button { top: 5%; right: 10%; }
+        #shop-button { top: 15%; left: 15%; }
+        #members-button { top: 15%; right: 15%; }
         #custom-button { top: 40%; left: 50%; transform: translateX(-50%); }
-        #signup-button { top: 60%; left: 50%; transform: translateX(-50%); }
+        #signup-button { top: 55%; left: 50%; transform: translateX(-50%); }
 
         .footer {
+            margin-top: auto;
             text-align: center;
             color: #aaa;
             background: rgba(0, 0, 0, 0.9);
@@ -114,11 +116,11 @@
         @media (max-width: 768px) {
             header h1 { font-size: 2.2rem; }
             header p { font-size: 1rem; }
-            .bubble-button { font-size: 1rem; padding: 10px 20px; }
+            .bubble-button { font-size: 1.2rem; padding: 15px 30px; }
             #shop-button { top: 10%; left: 5%; }
             #members-button { top: 10%; right: 5%; }
             #custom-button { top: 35%; }
-            #signup-button { top: 55%; }
+            #signup-button { top: 50%; }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue&family=Press+Start+2P&display=swap" rel="stylesheet">
