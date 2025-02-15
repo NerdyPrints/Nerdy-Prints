@@ -94,7 +94,7 @@
     </header>
 
     <div class="form-section">
-        <form id="loginForm">
+        <form action="https://script.google.com/macros/s/AKfycbztVlDDSHUlGf4SCXbQPGgY0cBDRaSWT0WbelaR9qybcs8uXKqGAeuU8kworoRXU_Wthg/exec" method="POST" target="hidden_iframe" onsubmit="return postSubmit();">
             <label for="email">Email Address</label>
             <input type="email" id="email" name="email" required>
 
@@ -103,6 +103,8 @@
 
             <button type="submit" class="submit-button">Login - POW!</button>
         </form>
+
+        <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
         <p id="errorMessage" style="color: red; display: none;">Invalid email or password. Please try again.</p>
     </div>
 
@@ -111,32 +113,22 @@
     </div>
 
     <script>
-        const form = document.getElementById('loginForm');
-        const errorMessage = document.getElementById('errorMessage');
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbztVlDDSHUlGf4SCXbQPGgY0cBDRaSWT0WbelaR9qybcs8uXKqGAeuU8kworoRXU_Wthg/exec';
-
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const formData = new FormData(form);
-
-            fetch(scriptURL, {
-                method: 'POST',
-                body: formData,
-            })
-            .then(response => response.text())
-            .then(text => {
-                if (text.trim() === 'Success') {
-                    window.location.href = '/members/';
-                } else {
-                    errorMessage.style.display = 'block';
+        function postSubmit() {
+            setTimeout(function () {
+                const iframe = document.getElementById('hidden_iframe');
+                try {
+                    const content = iframe.contentWindow.document.body.innerText.trim();
+                    if (content === 'Success') {
+                        window.location.href = '/members/';
+                    } else {
+                        document.getElementById('errorMessage').style.display = 'block';
+                    }
+                } catch (e) {
+                    alert('An error occurred. Please try again later.');
                 }
-            })
-            .catch(error => {
-                alert('An error occurred. Please try again later.');
-                console.error('Login error:', error);
-            });
-        });
+            }, 1000);
+            return true;
+        }
     </script>
 </body>
 </html>
