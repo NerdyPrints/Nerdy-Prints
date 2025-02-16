@@ -119,7 +119,7 @@
         } else {
             document.getElementById('userEmail').textContent = loggedInUser;
 
-            // Fetch user data from Google Sheets (we can hook this up later)
+            // Fetch user data from Google Sheets
             fetch(`https://script.google.com/macros/s/AKfycbxaGsUqNTxRi1P8ZjfAMCx5FurOzWEF7hFj3P9v-vzwZIPhM2Co_P-om_dQxnknYGUj/exec?email=${loggedInUser}`)
                 .then(response => response.json())
                 .then(data => {
@@ -132,6 +132,7 @@
         }
 
         function logoutUser() {
+            sessionStorage.removeItem('userEmail');
             localStorage.removeItem('loggedInUser');
             window.location.href = '/';
         }
