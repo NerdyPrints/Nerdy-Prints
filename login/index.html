@@ -151,7 +151,8 @@
                 if (text.trim() === 'Success') {
                     const email = formData.get('email');
                     sessionStorage.setItem('userEmail', email);
-                    window.location.href = '/members/';
+                    localStorage.setItem('loggedInUser', email);
+                    window.location.href = '/account/';
                 } else {
                     errorMessage.style.display = 'block';
                 }
