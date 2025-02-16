@@ -38,6 +38,7 @@
             max-width: 600px;
             margin: 30px auto;
             box-shadow: 5px 5px 0px #000;
+            text-align: center;
         }
 
         .account-info p {
@@ -50,7 +51,7 @@
             padding: 12px 25px;
             border-radius: 30px;
             display: inline-block;
-            font-family: 'Bangers', cursive;
+            font-family: 'Comic Neue', cursive;
             font-size: 1.3rem;
             text-decoration: none;
             font-weight: bold;
@@ -58,6 +59,7 @@
             text-shadow: 2px 2px 0 #FFD700;
             box-shadow: 3px 3px 0 #000;
             transition: box-shadow 0.3s ease-in-out;
+            margin: 5px;
         }
 
         .bubble-button:hover {
@@ -104,7 +106,9 @@
         <p>Coming Soon - Show Off Your Style!</p>
 
         <br>
-        <a href="/" class="bubble-button">Back to Home</a>
+        <a href="/" class="bubble-button">Home</a>
+        <a href="/shop/" class="bubble-button">Shop</a>
+        <a href="/members/" class="bubble-button">Members Area</a>
         <a href="#" class="bubble-button" onclick="logoutUser()">Logout</a>
     </div>
 
@@ -119,7 +123,6 @@
         } else {
             document.getElementById('userEmail').textContent = loggedInUser;
 
-            // Fetch user data from Google Sheets
             fetch(`https://script.google.com/macros/s/AKfycbxaGsUqNTxRi1P8ZjfAMCx5FurOzWEF7hFj3P9v-vzwZIPhM2Co_P-om_dQxnknYGUj/exec?email=${loggedInUser}`)
                 .then(response => response.json())
                 .then(data => {
@@ -132,8 +135,8 @@
         }
 
         function logoutUser() {
-            sessionStorage.removeItem('userEmail');
             localStorage.removeItem('loggedInUser');
+            sessionStorage.removeItem('userEmail');
             window.location.href = '/';
         }
     </script>
