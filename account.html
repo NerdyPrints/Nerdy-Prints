@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - Nerdy Prints</title>
+    <style>
+        body {
+            font-family: 'Comic Neue', cursive;
+            background-image: url('https://github.com/NerdyPrints/Nerdy-Prints/blob/main/assets/comic-colorful-explosions-seamless-pattern_225004-812.jpg?raw=true');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 15px;
+            text-align: center;
+            border-bottom: 5px solid #FFD700;
+        }
+
+        h1, h2 {
+            font-family: 'Bangers', cursive;
+            color: #FFD700;
+        }
+
+        .account-container {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 12px;
+            max-width: 600px;
+            margin: 30px auto;
+            box-shadow: 5px 5px 0px #000;
+        }
+
+        .account-info p {
+            font-size: 1.2rem;
+            margin: 8px 0;
+        }
+
+        .bubble-button {
+            background-color: #ffffff;
+            padding: 12px 25px;
+            border-radius: 30px;
+            display: inline-block;
+            font-family: 'Bangers', cursive;
+            font-size: 1.3rem;
+            text-decoration: none;
+            font-weight: bold;
+            color: #ff0033;
+            text-shadow: 2px 2px 0 #FFD700;
+            box-shadow: 3px 3px 0 #000;
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        .bubble-button:hover {
+            box-shadow: 0 0 15px #ff0099, 0 0 25px #FFD700;
+        }
+
+        .footer {
+            margin-top: auto;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 15px 10px;
+            color: #ffffff;
+        }
+
+        @media (max-width: 768px) {
+            .account-container {
+                width: 90%;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>My Account</h1>
+    </header>
+
+    <div class="account-container">
+        <h2>Welcome, <span id="userEmail">[Email]</span>!</h2>
+        <div class="account-info">
+            <p><strong>Name:</strong> <span id="userName">Loading...</span></p>
+            <p><strong>Address:</strong> <span id="userAddress">Loading...</span></p>
+            <p><strong>Age:</strong> <span id="userAge">Loading...</span></p>
+            <p><strong>Gender:</strong> <span id="userGender">Loading...</span></p>
+        </div>
+
+        <h2>Order History</h2>
+        <p>Coming Soon - Live Orders Integration</p>
+
+        <h2>Reviews</h2>
+        <p>Coming Soon - Leave a Review!</p>
+
+        <h2>Community Uploads</h2>
+        <p>Coming Soon - Show Off Your Style!</p>
+
+        <br>
+        <a href="/" class="bubble-button">Back to Home</a>
+        <a href="#" class="bubble-button" onclick="logoutUser()">Logout</a>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2025 Nerdy Prints. All rights reserved. | <a href="/privacy/" style="color:#FFD700;">Privacy Policy</a></p>
+    </div>
+
+    <script>
+        const loggedInUser = localStorage.getItem('loggedInUser');
+        if (!loggedInUser) {
+            window.location.href = '/login/';
+        } else {
+            document.getElementById('userEmail').textContent = loggedInUser;
+
+            // Fetch user data from Google Sheets (we can hook this up later)
+            fetch(`https://script.google.com/macros/s/AKfycbxaGsUqNTxRi1P8ZjfAMCx5FurOzWEF7hFj3P9v-vzwZIPhM2Co_P-om_dQxnknYGUj/exec?email=${loggedInUser}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('userName').textContent = data.name || 'N/A';
+                    document.getElementById('userAddress').textContent = data.address || 'N/A';
+                    document.getElementById('userAge').textContent = data.age || 'N/A';
+                    document.getElementById('userGender').textContent = data.gender || 'N/A';
+                })
+                .catch(error => console.error('Error fetching user data:', error));
+        }
+
+        function logoutUser() {
+            localStorage.removeItem('loggedInUser');
+            window.location.href = '/';
+        }
+    </script>
+</body>
+</html>
