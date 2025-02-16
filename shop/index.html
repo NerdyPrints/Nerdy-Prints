@@ -36,10 +36,9 @@
             color: #FFD700;
         }
 
-        .login-button {
+        .login-button, .cart-button {
             position: absolute;
             top: 10px;
-            right: 10px;
             background-color: #ffffff;
             color: #ff0033;
             padding: 10px 20px;
@@ -53,30 +52,12 @@
             text-shadow: 2px 2px 0 #FFD700;
         }
 
-        .login-button:hover {
+        .login-button:hover, .cart-button:hover {
             box-shadow: 0 0 15px #ff0099, 0 0 25px #FFD700;
         }
 
-        .cart-button {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background-color: #ffffff;
-            color: #ff0033;
-            padding: 10px 20px;
-            font-family: 'Comic Neue', cursive;
-            font-size: 1rem;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            box-shadow: 3px 3px 0px #000;
-            transition: box-shadow 0.3s ease-in-out;
-            text-shadow: 2px 2px 0 #FFD700;
-        }
-
-        .cart-button:hover {
-            box-shadow: 0 0 15px #ff0099, 0 0 25px #FFD700;
-        }
+        .login-button { right: 10px; }
+        .cart-button { left: 10px; }
 
         .product-container {
             display: flex;
@@ -93,7 +74,6 @@
             border-radius: 30px;
             text-align: center;
             box-shadow: 5px 5px 0px #000;
-            position: relative;
             max-width: 220px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -164,7 +144,7 @@
 <body>
     <header>
         <h1>Nerdy Prints - Shop</h1>
-        <button id="accountButton" class="login-button">Loading...</button>
+        <button class="login-button" id="accountButton">Loading...</button>
         <button class="cart-button" onclick="window.location.href='/cart.html'">View Cart</button>
     </header>
 
@@ -180,11 +160,11 @@
 
     <script>
         const accountButton = document.getElementById('accountButton');
-        const userSessionEmail = sessionStorage.getItem('userEmail');
+        const userSessionEmail = localStorage.getItem('loggedInUser');
 
         if (userSessionEmail) {
             accountButton.textContent = 'Account';
-            accountButton.onclick = () => window.location.href = '/members/';
+            accountButton.onclick = () => window.location.href = '/account/';
         } else {
             accountButton.textContent = 'Login';
             accountButton.onclick = () => window.location.href = '/login/';
