@@ -125,7 +125,7 @@
         } else {
             document.getElementById('userEmail').textContent = loggedInUser;
 
-            fetch(`https://script.google.com/macros/s/AKfycbxaGsUqNTxRi1P8ZjfAMCx5FurOzWEF7hFj3P9v-vzwZIPhM2Co_P-om_dQxnknYGUj/exec?email=${loggedInUser}&sheetId=1TVSKpuRgcf8-llP_aanurHwOD8EG_Hz-I8eIs57_Jl3p1jZ39E1ZAHt2`)
+            fetch(`https://script.google.com/macros/s/AKfycbxaGsUqNTxRi1P8ZjfAMCx5FurOzWEF7hFj3P9v-vzwZIPhM2Co_P-om_dQxnknYGUj/exec?email=${loggedInUser}`)
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById('userName').textContent = data.name || 'N/A';
