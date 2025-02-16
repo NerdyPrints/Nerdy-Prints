@@ -27,7 +27,7 @@
         }
 
         h1, h2 {
-            font-family: 'Bangers', cursive;
+            font-family: 'Comic Neue', sans-serif;
             color: #FFD700;
         }
 
@@ -41,9 +41,11 @@
             text-align: center;
         }
 
-        .account-info p {
+        .account-info p, .account-container p {
             font-size: 1.2rem;
             margin: 8px 0;
+            font-family: 'Bangers', cursive;
+            color: #ff0033;
         }
 
         .bubble-button {
@@ -123,7 +125,7 @@
         } else {
             document.getElementById('userEmail').textContent = loggedInUser;
 
-            fetch(`https://script.google.com/macros/s/AKfycbxaGsUqNTxRi1P8ZjfAMCx5FurOzWEF7hFj3P9v-vzwZIPhM2Co_P-om_dQxnknYGUj/exec?email=${loggedInUser}`)
+            fetch(`https://script.google.com/macros/s/AKfycbxaGsUqNTxRi1P8ZjfAMCx5FurOzWEF7hFj3P9v-vzwZIPhM2Co_P-om_dQxnknYGUj/exec?email=${loggedInUser}&sheetId=1TVSKpuRgcf8-llP_aanurHwOD8EG_Hz-I8eIs57_Jl3p1jZ39E1ZAHt2`)
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById('userName').textContent = data.name || 'N/A';
