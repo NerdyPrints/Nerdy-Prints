@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,7 +54,10 @@
             transform: scale(1.5);
         }
 
-        select, button, .continue-shopping {
+        select,
+        button,
+        .continue-shopping,
+        .product-details-button {
             margin-top: 15px;
             padding: 10px;
             font-size: 1rem;
@@ -65,9 +69,12 @@
             box-shadow: 3px 3px 0px #000;
             transition: box-shadow 0.3s ease-in-out;
             text-shadow: 2px 2px 0 #FFD700;
+            cursor: pointer;
         }
 
-        button:hover, .continue-shopping:hover {
+        button:hover,
+        .continue-shopping:hover,
+        .product-details-button:hover {
             box-shadow: 0 0 15px #ff0099, 0 0 25px #FFD700;
         }
 
@@ -76,14 +83,6 @@
             display: flex;
             justify-content: center;
             gap: 15px;
-        }
-
-        .cart-link {
-            display: inline-block;
-            margin-top: 15px;
-            font-size: 1.2rem;
-            color: #FFD700;
-            text-decoration: none;
         }
 
         .product-details {
@@ -104,6 +103,7 @@
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <header>
         <h1>Customize Your Product</h1>
@@ -113,21 +113,27 @@
         <h2 id="product-name">Loading product...</h2>
         <p id="product-description">Please wait while we load your customization options.</p>
         <div class="product-image-container">
-            <img id="product-image" class="product-image" src="https://via.placeholder.com/300x300?text=Loading" alt="Product Image">
+            <img id="product-image" class="product-image" src="https://via.placeholder.com/300x300?text=Loading"
+                alt="Product Image">
         </div>
+
         <div id="variant-selector"></div>
+
         <div class="button-group">
             <button id="add-to-cart" style="display:none;">Add to Cart</button>
             <button onclick="window.location.href='/shop/'" class="continue-shopping">Back to Shop</button>
         </div>
-        <a href="/cart/" class="cart-link" id="go-to-cart" style="display:none;">Go to Cart</a>
+
+        <a href="/cart/" class="product-details-button" id="go-to-cart" style="display:none;">Go to Cart</a>
 
         <div class="product-details" id="product-details" style="display:none;">
             <h3>Product Details</h3>
             <p id="product-materials">Materials: Loading...</p>
             <p id="product-sizing">Sizing: Loading...</p>
         </div>
-        <a id="product-info-link" href="#" target="_blank" class="cart-link">View Full Product Details</a>
+
+        <button id="product-info-link" class="product-details-button" style="display:none;"
+            onclick="openProductDetails()">View Full Product Details</button>
     </div>
 
     <footer>
@@ -146,8 +152,73 @@
                 return;
             }
 
-            document.getElementById('product-info-link').href = `/product-details.html?product_id=${productId}`;
+            try {
+                const response = await fetch(`/.netlify/functions/printful-proxy?product_id=${productId}`);
+                const data = await response.json();
+
+                if (data.result && data.result.sync_product) {
+                    const product = data.result.sync_product;
+                    const variants = data.result.sync_variants;
+
+                    document.getElementById('product-name').textContent = product.name;
+                    document.getElementById('product-description').textContent = "Choose your size and add to cart.";
+                    document.getElementById('product-image').src = product.thumbnail_url;
+
+                    const variantSelector = document.getElementById('variant-selector');
+                    const select = document.createElement('select');
+
+                    variants.forEach(variant => {
+                        let price = variant.retail_price;
+                        if (!price) price = variant.product.retail_price;
+
+                        const option = document.createElement('option');
+                        option.value = variant.id;
+                        option.textContent = `${variant.name} - £${price}`;
+                        select.appendChild(option);
+                    });
+
+                    variantSelector.appendChild(select);
+
+                    const addToCartButton = document.getElementById('add-to-cart');
+                    addToCartButton.style.display = 'block';
+
+                    addToCartButton.addEventListener('click', () => {
+                        const selectedVariantId = select.value;
+                        const selectedVariant = variants.find(v => v.id == selectedVariantId);
+                        const price = selectedVariant.retail_price || selectedVariant.product.retail_price;
+
+                        cart.push({
+                            id: selectedVariant.id,
+                            name: `${product.name} - ${selectedVariant.name}`,
+                            image: product.thumbnail_url,
+                            price: price
+                        });
+
+                        localStorage.setItem('cart', JSON.stringify(cart));
+                        alert(`${product.name} - ${selectedVariant.name} added to cart!`);
+
+                        document.getElementById('go-to-cart').style.display = 'inline-block';
+                    });
+
+                    // Show product details link
+                    const productInfoButton = document.getElementById('product-info-link');
+                    productInfoButton.style.display = 'inline-block';
+                    productInfoButton.setAttribute('data-product-id', productId);
+
+                } else {
+                    document.getElementById('product-name').textContent = 'Error: Product not found.';
+                }
+            } catch (error) {
+                document.getElementById('product-name').textContent = 'Failed to load product details.';
+                console.error(error);
+            }
         });
+
+        function openProductDetails() {
+            const productId = document.getElementById('product-info-link').getAttribute('data-product-id');
+            window.location.href = `/product-details.html?product_id=${productId}`;
+        }
     </script>
 </body>
+
 </html>
