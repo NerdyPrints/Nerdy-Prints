@@ -36,9 +36,10 @@
             color: #FFD700;
         }
 
-        .login-button, .cart-button {
+        .login-button {
             position: absolute;
             top: 10px;
+            right: 10px;
             background-color: #ffffff;
             color: #ff0033;
             padding: 10px 20px;
@@ -52,12 +53,30 @@
             text-shadow: 2px 2px 0 #FFD700;
         }
 
-        .login-button:hover, .cart-button:hover {
+        .login-button:hover {
             box-shadow: 0 0 15px #ff0099, 0 0 25px #FFD700;
         }
 
-        .login-button { right: 10px; }
-        .cart-button { left: 10px; }
+        .cart-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #ffffff;
+            color: #ff0033;
+            padding: 10px 20px;
+            font-family: 'Comic Neue', cursive;
+            font-size: 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 3px 3px 0px #000;
+            transition: box-shadow 0.3s ease-in-out;
+            text-shadow: 2px 2px 0 #FFD700;
+        }
+
+        .cart-button:hover {
+            box-shadow: 0 0 15px #ff0099, 0 0 25px #FFD700;
+        }
 
         .product-container {
             display: flex;
@@ -74,6 +93,7 @@
             border-radius: 30px;
             text-align: center;
             box-shadow: 5px 5px 0px #000;
+            position: relative;
             max-width: 220px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -95,7 +115,7 @@
             font-family: 'Bangers', cursive;
         }
 
-        .product-card button {
+        .product-card button, .product-card a {
             background-color: #ffffff;
             color: #ff0033;
             padding: 10px 15px;
@@ -106,9 +126,12 @@
             box-shadow: 3px 3px 0px #000;
             transition: box-shadow 0.3s ease-in-out;
             text-shadow: 2px 2px 0 #FFD700;
+            text-decoration: none;
+            display: block;
+            margin-top: 8px;
         }
 
-        .product-card button:hover {
+        .product-card button:hover, .product-card a:hover {
             box-shadow: 0 0 15px #ff0099, 0 0 25px #FFD700;
         }
 
@@ -144,7 +167,7 @@
 <body>
     <header>
         <h1>Nerdy Prints - Shop</h1>
-        <button class="login-button" id="accountButton">Loading...</button>
+        <button id="accountButton" class="login-button">Loading...</button>
         <button class="cart-button" onclick="window.location.href='/cart.html'">View Cart</button>
     </header>
 
@@ -160,7 +183,7 @@
 
     <script>
         const accountButton = document.getElementById('accountButton');
-        const userSessionEmail = localStorage.getItem('loggedInUser');
+        const userSessionEmail = sessionStorage.getItem('userEmail');
 
         if (userSessionEmail) {
             accountButton.textContent = 'Account';
@@ -184,7 +207,8 @@
                     div.innerHTML = `
                         <img src="${product.thumbnail_url}" alt="${product.name}">
                         <h3>${product.name}</h3>
-                        <button onclick="viewProduct(${product.id})">View Options</button>
+                        <button onclick="window.location.href='/customize.html?product_id=${product.id}'">View Options</button>
+                        <a href="/product-details.html?product_id=${product.id}">View Product Details</a>
                     `;
                     container.appendChild(div);
                 });
@@ -193,10 +217,6 @@
                 container.innerHTML = `<p>Error loading products. Please try again later.</p>`;
             }
         });
-
-        function viewProduct(productId) {
-            window.location.href = `/customize.html?product_id=${productId}`;
-        }
     </script>
 </body>
 </html>
