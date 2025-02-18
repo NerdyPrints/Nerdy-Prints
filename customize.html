@@ -115,6 +115,7 @@
         <div class="product-image-container">
             <img id="product-image" class="product-image" src="https://via.placeholder.com/300x300?text=Loading" alt="Product Image">
         </div>
+
         <div id="variant-selector"></div>
         <div class="button-group">
             <button id="add-to-cart" style="display:none;">Add to Cart</button>
@@ -157,16 +158,18 @@
                     document.getElementById('product-description').textContent = product.description || 'Choose your size and add to cart.';
                     document.getElementById('product-image').src = product.thumbnail_url;
 
+                    // Show product details (sizing, materials)
                     const productDetailsDiv = document.getElementById('product-details');
-                    document.getElementById('product-materials').textContent = `Materials: ${product.details.materials || 'Not Available'}`;
-                    document.getElementById('product-sizing').textContent = `Sizing: ${product.details.sizing || 'Not Available'}`;
+                    document.getElementById('product-materials').textContent = `Materials: ${product.details?.materials || 'Not Available'}`;
+                    document.getElementById('product-sizing').textContent = `Sizing: ${product.details?.sizing || 'Not Available'}`;
                     productDetailsDiv.style.display = 'block';
 
+                    // Populate variant selector (size + price)
                     const variantSelector = document.getElementById('variant-selector');
                     const select = document.createElement('select');
 
                     variants.forEach(variant => {
-                        let price = variant.retail_price || variant.product.retail_price || 'N/A';
+                        const price = variant.retail_price || variant.product.retail_price || 'N/A';
                         const option = document.createElement('option');
                         option.value = variant.id;
                         option.textContent = `${variant.name} - £${price}`;
@@ -175,6 +178,7 @@
 
                     variantSelector.appendChild(select);
 
+                    // Add to cart button
                     const addToCartButton = document.getElementById('add-to-cart');
                     addToCartButton.style.display = 'block';
 
@@ -197,6 +201,7 @@
                 }
             } catch (error) {
                 console.error('Failed to load product details:', error);
+                document.getElementById('product-name').textContent = 'Failed to load product details.';
             }
         });
     </script>
