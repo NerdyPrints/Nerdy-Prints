@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,38 +32,35 @@
             margin: 0;
         }
 
-        .details-container {
-            margin: 30px auto;
-            background-color: rgba(0, 0, 0, 0.8);
+        .container {
             padding: 20px;
-            border-radius: 12px;
-            max-width: 800px;
-            box-shadow: 5px 5px 0px #000;
         }
 
-        h2 {
-            font-family: 'Bangers', cursive;
+        .product-section {
+            margin-bottom: 30px;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 3px 3px 0px #000;
+        }
+
+        .product-section h2 {
             color: #FFD700;
         }
 
-        p, li {
-            font-size: 1.2rem;
+        .button-group {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
         }
 
-        .footer {
-            margin-top: auto;
-            text-align: center;
-            background: rgba(0, 0, 0, 0.9);
-            padding: 15px 10px;
-            color: #ffffff;
-        }
-
-        .bubble-button {
+        .button-link {
             background-color: #ffffff;
             padding: 12px 25px;
             border-radius: 30px;
             display: inline-block;
-            font-family: 'Comic Neue', cursive;
+            font-family: 'Bangers', cursive;
             font-size: 1.3rem;
             text-decoration: none;
             font-weight: bold;
@@ -74,46 +70,58 @@
             transition: box-shadow 0.3s ease-in-out;
         }
 
-        .bubble-button:hover {
+        .button-link:hover {
             box-shadow: 0 0 15px #ff0099, 0 0 25px #FFD700;
+        }
+
+        footer {
+            margin-top: auto;
+            background: rgba(0, 0, 0, 0.9);
+            color: #ffffff;
+            text-align: center;
+            padding: 10px 0;
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue&display=swap" rel="stylesheet">
 </head>
-
 <body>
     <header>
         <h1>Product Details</h1>
     </header>
 
-    <div class="details-container">
-        <h2>Unisex Classic Tee</h2>
-        <p>Material: 100% Cotton</p>
-        <p>Sizing:</p>
-        <ul>
-            <li>S - Chest 34-36"</li>
-            <li>M - Chest 38-40"</li>
-            <li>L - Chest 42-44"</li>
-            <li>XL - Chest 46-48"</li>
-        </ul>
+    <div class="container">
+        <div class="product-section">
+            <h2>Unisex Classic Tee</h2>
+            <p><strong>Material:</strong> 100% Cotton</p>
+            <p><strong>Sizing:</strong></p>
+            <ul>
+                <li>S - Chest 34-36"</li>
+                <li>M - Chest 38-40"</li>
+                <li>L - Chest 42-44"</li>
+                <li>XL - Chest 46-48"</li>
+            </ul>
+        </div>
 
-        <h2>Crop Hoodie</h2>
-        <p>Material: 85% Organic Cotton, 15% Recycled Polyester</p>
-        <p>Sizing:</p>
-        <ul>
-            <li>S - Chest 32-34"</li>
-            <li>M - Chest 36-38"</li>
-            <li>L - Chest 40-42"</li>
-        </ul>
+        <div class="product-section">
+            <h2>Crop Hoodie</h2>
+            <p><strong>Material:</strong> 85% Organic Cotton, 15% Recycled Polyester</p>
+            <p><strong>Sizing:</strong></p>
+            <ul>
+                <li>S - Chest 32-34"</li>
+                <li>M - Chest 36-38"</li>
+                <li>L - Chest 40-42"</li>
+            </ul>
+        </div>
 
-        <!-- Add more products as needed -->
-
-        <a href="/" class="bubble-button">Back to Home</a>
+        <div class="button-group">
+            <a href="/" class="button-link">Back to Home</a>
+            <a href="/shop/" class="button-link">Continue to Shop</a>
+            <a href="/members/" class="button-link">Members Area</a>
+        </div>
     </div>
 
-    <div class="footer">
+    <footer>
         <p>&copy; 2025 Nerdy Prints. All rights reserved.</p>
-    </div>
+    </footer>
 </body>
-
 </html>
