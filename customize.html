@@ -177,6 +177,23 @@
 
                     const addToCartButton = document.getElementById('add-to-cart');
                     addToCartButton.style.display = 'block';
+
+                    addToCartButton.addEventListener('click', () => {
+                        const selectedVariantId = select.value;
+                        const selectedVariant = variants.find(v => v.id == selectedVariantId);
+                        const price = selectedVariant.retail_price || selectedVariant.product.retail_price || null;
+
+                        cart.push({
+                            id: selectedVariant.id,
+                            name: `${product.name} - ${selectedVariant.name}`,
+                            image: product.thumbnail_url,
+                            price: price
+                        });
+
+                        localStorage.setItem('cart', JSON.stringify(cart));
+                        alert(`${product.name} - ${selectedVariant.name} added to cart!`);
+                        document.getElementById('go-to-cart').style.display = 'inline-block';
+                    });
                 }
             } catch (error) {
                 console.error('Failed to load product details:', error);
