@@ -2,78 +2,99 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customize Your Product - Nerdy Prints</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #121212;
-            color: #ffffff;
+            font-family: 'Comic Neue', cursive;
+            background-image: url('https://github.com/NerdyPrints/Nerdy-Prints/blob/main/assets/comic-colorful-explosions-seamless-pattern_225004-812.jpg?raw=true');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
             margin: 0;
             padding: 0;
-            text-align: center;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         header {
-            background: linear-gradient(90deg, #ff0099, #4932db);
-            padding: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 15px;
             text-align: center;
+            border-bottom: 5px solid #FFD700;
         }
 
         header h1 {
+            font-family: 'Bangers', cursive;
+            color: #FFD700;
             margin: 0;
-            font-size: 2.5rem;
-            color: white;
         }
 
         .container {
-            margin-top: 20px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .product-image-container {
+            position: relative;
+            display: inline-block;
         }
 
         .product-image {
             max-width: 300px;
             border-radius: 10px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .product-image:hover {
+            transform: scale(1.5);
         }
 
         select, button, .continue-shopping {
             margin-top: 15px;
             padding: 10px;
             font-size: 1rem;
+            font-family: 'Comic Neue', cursive;
+            background-color: #ffffff;
+            color: #ff0033;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 3px 3px 0px #000;
+            transition: box-shadow 0.3s ease-in-out;
+            text-shadow: 2px 2px 0 #FFD700;
+        }
+
+        button:hover, .continue-shopping:hover {
+            box-shadow: 0 0 15px #ff0099, 0 0 25px #FFD700;
         }
 
         .button-group {
             margin-top: 15px;
             display: flex;
             justify-content: center;
-            gap: 10px;
-        }
-
-        button, .continue-shopping {
-            background-color: #4932db;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            padding: 10px 20px;
-        }
-
-        button:hover, .continue-shopping:hover {
-            background-color: #7055ff;
-        }
-
-        footer {
-            margin-top: 20px;
+            gap: 15px;
         }
 
         .cart-link {
-            margin-top: 20px;
             display: inline-block;
-            color: #ff0099;
-            text-decoration: none;
+            margin-top: 15px;
             font-size: 1.2rem;
+            color: #FFD700;
+            text-decoration: none;
+        }
+
+        footer {
+            margin-top: auto;
+            background: rgba(0, 0, 0, 0.9);
+            color: #ffffff;
+            text-align: center;
+            padding: 10px 0;
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -83,7 +104,9 @@
     <div class="container">
         <h2 id="product-name">Loading product...</h2>
         <p id="product-description">Please wait while we load your customization options.</p>
-        <img id="product-image" class="product-image" src="https://via.placeholder.com/300x300?text=Loading" alt="Product Image">
+        <div class="product-image-container">
+            <img id="product-image" class="product-image" src="https://via.placeholder.com/300x300?text=Loading" alt="Product Image">
+        </div>
         <div id="variant-selector"></div>
         <div class="button-group">
             <button id="add-to-cart" style="display:none;">Add to Cart</button>
@@ -124,26 +147,10 @@
                     const select = document.createElement('select');
 
                     variants.forEach(variant => {
-                        console.log('Variant Data:', variant); // Debugging log
-
-                        let price = variant.retail_price;
-
-                        if (price === null || price === undefined) {
-                            price = variant.product.retail_price;
-                        }
-
-                        let priceText;
-                        if (price === null || price === undefined) {
-                            priceText = "Price Not Available";
-                        } else if (typeof price === 'string') {
-                            priceText = `£${price}`;
-                        } else {
-                            priceText = `£${(price / 100).toFixed(2)}`;
-                        }
-
+                        let price = variant.retail_price || variant.product.retail_price || 'N/A';
                         const option = document.createElement('option');
                         option.value = variant.id;
-                        option.textContent = `${variant.name} - ${priceText}`;
+                        option.textContent = `${variant.name} - £${price}`;
                         select.appendChild(option);
                     });
 
@@ -155,7 +162,7 @@
                     addToCartButton.addEventListener('click', () => {
                         const selectedVariantId = select.value;
                         const selectedVariant = variants.find(v => v.id == selectedVariantId);
-                        const price = selectedVariant.retail_price || selectedVariant.product.retail_price || null;
+                        const price = selectedVariant.retail_price || selectedVariant.product.retail_price || 'N/A';
 
                         cart.push({
                             id: selectedVariant.id,
@@ -166,7 +173,6 @@
 
                         localStorage.setItem('cart', JSON.stringify(cart));
                         alert(`${product.name} - ${selectedVariant.name} added to cart!`);
-
                         document.getElementById('go-to-cart').style.display = 'inline-block';
                     });
                 } else {
