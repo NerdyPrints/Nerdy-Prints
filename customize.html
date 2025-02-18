@@ -127,6 +127,7 @@
             <p id="product-materials">Materials: Loading...</p>
             <p id="product-sizing">Sizing: Loading...</p>
         </div>
+        <a id="product-info-link" href="#" target="_blank" class="cart-link">View Full Product Details</a>
     </div>
 
     <footer>
@@ -145,42 +146,7 @@
                 return;
             }
 
-            try {
-                const response = await fetch(`/.netlify/functions/printful-proxy?product_id=${productId}`);
-                const data = await response.json();
-
-                if (data.result && data.result.sync_product) {
-                    const product = data.result.sync_product;
-                    const variants = data.result.sync_variants;
-
-                    document.getElementById('product-name').textContent = product.name;
-                    document.getElementById('product-description').textContent = product.description || 'Choose your size and add to cart.';
-                    document.getElementById('product-image').src = product.thumbnail_url;
-
-                    const variantSelector = document.getElementById('variant-selector');
-                    const select = document.createElement('select');
-
-                    variants.forEach(variant => {
-                        let price = variant.retail_price || variant.product.retail_price || 'N/A';
-                        const option = document.createElement('option');
-                        option.value = variant.id;
-                        option.textContent = `${variant.name} - £${price}`;
-                        select.appendChild(option);
-                    });
-
-                    variantSelector.appendChild(select);
-                    document.getElementById('add-to-cart').style.display = 'block';
-
-                    const catalogId = product.product.id;
-                    const catalogResponse = await fetch(`https://api.printful.com/products/${catalogId}`);
-                    const catalogData = await catalogResponse.json();
-                    document.getElementById('product-materials').textContent = `Materials: ${catalogData.result.product.materials || 'Not Available'}`;
-                    document.getElementById('product-sizing').textContent = `Sizing: ${catalogData.result.product.size_guide || 'Not Available'}`;
-                    document.getElementById('product-details').style.display = 'block';
-                }
-            } catch (error) {
-                console.error('Failed to load product details:', error);
-            }
+            document.getElementById('product-info-link').href = `/product-details.html?product_id=${productId}`;
         });
     </script>
 </body>
