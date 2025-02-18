@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - Nerdy Prints</title>
+    <style>
+        body {
+            font-family: 'Comic Neue', cursive;
+            background-image: url('https://github.com/NerdyPrints/Nerdy-Prints/blob/main/assets/comic-colorful-explosions-seamless-pattern_225004-812.jpg?raw=true');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 15px;
+            text-align: center;
+            border-bottom: 5px solid #FFD700;
+        }
+
+        header h1 {
+            font-family: 'Bangers', cursive;
+            color: #FFD700;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .details-box {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 5px 5px 0px #000;
+            display: inline-block;
+            text-align: left;
+        }
+
+        h2, h3 {
+            font-family: 'Bangers', cursive;
+            color: #FFD700;
+        }
+
+        .back-button {
+            margin-top: 15px;
+            background-color: #ffffff;
+            color: #ff0033;
+            padding: 10px 20px;
+            font-family: 'Comic Neue', cursive;
+            font-size: 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 3px 3px 0px #000;
+            transition: box-shadow 0.3s ease-in-out;
+            text-shadow: 2px 2px 0 #FFD700;
+        }
+
+        .back-button:hover {
+            box-shadow: 0 0 15px #ff0099, 0 0 25px #FFD700;
+        }
+
+        footer {
+            margin-top: auto;
+            background: rgba(0, 0, 0, 0.9);
+            color: #ffffff;
+            text-align: center;
+            padding: 10px 0;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>Product Details</h1>
+    </header>
+
+    <div class="container">
+        <div class="details-box">
+            <h2 id="product-name">Product Name Loading...</h2>
+            <p><strong>Description:</strong> <span id="product-description">Loading...</span></p>
+            <p><strong>Materials:</strong> <span id="product-materials">Loading...</span></p>
+            <p><strong>Sizing Guide:</strong> <span id="product-sizing">Loading...</span></p>
+            <p><strong>Price:</strong> <span id="product-price">Loading...</span></p>
+        </div>
+
+        <button class="back-button" onclick="window.history.back()">Back</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Nerdy Prints. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const params = new URLSearchParams(window.location.search);
+            const productId = params.get('product_id');
+
+            if (!productId) {
+                document.getElementById('product-name').textContent = 'Error: Product ID is missing.';
+                return;
+            }
+
+            try {
+                const response = await fetch(`/.netlify/functions/printful-proxy?product_id=${productId}`);
+                const data = await response.json();
+
+                if (data.result && data.result.sync_product) {
+                    const product = data.result.sync_product;
+                    const variants = data.result.sync_variants;
+
+                    document.getElementById('product-name').textContent = product.name;
+                    document.getElementById('product-description').textContent = product.description || 'Description not available';
+                    document.getElementById('product-price').textContent = `From £${variants[0].retail_price}`;
+
+                    const catalogId = product.product.id;
+                    const catalogResponse = await fetch(`https://api.printful.com/products/${catalogId}`);
+                    const catalogData = await catalogResponse.json();
+                    document.getElementById('product-materials').textContent = catalogData.result.product.materials || 'Materials not available';
+                    document.getElementById('product-sizing').textContent = catalogData.result.product.size_guide || 'Sizing guide not available';
+                }
+            } catch (error) {
+                console.error('Failed to load product details:', error);
+            }
+        });
+    </script>
+</body>
+</html>
