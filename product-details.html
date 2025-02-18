@@ -33,23 +33,34 @@
         }
 
         .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
             padding: 20px;
         }
 
         .product-section {
-            margin-bottom: 20px;
             background-color: rgba(0, 0, 0, 0.8);
             padding: 15px;
             border-radius: 8px;
             box-shadow: 3px 3px 0px #000;
+            text-align: center;
+        }
+
+        .product-section img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
         }
 
         .product-section h2 {
             color: #FFD700;
+            font-size: 1.4rem;
         }
 
         .product-details {
             display: none;
+            text-align: left;
             margin-top: 10px;
         }
 
@@ -130,48 +141,47 @@
     </footer>
 
     <script>
-        const products = [
-            { name: 'Unisex Classic Tee', material: '100% Cotton', sizing: 'S - Chest 34-36", M - Chest 38-40", L - Chest 42-44", XL - Chest 46-48"' },
-            { name: 'Crop Hoodie', material: '85% Organic Cotton, 15% Recycled Polyester', sizing: 'S - Chest 32-34", M - Chest 36-38", L - Chest 40-42"' },
-            { name: 'Unisex Eco Hoodie', material: '85% Organic Cotton, 15% Recycled Polyester', sizing: 'S - Chest 34-36", M - Chest 38-40", L - Chest 42-44", XL - Chest 46-48"' },
-            { name: 'All-Over Print T-Shirt', material: '95% Polyester, 5% Elastane', sizing: 'XS - Chest 31-34", S - Chest 34-37", M - Chest 38-41", L - Chest 42-45", XL - Chest 46-49"' },
-            { name: 'Embroidered Beanie', material: '100% Acrylic', sizing: 'One Size Fits All' },
-            { name: 'Snapback Hat', material: '80% Acrylic, 20% Wool', sizing: 'One Size Fits Most (Adjustable)' },
-            { name: 'All-Over Print Sweatshirt', material: '70% Polyester, 27% Cotton, 3% Elastane', sizing: 'XS - Chest 34", S - Chest 37", M - Chest 40", L - Chest 43", XL - Chest 46"' },
-            { name: 'Stainless Steel Water Bottle', material: 'High-Grade Stainless Steel', sizing: '17 oz / 500 ml' },
-            { name: 'Mug', material: 'Ceramic', sizing: '11 oz or 15 oz' }
-        ];
+        const products = [];
 
-        const container = document.getElementById('product-details-container');
+        fetch('/printful_products_uk.json')
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(product => {
+                    products.push({
+                        name: product.name,
+                        image: product.image,
+                        material: product.materials || 'N/A',
+                        sizing: product.sizing || 'N/A',
+                        price: product.price || 'N/A',
+                        weight: product.weight || 'N/A'
+                    });
+                });
 
-        products.forEach(product => {
-            const section = document.createElement('div');
-            section.classList.add('product-section');
+                const container = document.getElementById('product-details-container');
+                products.forEach(product => {
+                    const section = document.createElement('div');
+                    section.classList.add('product-section');
 
-            const heading = document.createElement('h2');
-            heading.textContent = product.name;
+                    section.innerHTML = `
+                        <img src="${product.image}" alt="${product.name}">
+                        <h2>${product.name}</h2>
+                        <button class="toggle-button">View Details</button>
+                        <div class="product-details">
+                            <p><strong>Material:</strong> ${product.material}</p>
+                            <p><strong>Sizing:</strong> ${product.sizing}</p>
+                            <p><strong>Price:</strong> ${product.price}</p>
+                            <p><strong>Weight:</strong> ${product.weight}</p>
+                        </div>
+                    `;
 
-            const toggleButton = document.createElement('button');
-            toggleButton.textContent = 'View Details';
-            toggleButton.classList.add('toggle-button');
+                    section.querySelector('.toggle-button').addEventListener('click', () => {
+                        section.classList.toggle('active');
+                    });
 
-            const detailsDiv = document.createElement('div');
-            detailsDiv.classList.add('product-details');
-            detailsDiv.innerHTML = `
-                <p><strong>Material:</strong> ${product.material}</p>
-                <p><strong>Sizing:</strong> ${product.sizing}</p>
-            `;
-
-            toggleButton.addEventListener('click', () => {
-                section.classList.toggle('active');
-                toggleButton.textContent = section.classList.contains('active') ? 'Hide Details' : 'View Details';
-            });
-
-            section.appendChild(heading);
-            section.appendChild(toggleButton);
-            section.appendChild(detailsDiv);
-            container.appendChild(section);
-        });
+                    container.appendChild(section);
+                });
+            })
+            .catch(error => console.error('Error loading product details:', error));
     </script>
 </body>
 </html>
