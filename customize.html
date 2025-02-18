@@ -86,6 +86,14 @@
             text-decoration: none;
         }
 
+        .product-details {
+            margin-top: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 3px 3px 0px #000;
+        }
+
         footer {
             margin-top: auto;
             background: rgba(0, 0, 0, 0.9);
@@ -113,6 +121,12 @@
             <button onclick="window.location.href='/shop/'" class="continue-shopping">Back to Shop</button>
         </div>
         <a href="/cart/" class="cart-link" id="go-to-cart" style="display:none;">Go to Cart</a>
+
+        <div class="product-details" id="product-details" style="display:none;">
+            <h3>Product Details</h3>
+            <p id="product-materials">Materials: Loading...</p>
+            <p id="product-sizing">Sizing: Loading...</p>
+        </div>
     </div>
 
     <footer>
@@ -140,8 +154,13 @@
                     const variants = data.result.sync_variants;
 
                     document.getElementById('product-name').textContent = product.name;
-                    document.getElementById('product-description').textContent = product.description || "Choose your size and add to cart.";
+                    document.getElementById('product-description').textContent = product.description || 'Choose your size and add to cart.';
                     document.getElementById('product-image').src = product.thumbnail_url;
+
+                    const productDetailsDiv = document.getElementById('product-details');
+                    document.getElementById('product-materials').textContent = `Materials: ${product.details.materials || 'Not Available'}`;
+                    document.getElementById('product-sizing').textContent = `Sizing: ${product.details.sizing || 'Not Available'}`;
+                    productDetailsDiv.style.display = 'block';
 
                     const variantSelector = document.getElementById('variant-selector');
                     const select = document.createElement('select');
@@ -158,29 +177,9 @@
 
                     const addToCartButton = document.getElementById('add-to-cart');
                     addToCartButton.style.display = 'block';
-
-                    addToCartButton.addEventListener('click', () => {
-                        const selectedVariantId = select.value;
-                        const selectedVariant = variants.find(v => v.id == selectedVariantId);
-                        const price = selectedVariant.retail_price || selectedVariant.product.retail_price || 'N/A';
-
-                        cart.push({
-                            id: selectedVariant.id,
-                            name: `${product.name} - ${selectedVariant.name}`,
-                            image: product.thumbnail_url,
-                            price: price
-                        });
-
-                        localStorage.setItem('cart', JSON.stringify(cart));
-                        alert(`${product.name} - ${selectedVariant.name} added to cart!`);
-                        document.getElementById('go-to-cart').style.display = 'inline-block';
-                    });
-                } else {
-                    document.getElementById('product-name').textContent = 'Error: Product not found.';
                 }
             } catch (error) {
-                document.getElementById('product-name').textContent = 'Failed to load product details.';
-                console.error(error);
+                console.error('Failed to load product details:', error);
             }
         });
     </script>
