@@ -37,7 +37,7 @@
         }
 
         .product-section {
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             background-color: rgba(0, 0, 0, 0.8);
             padding: 15px;
             border-radius: 8px;
@@ -46,6 +46,32 @@
 
         .product-section h2 {
             color: #FFD700;
+        }
+
+        .product-details {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .product-section.active .product-details {
+            display: block;
+        }
+
+        .toggle-button {
+            background-color: #ffffff;
+            color: #ff0033;
+            font-family: 'Bangers', cursive;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 3px 3px 0px #000;
+            transition: box-shadow 0.3s ease-in-out;
+            text-shadow: 2px 2px 0 #FFD700;
+        }
+
+        .toggle-button:hover {
+            box-shadow: 0 0 15px #ff0099, 0 0 25px #FFD700;
         }
 
         .button-group {
@@ -89,44 +115,63 @@
         <h1>Product Details</h1>
     </header>
 
-    <div class="container">
-        <div class="product-section">
-            <h2>Unisex Classic Tee</h2>
-            <p><strong>Material:</strong> 100% Cotton</p>
-            <p><strong>Sizing:</strong></p>
-            <ul>
-                <li>S - Chest 34-36"</li>
-                <li>M - Chest 38-40"</li>
-                <li>L - Chest 42-44"</li>
-                <li>XL - Chest 46-48"</li>
-            </ul>
-        </div>
+    <div class="container" id="product-details-container">
+        <!-- Product details will be injected here via JavaScript -->
+    </div>
 
-        <div class="product-section">
-            <h2>Crop Hoodie</h2>
-            <p><strong>Material:</strong> 85% Organic Cotton, 15% Recycled Polyester</p>
-            <p><strong>Sizing:</strong></p>
-            <ul>
-                <li>S - Chest 32-34"</li>
-                <li>M - Chest 36-38"</li>
-                <li>L - Chest 40-42"</li>
-            </ul>
-        </div>
-
-        <div class="product-section">
-            <h2>Printful Full Product Catalog</h2>
-            <p>Explore the full range of Printful products <a href="https://www.printful.com/custom-products" target="_blank" style="color:#FFD700; text-decoration: underline;">here</a>.</p>
-        </div>
-
-        <div class="button-group">
-            <a href="/" class="button-link">Back to Home</a>
-            <a href="/shop/" class="button-link">Continue to Shop</a>
-            <a href="/members/" class="button-link">Members Area</a>
-        </div>
+    <div class="button-group">
+        <a href="/" class="button-link">Back to Home</a>
+        <a href="/shop/" class="button-link">Continue to Shop</a>
+        <a href="/members/" class="button-link">Members Area</a>
     </div>
 
     <footer>
         <p>&copy; 2025 Nerdy Prints. All rights reserved.</p>
     </footer>
+
+    <script>
+        const products = [
+            { name: 'Unisex Classic Tee', material: '100% Cotton', sizing: 'S - Chest 34-36", M - Chest 38-40", L - Chest 42-44", XL - Chest 46-48"' },
+            { name: 'Crop Hoodie', material: '85% Organic Cotton, 15% Recycled Polyester', sizing: 'S - Chest 32-34", M - Chest 36-38", L - Chest 40-42"' },
+            { name: 'Unisex Eco Hoodie', material: '85% Organic Cotton, 15% Recycled Polyester', sizing: 'S - Chest 34-36", M - Chest 38-40", L - Chest 42-44", XL - Chest 46-48"' },
+            { name: 'All-Over Print T-Shirt', material: '95% Polyester, 5% Elastane', sizing: 'XS - Chest 31-34", S - Chest 34-37", M - Chest 38-41", L - Chest 42-45", XL - Chest 46-49"' },
+            { name: 'Embroidered Beanie', material: '100% Acrylic', sizing: 'One Size Fits All' },
+            { name: 'Snapback Hat', material: '80% Acrylic, 20% Wool', sizing: 'One Size Fits Most (Adjustable)' },
+            { name: 'All-Over Print Sweatshirt', material: '70% Polyester, 27% Cotton, 3% Elastane', sizing: 'XS - Chest 34", S - Chest 37", M - Chest 40", L - Chest 43", XL - Chest 46"' },
+            { name: 'Stainless Steel Water Bottle', material: 'High-Grade Stainless Steel', sizing: '17 oz / 500 ml' },
+            { name: 'Mug', material: 'Ceramic', sizing: '11 oz or 15 oz' }
+        ];
+
+        const container = document.getElementById('product-details-container');
+
+        products.forEach(product => {
+            const section = document.createElement('div');
+            section.classList.add('product-section');
+
+            const heading = document.createElement('h2');
+            heading.textContent = product.name;
+
+            const toggleButton = document.createElement('button');
+            toggleButton.textContent = 'View Details';
+            toggleButton.classList.add('toggle-button');
+
+            const detailsDiv = document.createElement('div');
+            detailsDiv.classList.add('product-details');
+            detailsDiv.innerHTML = `
+                <p><strong>Material:</strong> ${product.material}</p>
+                <p><strong>Sizing:</strong> ${product.sizing}</p>
+            `;
+
+            toggleButton.addEventListener('click', () => {
+                section.classList.toggle('active');
+                toggleButton.textContent = section.classList.contains('active') ? 'Hide Details' : 'View Details';
+            });
+
+            section.appendChild(heading);
+            section.appendChild(toggleButton);
+            section.appendChild(detailsDiv);
+            container.appendChild(section);
+        });
+    </script>
 </body>
 </html>
