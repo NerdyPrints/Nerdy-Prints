@@ -1,84 +1,215 @@
-<!-- Same Page Layout as Before – Only Updated the Form Section -->
-<!-- Username Field Added and Validation Check for Uniqueness -->
-<!-- Update the scriptURL in this file -->
+<!DOCTYPE html>
+<html lang="en">
 
-<form id="signupForm">
-  <label for="username">Username</label>
-  <input type="text" id="username" name="username" required>
-  <button type="button" id="checkUsernameButton">Check Availability</button>
-  <p id="usernameStatus"></p>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Nerdy Prints</title>
+    <style>
+        body {
+            font-family: 'Comic Neue', cursive;
+            background-image: url('https://github.com/NerdyPrints/Nerdy-Prints/blob/main/assets/comic-colorful-explosions-seamless-pattern_225004-812.jpg?raw=true');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
 
-  <!-- Existing fields like Name, Email, etc -->
-  <label for="name">Name</label>
-  <input type="text" id="name" name="name" required>
+        header {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 15px;
+            text-align: center;
+            border-bottom: 5px solid #FFD700;
+        }
 
-  <label for="email">Email Address</label>
-  <input type="email" id="email" name="email" required>
+        header h1 {
+            font-family: 'Bangers', cursive;
+            color: #FFD700;
+            margin: 0;
+        }
 
-  <label for="address">Address</label>
-  <input type="text" id="address" name="address" required>
+        .form-section {
+            margin: 30px auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 12px;
+            max-width: 400px;
+            box-shadow: 5px 5px 0px #000;
+            text-align: center;
+        }
 
-  <label for="age">Age</label>
-  <input type="number" id="age" name="age" required>
+        .form-section label {
+            font-family: 'Bangers', cursive;
+            font-size: 1.2rem;
+        }
 
-  <label for="gender">Gender</label>
-  <select id="gender" name="gender" required>
-    <option value="Male">Male</option>
-    <option value="Female">Female</option>
-    <option value="Other">Other</option>
-  </select>
+        .form-section input,
+        .form-section select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 8px;
+        }
 
-  <label for="password">Password</label>
-  <input type="password" id="password" name="password" required>
+        .submit-button,
+        .check-username-button {
+            background-color: #ffffff;
+            color: #ff0033;
+            padding: 12px 30px;
+            font-size: 1.3rem;
+            font-family: 'Bangers', cursive;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 3px 3px 0px #000;
+            transition: box-shadow 0.3s ease-in-out;
+            margin-top: 10px;
+        }
 
-  <button type="submit">Sign Up - KABOOM!</button>
-</form>
+        .submit-button:hover,
+        .check-username-button:hover {
+            box-shadow: 0 0 15px #ff0099, 0 0 25px #FFD700;
+        }
 
-<script>
-const signupForm = document.getElementById('signupForm');
-const usernameInput = document.getElementById('username');
-const usernameStatus = document.getElementById('usernameStatus');
-const checkUsernameButton = document.getElementById('checkUsernameButton');
+        #usernameStatus {
+            font-size: 1rem;
+            margin-top: 5px;
+        }
 
-const scriptURL = 'YOUR_DEPLOYED_SCRIPT_URL';
+        .footer {
+            margin-top: auto;
+            text-align: center;
+            color: #ffffff;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 15px 10px;
+        }
 
-checkUsernameButton.addEventListener('click', () => {
-  const username = usernameInput.value.trim();
-  if (!username) return;
+        .back-button {
+            margin-top: 10px;
+            display: inline-block;
+            background-color: #ffffff;
+            color: #ff0033;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-family: 'Bangers', cursive;
+            font-size: 1.2rem;
+            border-radius: 8px;
+            box-shadow: 3px 3px 0px #000;
+            transition: box-shadow 0.3s ease-in-out;
+            text-shadow: 2px 2px 0 #FFD700;
+        }
 
-  fetch(`${scriptURL}?checkUsername=${username}`)
-    .then(res => res.text())
-    .then(status => {
-      if (status === 'taken') {
-        usernameStatus.textContent = 'Username already taken. Choose another.';
-        usernameStatus.style.color = 'red';
-      } else {
-        usernameStatus.textContent = 'Username available!';
-        usernameStatus.style.color = 'green';
-      }
-    })
-    .catch(err => console.error('Username check failed', err));
-});
+        .back-button:hover {
+            box-shadow: 0 0 15px #ff0099, 0 0 25px #FFD700;
+        }
 
-signupForm.addEventListener('submit', e => {
-  e.preventDefault();
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue&display=swap" rel="stylesheet">
+</head>
 
-  const formData = new FormData(signupForm);
-  fetch(scriptURL, { method: 'POST', body: formData })
-    .then(res => res.text())
-    .then(text => {
-      if (text.trim() === 'Success') {
-        alert('Sign-up successful!');
-        window.location.href = '/login/';
-      } else if (text.trim() === 'UsernameTaken') {
-        alert('Username is already taken. Choose another.');
-      } else {
-        alert('Sign-up failed. Please try again.');
-      }
-    })
-    .catch(err => {
-      console.error('Sign-up failed', err);
-      alert('An error occurred. Please try again.');
-    });
-});
-</script>
+<body>
+    <header>
+        <h1>Sign Up - Nerdy Prints</h1>
+    </header>
+
+    <div class="form-section">
+        <form id="signupForm">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+            <button type="button" class="check-username-button" id="checkUsernameButton">Check Availability</button>
+            <p id="usernameStatus"></p>
+
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="address">Address</label>
+            <input type="text" id="address" name="address" required>
+
+            <label for="age">Age</label>
+            <input type="number" id="age" name="age" required>
+
+            <label for="gender">Gender</label>
+            <select id="gender" name="gender" required>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit" class="submit-button">Sign Up - KABOOM!</button>
+        </form>
+
+        <a href="/" class="back-button">Back to Home</a>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2025 Nerdy Prints. All rights reserved. | <a href="/privacy/" style="color:#FFD700;">Privacy Policy</a></p>
+    </div>
+
+    <script>
+        const signupForm = document.getElementById('signupForm');
+        const usernameInput = document.getElementById('username');
+        const usernameStatus = document.getElementById('usernameStatus');
+        const checkUsernameButton = document.getElementById('checkUsernameButton');
+
+        const scriptURL = 'YOUR_DEPLOYED_SCRIPT_URL'; // Your Google Apps Script Web App URL
+
+        checkUsernameButton.addEventListener('click', () => {
+            const username = usernameInput.value.trim();
+            if (!username) return;
+
+            fetch(`${scriptURL}?checkUsername=${username}`)
+                .then(res => res.text())
+                .then(status => {
+                    if (status === 'taken') {
+                        usernameStatus.textContent = 'Username already taken. Choose another.';
+                        usernameStatus.style.color = 'red';
+                    } else {
+                        usernameStatus.textContent = 'Username available!';
+                        usernameStatus.style.color = 'green';
+                    }
+                })
+                .catch(err => console.error('Username check failed', err));
+        });
+
+        signupForm.addEventListener('submit', e => {
+            e.preventDefault();
+
+            const formData = new FormData(signupForm);
+            fetch(scriptURL, { method: 'POST', body: formData })
+                .then(res => res.text())
+                .then(text => {
+                    if (text.trim() === 'Success') {
+                        alert('Sign-up successful!');
+                        window.location.href = '/login/';
+                    } else if (text.trim() === 'UsernameTaken') {
+                        alert('Username is already taken. Choose another.');
+                    } else {
+                        alert('Sign-up failed. Please try again.');
+                    }
+                })
+                .catch(err => {
+                    console.error('Sign-up failed', err);
+                    alert('An error occurred. Please try again.');
+                });
+        });
+    </script>
+</body>
+
+</html>
