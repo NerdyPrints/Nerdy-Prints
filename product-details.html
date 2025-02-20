@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,61 +34,80 @@
         }
 
         .container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
             padding: 20px;
+        }
+
+        .category-section {
+            margin-bottom: 15px;
+        }
+
+        .category-button {
+            background-color: #ffffff;
+            padding: 15px 30px;
+            border-radius: 30px;
+            display: inline-block;
+            font-family: 'Bangers', cursive;
+            font-size: 1.5rem;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 5px 5px 0 #000;
+            transition: box-shadow 0.3s ease-in-out;
+            color: #ff0033;
+            text-shadow: 2px 2px 0 #FFD700;
+            cursor: pointer;
+            border: none;
+            margin-bottom: 5px;
+        }
+
+        .category-button:hover {
+            box-shadow: 0 0 15px #ff0099, 0 0 25px #FFD700;
+        }
+
+        .products-container {
+            display: none;
+            margin-top: 10px;
         }
 
         .product-section {
             background-color: rgba(0, 0, 0, 0.8);
-            padding: 15px;
+            padding: 10px;
             border-radius: 8px;
             box-shadow: 3px 3px 0px #000;
-            text-align: center;
+            margin-bottom: 10px;
         }
 
         .product-section img {
-            max-width: 100%;
+            max-width: 150px;
             height: auto;
             border-radius: 8px;
-            display: none; /* Hide images by default */
-        }
-
-        .product-section h2 {
-            color: #FFD700;
-            font-size: 1.2rem;
+            display: none;
+            margin-top: 10px;
         }
 
         .product-details {
             display: none;
-            text-align: left;
-            margin-top: 10px;
         }
 
-        .product-section.active img {
-            display: block; /* Show image when active */
+        .product-name {
+            font-size: 1.2rem;
+            color: #FFD700;
         }
 
-        .product-section.active .product-details {
-            display: block;
-        }
-
-        .toggle-button {
+        .toggle-product-button {
             background-color: #ffffff;
             color: #ff0033;
-            font-family: 'Bangers', cursive;
+            font-family: 'Comic Neue', cursive;
             border: none;
-            padding: 8px 15px;
+            padding: 5px 15px;
             border-radius: 8px;
             cursor: pointer;
             box-shadow: 3px 3px 0px #000;
             transition: box-shadow 0.3s ease-in-out;
-            text-shadow: 2px 2px 0 #FFD700;
+            text-shadow: 1px 1px 0 #FFD700;
         }
 
-        .toggle-button:hover {
-            box-shadow: 0 0 15px #ff0099, 0 0 25px #FFD700;
+        .toggle-product-button:hover {
+            box-shadow: 0 0 10px #ff0099, 0 0 15px #FFD700;
         }
 
         .button-group {
@@ -126,13 +146,14 @@
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <header>
-        <h1>Product Details</h1>
+        <h1>Product Details & Guide</h1>
     </header>
 
     <div class="container" id="product-details-container">
-        <!-- Product details will be injected here via JavaScript -->
+        <!-- Products will load here -->
     </div>
 
     <div class="button-group">
@@ -150,37 +171,71 @@
             .then(response => response.json())
             .then(data => {
                 const container = document.getElementById('product-details-container');
+                const grouped = {};
 
+                // Group products by categories
                 data.forEach(product => {
-                    const section = document.createElement('div');
-                    section.classList.add('product-section');
+                    const category = product["Categories"] || "Other";
+                    if (!grouped[category]) {
+                        grouped[category] = [];
+                    }
+                    grouped[category].push(product);
+                });
 
-                    section.innerHTML = `
-                        <h2>${product["Product Name"]}</h2>
-                        <button class="toggle-button">View Details</button>
-                        <img data-src="${product["Product Image"]}" alt="${product["Product Name"]}">
-                        <div class="product-details">
-                            <p><strong>Type:</strong> ${product["Product Type"]}</p>
-                            <p><strong>Color:</strong> ${product["Product Color"] || 'N/A'}</p>
-                            <p><strong>Size:</strong> ${product["Product Size"]}</p>
-                            <p><strong>Weight (oz):</strong> ${product["Product Weight (oz)"]}</p>
-                            <p><strong>Dimensions (in):</strong> ${product["Length (In)"]} x ${product["Width (In)"]} x ${product["Height (In)"]}</p>
-                            <p><strong>Categories:</strong> ${product["Categories"]}</p>
-                        </div>
-                    `;
+                // Sort categories alphabetically
+                const sortedCategories = Object.keys(grouped).sort();
 
-                    section.querySelector('.toggle-button').addEventListener('click', () => {
-                        section.classList.toggle('active');
-                        const img = section.querySelector('img');
-                        if (section.classList.contains('active') && !img.src) {
-                            img.src = img.dataset.src;
-                        }
+                sortedCategories.forEach(category => {
+                    const categorySection = document.createElement('div');
+                    categorySection.classList.add('category-section');
+
+                    const categoryButton = document.createElement('button');
+                    categoryButton.classList.add('category-button');
+                    categoryButton.textContent = category;
+
+                    const productsContainer = document.createElement('div');
+                    productsContainer.classList.add('products-container');
+
+                    // Sort products in each category alphabetically
+                    grouped[category].sort((a, b) => a["Product Name"].localeCompare(b["Product Name"]));
+
+                    grouped[category].forEach(product => {
+                        const productSection = document.createElement('div');
+                        productSection.classList.add('product-section');
+
+                        productSection.innerHTML = `
+                            <div class="product-name">${product["Product Name"]}</div>
+                            <button class="toggle-product-button">View Details</button>
+                            <div class="product-details">
+                                <p><strong>Type:</strong> ${product["Product Type"]}</p>
+                                <p><strong>Color:</strong> ${product["Product Color"] || 'N/A'}</p>
+                                <p><strong>Size:</strong> ${product["Product Size"]}</p>
+                                <p><strong>Weight:</strong> ${product["Product Weight (oz)"]} oz</p>
+                                <p><strong>Dimensions:</strong> ${product["Length (In)"]} x ${product["Width (In)"]} x ${product["Height (In)"]} in</p>
+                                <img src="${product["Product Image"]}" alt="${product["Product Name"]}">
+                            </div>
+                        `;
+
+                        productSection.querySelector('.toggle-product-button').addEventListener('click', () => {
+                            const details = productSection.querySelector('.product-details');
+                            details.style.display = details.style.display === 'block' ? 'none' : 'block';
+                            const image = details.querySelector('img');
+                            if (image) image.style.display = 'block';
+                        });
+
+                        productsContainer.appendChild(productSection);
                     });
 
-                    container.appendChild(section);
+                    categoryButton.addEventListener('click', () => {
+                        productsContainer.style.display = productsContainer.style.display === 'block' ? 'none' : 'block';
+                    });
+
+                    categorySection.appendChild(categoryButton);
+                    categorySection.appendChild(productsContainer);
+                    container.appendChild(categorySection);
                 });
-            })
-            .catch(error => console.error('Error loading product details:', error));
+            });
     </script>
 </body>
+
 </html>
