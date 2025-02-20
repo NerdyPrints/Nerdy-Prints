@@ -186,22 +186,73 @@
     </footer>
 
     <script>
-        fetch('/products-data/europe_printful_products.json')
-            .then(response => response.json())
-            .then(data => {
-                const container = document.getElementById('product-details-container');
-                const grouped = {};
+    fetch('/products-data/europe_printful_products.json')
+        .then(response => response.json())
+        .then(data => {
+            const container = document.getElementById('product-details-container');
+            const grouped = {};
 
-                data.forEach(product => {
-                    const category = product["Categories"] || "Other";
-                    if (!grouped[category]) {
-                        grouped[category] = [];
-                    }
-                    grouped[category].push(product);
+            data.forEach(product => {
+                const category = product["Categories"] || "Other";
+                if (!grouped[category]) {
+                    grouped[category] = [];
+                }
+                grouped[category].push(product);
+            });
+
+            const sortedCategories = Object.keys(grouped).sort();
+
+            sortedCategories.forEach(category => {
+                const categorySection = document.createElement('div');
+                categorySection.classList.add('category-section');
+
+                const categoryButton = document.createElement('button');
+                categoryButton.classList.add('category-button');
+                categoryButton.textContent = category;
+
+                const productsContainer = document.createElement('div');
+                productsContainer.classList.add('products-container');
+
+                grouped[category].forEach(product => {
+                    const productSection = document.createElement('div');
+                    productSection.classList.add('product-section');
+
+                    productSection.innerHTML = `
+                        <p class="product-name">${product["Product Name"]}</p>
+                        <button class="toggle-product-button">View Details</button>
+                        <div class="product-details">
+                            <p><strong>Type:</strong> ${product["Product Type"]}</p>
+                            <p><strong>Color:</strong> ${product["Product Color"] || 'N/A'}</p>
+                            <p><strong>Size:</strong> ${product["Product Size"]}</p>
+                            <p><strong>Weight (oz):</strong> ${product["Product Weight (oz)"]}</p>
+                            <p><strong>Dimensions (in):</strong> ${product["Length (In)"]} x ${product["Width (In)"]} x ${product["Height (In)"]}</p>
+                        </div>
+                        <img src="${product["Product Image"]}" alt="${product["Product Name"]}">
+                    `;
+
+                    const toggleButton = productSection.querySelector('.toggle-product-button');
+                    const productDetails = productSection.querySelector('.product-details');
+                    const productImage = productSection.querySelector('img');
+
+                    toggleButton.addEventListener('click', () => {
+                        const isVisible = productDetails.style.display === 'block';
+                        productDetails.style.display = isVisible ? 'none' : 'block';
+                        productImage.style.display = isVisible ? 'none' : 'block';
+                    });
+
+                    productsContainer.appendChild(productSection);
                 });
 
-                const sortedCategories = Object.keys(grouped).sort();
+                categoryButton.addEventListener('click', () => {
+                    const isVisible = productsContainer.style.display === 'block';
+                    productsContainer.style.display = isVisible ? 'none' : 'block';
+                });
 
-                sortedCategories.forEach(category => {
-                    const categorySection = document.createElement('div');
-                    categorySection.classList.add('category-section');
+                categorySection.appendChild(categoryButton);
+                categorySection.appendChild(productsContainer);
+
+                container.appendChild(categorySection);
+            });
+        })
+        .catch(error => console.error('Error loading product details:', error));
+</script>
