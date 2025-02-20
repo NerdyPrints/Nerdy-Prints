@@ -92,6 +92,7 @@
     <div class="account-container">
         <h2>Welcome, <span id="userEmail">[Email]</span>!</h2>
         <div class="account-info">
+            <p><strong>Username:</strong> <span id="userUsername">Loading...</span></p>
             <p><strong>Name:</strong> <span id="userName">Loading...</span></p>
             <p><strong>Address:</strong> <span id="userAddress">Loading...</span></p>
             <p><strong>Age:</strong> <span id="userAge">Loading...</span></p>
@@ -128,6 +129,7 @@
             fetch(`https://script.google.com/macros/s/AKfycbxaGsUqNTxRi1P8ZjfAMCx5FurOzWEF7hFj3P9v-vzwZIPhM2Co_P-om_dQxnknYGUj/exec?email=${loggedInUser}`)
                 .then(response => response.json())
                 .then(data => {
+                    document.getElementById('userUsername').textContent = data.username || 'N/A';
                     document.getElementById('userName').textContent = data.name || 'N/A';
                     document.getElementById('userAddress').textContent = data.address || 'N/A';
                     document.getElementById('userAge').textContent = data.age || 'N/A';
