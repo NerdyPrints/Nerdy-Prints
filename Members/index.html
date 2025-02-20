@@ -97,7 +97,6 @@
             box-shadow: 5px 5px 0px #000;
             max-height: 300px;
             overflow-y: auto;
-            height: 400px;
         }
 
         footer {
@@ -139,12 +138,12 @@
 
         <div class="section">
             <h2>Nerdy Chat - Join the Discussion!</h2>
-            <form class="upload-form">
-                <input type="text" placeholder="Start a topic or say hi!" required>
+            <form class="upload-form" id="chatForm">
+                <input type="text" id="chatMessage" placeholder="Start a topic or say hi!" required>
                 <button type="submit">Post</button>
             </form>
             <div class="discussion-window">
-                <div class="discussion">Messages will go here...</div>
+                <div class="discussion" id="discussionMessages">Messages will go here...</div>
             </div>
         </div>
 
@@ -158,6 +157,25 @@
     <footer>
         <p>&copy; 2025 Nerdy Prints. All rights reserved.</p>
     </footer>
+
+    <script>
+        const chatForm = document.getElementById('chatForm');
+        const discussionMessages = document.getElementById('discussionMessages');
+
+        chatForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const message = document.getElementById('chatMessage').value.trim();
+            const username = localStorage.getItem('loggedInUsername') || 'Anonymous';
+
+            if (message) {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('discussion-message');
+                messageDiv.innerHTML = `<strong>${username}:</strong> ${message}`;
+                discussionMessages.appendChild(messageDiv);
+                chatForm.reset();
+            }
+        });
+    </script>
 </body>
 
 </html>
