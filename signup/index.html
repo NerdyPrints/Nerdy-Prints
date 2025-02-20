@@ -118,7 +118,7 @@
 
             try {
                 // Check if username is taken using Google Apps Script
-                const checkResponse = await fetch(`https://script.google.com/macros/s/YOUR_GOOGLE_SCRIPT_ID/exec?checkUsername=${username}`);
+                const checkResponse = await fetch(`https://script.google.com/macros/s/AKfycbxaGsUqNTxRi1P8ZjfAMCx5FurOzWEF7hFj3P9v-vzwZIPhM2Co_P-om_dQxnknYGUj/exec?checkUsername=${username}`);
                 const isTaken = await checkResponse.text();
 
                 if (isTaken.trim() === 'taken') {
