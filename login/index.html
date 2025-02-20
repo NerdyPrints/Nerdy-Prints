@@ -141,7 +141,7 @@
         const errorMessage = document.getElementById('errorMessage');
         const scriptURL = 'https://script.google.com/macros/s/AKfycbxaGsUqNTxRi1P8ZjfAMCx5FurOzWEF7hFj3P9v-vzwZIPhM2Co_P-om_dQxnknYGUj/exec';
 
-        form.addEventListener('submit', function(e) {
+        form.addEventListener('submit', function (e) {
             e.preventDefault();
 
             const formData = new FormData(form);
@@ -158,13 +158,18 @@
                         fetch(`${scriptURL}?email=${email}`)
                             .then(response => response.json())
                             .then(data => {
+                                if (data.error) {
+                                    errorMessage.textContent = 'User data not found. Please try again later.';
+                                    errorMessage.style.display = 'block';
+                                    return;
+                                }
+
                                 sessionStorage.setItem('userEmail', email);
                                 localStorage.setItem('loggedInUsername', data.username);
                                 localStorage.setItem('loggedInName', data.name);
                                 localStorage.setItem('loggedInAddress', data.address);
                                 localStorage.setItem('loggedInAge', data.age);
                                 localStorage.setItem('loggedInGender', data.gender);
-                                
 
                                 window.location.href = '/account/';
                             })
