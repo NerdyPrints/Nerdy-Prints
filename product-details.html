@@ -55,7 +55,7 @@
 
         .product-section h2 {
             color: #FFD700;
-            font-size: 1.4rem;
+            font-size: 1.2rem;
         }
 
         .product-details {
@@ -141,36 +141,27 @@
     </footer>
 
     <script>
-        const products = [];
-
-        fetch('/printful_products_uk.json')
+        fetch('/products-data/europe_printful_products.json')
             .then(response => response.json())
             .then(data => {
-                data.forEach(product => {
-                    products.push({
-                        name: product.name,
-                        image: product.image,
-                        material: product.materials || 'N/A',
-                        sizing: product.sizing || 'N/A',
-                        price: product.price || 'N/A',
-                        weight: product.weight || 'N/A'
-                    });
-                });
-
                 const container = document.getElementById('product-details-container');
-                products.forEach(product => {
+
+                data.forEach(product => {
                     const section = document.createElement('div');
                     section.classList.add('product-section');
 
                     section.innerHTML = `
-                        <img src="${product.image}" alt="${product.name}">
-                        <h2>${product.name}</h2>
+                        <img src="${product["Product Image"]}" alt="${product["Product Name"]}">
+                        <h2>${product["Product Name"]}</h2>
                         <button class="toggle-button">View Details</button>
                         <div class="product-details">
-                            <p><strong>Material:</strong> ${product.material}</p>
-                            <p><strong>Sizing:</strong> ${product.sizing}</p>
-                            <p><strong>Price:</strong> ${product.price}</p>
-                            <p><strong>Weight:</strong> ${product.weight}</p>
+                            <p><strong>Type:</strong> ${product["Product Type"]}</p>
+                            <p><strong>Color:</strong> ${product["Product Color"] || 'N/A'}</p>
+                            <p><strong>Size:</strong> ${product["Product Size"]}</p>
+                            <p><strong>Weight (oz):</strong> ${product["Product Weight (oz)"]}</p>
+                            <p><strong>Dimensions (in):</strong> ${product["Length (In)"]} x ${product["Width (In)"]} x ${product["Height (In)"]}</p>
+                            <p><strong>Price:</strong> ${product["Product Price"]}</p>
+                            <p><strong>Categories:</strong> ${product["Categories"]}</p>
                         </div>
                     `;
 
