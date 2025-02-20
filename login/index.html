@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -102,11 +103,14 @@
         }
 
         @media (max-width: 768px) {
-            header h1 { font-size: 2rem; }
+            header h1 {
+                font-size: 2rem;
+            }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <header>
         <h1>Login - Nerdy Prints</h1>
@@ -135,7 +139,7 @@
     <script>
         const form = document.getElementById('loginForm');
         const errorMessage = document.getElementById('errorMessage');
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbztVlDDSHUlGf4SCXbQPGgY0cBDRaSWT0WbelaR9qybcs8uXKqGAeuU8kworoRXU_Wthg/exec';
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxaGsUqNTxRi1P8ZjfAMCx5FurOzWEF7hFj3P9v-vzwZIPhM2Co_P-om_dQxnknYGUj/exec';
 
         form.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -146,22 +150,37 @@
                 method: 'POST',
                 body: formData,
             })
-            .then(response => response.text())
-            .then(text => {
-                if (text.trim() === 'Success') {
-                    const email = formData.get('email');
-                    sessionStorage.setItem('userEmail', email);
-                    localStorage.setItem('loggedInUser', email);
-                    window.location.href = '/account/';
-                } else {
-                    errorMessage.style.display = 'block';
-                }
-            })
-            .catch(error => {
-                alert('An error occurred. Please try again later.');
-                console.error('Login error:', error);
-            });
-        });
+                .then(response => response.text())
+                .then(text => {
+                    if (text.trim() === 'Success') {
+                        const email = formData.get('email');
+
+                        fetch(`${scriptURL}?email=${email}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                sessionStorage.setItem('userEmail', email);
+                                localStorage.setItem('loggedInName', data.name);
+                                localStorage.setItem('loggedInAddress', data.address);
+                                localStorage.setItem('loggedInAge', data.age);
+                                localStorage.setItem('loggedInGender', data.gender);
+                                localStorage.setItem('loggedInUsername', data.username);
+
+                                window.location.href = '/account/';
+                            })
+                            .catch(error => {
+                                console.error('Data fetch error:', error);
+                                errorMessage.textContent = 'Failed to retrieve user data. Please try again later.';
+                                errorMessage.style.display = 'block';
+                            });
+                    } else {
+                        errorMessage.style.display = 'block';
+                    }
+                })
+                .catch(error => {
+                    alert('An error occurred. Please try again later.');
+                    console.error('Login error:', error);
+                });
     </script>
 </body>
+
 </html>
