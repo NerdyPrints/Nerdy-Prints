@@ -144,17 +144,18 @@ const scriptURL = 'https://script.google.com/macros/s/AKfycbxaGsUqNTxRi1P8ZjfAMC
 form.addEventListener('submit', function (e) {
     e.preventDefault();
 
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value.trim();
 
-    // GET request for user details by email
-    fetch(`${scriptURL}?email=${encodeURIComponent(email)}`, { method: 'GET' })
+    fetch(`${scriptURL}?email=${encodeURIComponent(email)}`)
         .then(response => response.json())
         .then(data => {
+            console.log('Fetched data:', data); // Debugging
             if (data.error) {
                 errorMessage.textContent = 'Invalid email or password.';
                 errorMessage.style.display = 'block';
             } else if (data.password === password) {
+                // Store data in localStorage/sessionStorage for later use
                 sessionStorage.setItem('userEmail', email);
                 localStorage.setItem('loggedInUsername', data.username);
                 localStorage.setItem('loggedInName', data.name);
@@ -162,6 +163,7 @@ form.addEventListener('submit', function (e) {
                 localStorage.setItem('loggedInAge', data.age);
                 localStorage.setItem('loggedInGender', data.gender);
 
+                // Redirect to account page
                 window.location.href = '/account/';
             } else {
                 errorMessage.textContent = 'Invalid email or password.';
