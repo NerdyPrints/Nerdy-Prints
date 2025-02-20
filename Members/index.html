@@ -134,7 +134,7 @@
 </head>
 <body>
     <script>
-        const loggedInUser = localStorage.getItem('loggedInUser');
+        const loggedInUser = sessionStorage.getItem('userEmail');
         if (!loggedInUser) {
             window.location.href = '/login/';
         }
