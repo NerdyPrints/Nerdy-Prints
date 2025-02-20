@@ -149,9 +149,9 @@
 <body>
     <script>
         const loggedInUser = sessionStorage.getItem('userEmail');
-if (!loggedInUser) {
-    window.location.href = '/login/';
-}
+        if (!loggedInUser) {
+            window.location.href = '/login/';
+        }
     </script>
 
     <header>
@@ -170,7 +170,7 @@ if (!loggedInUser) {
             <h2>Live Chat - Nerdy Talk!</h2>
             <div id="chatMessages" class="chat-messages"></div>
             <div class="chat-input">
-                <input type="text" id="chatInput" placeholder="Type your message here...">
+                <input type="text" id="chatInput" placeholder="Type your message here..." onkeypress="handleEnterKey(event)">
                 <button class="chat-button" onclick="sendMessage()">Send</button>
             </div>
             <p class="disclaimer">Please be kind. No links or inappropriate content. Offenders may be banned.</p>
@@ -180,5 +180,5 @@ if (!loggedInUser) {
     <footer>
         <p>&copy; 2025 Nerdy Prints. All rights reserved.</p>
     </footer>
-
-    <script>
+</body>
+</html>
