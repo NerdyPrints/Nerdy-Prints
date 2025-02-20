@@ -138,35 +138,42 @@
 
     <script>
         const form = document.getElementById('loginForm');
-        const errorMessage = document.getElementById('errorMessage');
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbylKKvQITKICPByvU_7KDTh7ldXVuGr56u0Vejw-1R3_yvvwgubL6_ErBGBPuRNJ3YE/exec';
+const errorMessage = document.getElementById('errorMessage');
+const scriptURL = 'https://script.google.com/macros/s/AKfycbxaGsUqNTxRi1P8ZjfAMCx5FurOzWEF7hFj3P9v-vzwZIPhM2Co_P-om_dQxnknYGUj/exec';
 
-        form.addEventListener('submit', function (e) {
-            e.preventDefault();
+form.addEventListener('submit', function (e) {
+    e.preventDefault();
 
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
 
-            fetch(`${scriptURL}?email=${encodeURIComponent(email)}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.error) {
-                        errorMessage.textContent = 'Invalid email or password.';
-                        errorMessage.style.display = 'block';
-                    } else if (data.password === password) {
-                        sessionStorage.setItem('userEmail', email);
-                        localStorage.setItem('loggedInUsername', data.username);
-                        localStorage.setItem('loggedInName', data.name);
-                        localStorage.setItem('loggedInAddress', data.address);
-                        localStorage.setItem('loggedInAge', data.age);
-                        localStorage.setItem('loggedInGender', data.gender);
+    // GET request for user details by email
+    fetch(`${scriptURL}?email=${encodeURIComponent(email)}`, { method: 'GET' })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                errorMessage.textContent = 'Invalid email or password.';
+                errorMessage.style.display = 'block';
+            } else if (data.password === password) {
+                sessionStorage.setItem('userEmail', email);
+                localStorage.setItem('loggedInUsername', data.username);
+                localStorage.setItem('loggedInName', data.name);
+                localStorage.setItem('loggedInAddress', data.address);
+                localStorage.setItem('loggedInAge', data.age);
+                localStorage.setItem('loggedInGender', data.gender);
 
-                        window.location.href = '/account/';
-                    } else {
-                        errorMessage.textContent = 'Invalid email or password.';
-                        errorMessage.style.display = 'block';
-                    }
-                })
+                window.location.href = '/account/';
+            } else {
+                errorMessage.textContent = 'Invalid email or password.';
+                errorMessage.style.display = 'block';
+            }
+        })
+        .catch(error => {
+            console.error('Data fetch error:', error);
+            errorMessage.textContent = 'Failed to retrieve user data. Please try again later.';
+            errorMessage.style.display = 'block';
+        });
+});
                 .catch(error => {
                     console.error('Data fetch error:', error);
                     errorMessage.textContent = 'Failed to retrieve user data. Please try again later.';
