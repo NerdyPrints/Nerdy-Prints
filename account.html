@@ -120,23 +120,29 @@
     </div>
 
     <script>
-        const loggedInUser = localStorage.getItem('loggedInUser');
-        if (!loggedInUser) {
-            window.location.href = '/login/';
-        } else {
-            document.getElementById('userEmail').textContent = loggedInUser;
+        const loggedInUser = sessionStorage.getItem('userEmail');
+if (!loggedInUser) {
+    window.location.href = '/login/';
+} else {
+    document.getElementById('userEmail').textContent = loggedInUser;
 
-            fetch(`https://script.google.com/macros/s/AKfycbxaGsUqNTxRi1P8ZjfAMCx5FurOzWEF7hFj3P9v-vzwZIPhM2Co_P-om_dQxnknYGUj/exec?email=${loggedInUser}`)
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('userUsername').textContent = data.username || 'N/A';
-                    document.getElementById('userName').textContent = data.name || 'N/A';
-                    document.getElementById('userAddress').textContent = data.address || 'N/A';
-                    document.getElementById('userAge').textContent = data.age || 'N/A';
-                    document.getElementById('userGender').textContent = data.gender || 'N/A';
-                })
-                .catch(error => console.error('Error fetching user data:', error));
-        }
+    fetch(`https://script.google.com/macros/s/AKfycbxaGsUqNTxRi1P8ZjfAMCx5FurOzWEF7hFj3P9v-vzwZIPhM2Co_P-om_dQxnknYGUj/exec?email=${loggedInUser}`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('userUsername').textContent = data.username || 'N/A';
+            document.getElementById('userName').textContent = data.name || 'N/A';
+            document.getElementById('userAddress').textContent = data.address || 'N/A';
+            document.getElementById('userAge').textContent = data.age || 'N/A';
+            document.getElementById('userGender').textContent = data.gender || 'N/A';
+        })
+        .catch(error => console.error('Error fetching user data:', error));
+}
+
+function logoutUser() {
+    localStorage.clear();
+    sessionStorage.clear();
+    window.location.href = '/';
+}
 
         function logoutUser() {
             localStorage.removeItem('loggedInUser');
