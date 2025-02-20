@@ -90,13 +90,13 @@
     </header>
 
     <div class="account-container">
-        <h2>Welcome, <span id="userEmail">[Email]</span>!</h2>
+        <h2>Welcome, <span id="userUsername">[Username]</span>!</h2>
         <div class="account-info">
-            <p><strong>Username:</strong> <span id="userUsername">Loading...</span></p>
-            <p><strong>Name:</strong> <span id="userName">Loading...</span></p>
-            <p><strong>Address:</strong> <span id="userAddress">Loading...</span></p>
-            <p><strong>Age:</strong> <span id="userAge">Loading...</span></p>
-            <p><strong>Gender:</strong> <span id="userGender">Loading...</span></p>
+            <p><strong>Email:</strong> <span id="userEmail">[Email]</span></p>
+            <p><strong>Name:</strong> <span id="userName">[Name]</span></p>
+            <p><strong>Address:</strong> <span id="userAddress">[Address]</span></p>
+            <p><strong>Age:</strong> <span id="userAge">[Age]</span></p>
+            <p><strong>Gender:</strong> <span id="userGender">[Gender]</span></p>
         </div>
 
         <h2>Order History</h2>
@@ -120,29 +120,17 @@
     </div>
 
     <script>
-        const loggedInUser = sessionStorage.getItem('userEmail');
-if (!loggedInUser) {
-    window.location.href = '/login/';
-} else {
-    document.getElementById('userEmail').textContent = loggedInUser;
-
-    fetch(`https://script.google.com/macros/s/AKfycbxaGsUqNTxRi1P8ZjfAMCx5FurOzWEF7hFj3P9v-vzwZIPhM2Co_P-om_dQxnknYGUj/exec?email=${loggedInUser}`)
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('userUsername').textContent = data.username || 'N/A';
-            document.getElementById('userName').textContent = data.name || 'N/A';
-            document.getElementById('userAddress').textContent = data.address || 'N/A';
-            document.getElementById('userAge').textContent = data.age || 'N/A';
-            document.getElementById('userGender').textContent = data.gender || 'N/A';
-        })
-        .catch(error => console.error('Error fetching user data:', error));
-}
-
-function logoutUser() {
-    localStorage.clear();
-    sessionStorage.clear();
-    window.location.href = '/';
-}
+        const loggedInUser = localStorage.getItem('loggedInUser');
+        if (!loggedInUser) {
+            window.location.href = '/login/';
+        } else {
+            document.getElementById('userUsername').textContent = localStorage.getItem('loggedInUsername') || 'N/A';
+            document.getElementById('userEmail').textContent = loggedInUser;
+            document.getElementById('userName').textContent = localStorage.getItem('loggedInName') || 'N/A';
+            document.getElementById('userAddress').textContent = localStorage.getItem('loggedInAddress') || 'N/A';
+            document.getElementById('userAge').textContent = localStorage.getItem('loggedInAge') || 'N/A';
+            document.getElementById('userGender').textContent = localStorage.getItem('loggedInGender') || 'N/A';
+        }
 
         function logoutUser() {
             localStorage.removeItem('loggedInUser');
