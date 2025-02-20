@@ -120,17 +120,17 @@
     </div>
 
     <script>
-        const loggedInUser = localStorage.getItem('loggedInUser');
-        if (!loggedInUser) {
-            window.location.href = '/login/';
-        } else {
-            document.getElementById('userUsername').textContent = localStorage.getItem('loggedInUsername') || 'N/A';
-            document.getElementById('userEmail').textContent = loggedInUser;
-            document.getElementById('userName').textContent = localStorage.getItem('loggedInName') || 'N/A';
-            document.getElementById('userAddress').textContent = localStorage.getItem('loggedInAddress') || 'N/A';
-            document.getElementById('userAge').textContent = localStorage.getItem('loggedInAge') || 'N/A';
-            document.getElementById('userGender').textContent = localStorage.getItem('loggedInGender') || 'N/A';
-        }
+        const loggedInUser = sessionStorage.getItem('userEmail');
+if (!loggedInUser) {
+    window.location.href = '/login/';
+} else {
+    document.getElementById('userUsername').textContent = localStorage.getItem('loggedInUsername') || 'N/A';
+    document.getElementById('userEmail').textContent = loggedInUser;
+    document.getElementById('userName').textContent = localStorage.getItem('loggedInName') || 'N/A';
+    document.getElementById('userAddress').textContent = localStorage.getItem('loggedInAddress') || 'N/A';
+    document.getElementById('userAge').textContent = localStorage.getItem('loggedInAge') || 'N/A';
+    document.getElementById('userGender').textContent = localStorage.getItem('loggedInGender') || 'N/A';
+}
 
         function logoutUser() {
             localStorage.removeItem('loggedInUser');
