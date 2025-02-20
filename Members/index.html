@@ -148,10 +148,10 @@
 </head>
 <body>
     <script>
-        const loggedInUser = localStorage.getItem('loggedInUser');
-        if (!loggedInUser) {
-            window.location.href = '/login/';
-        }
+        const loggedInUser = sessionStorage.getItem('userEmail');
+if (!loggedInUser) {
+    window.location.href = '/login/';
+}
     </script>
 
     <header>
