@@ -4,17 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nerdy Prints - Your Fandom. Your Style.</title>
+    <title>Product Details - Nerdy Prints</title>
     <style>
         body {
             font-family: 'Comic Neue', cursive;
-            color: #ffffff;
-            margin: 0;
-            padding: 0;
             background-image: url('https://github.com/NerdyPrints/Nerdy-Prints/blob/main/assets/comic-colorful-explosions-seamless-pattern_225004-812.jpg?raw=true');
             background-size: cover;
             background-attachment: fixed;
             background-position: center;
+            margin: 0;
+            padding: 0;
+            color: #ffffff;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -25,88 +25,52 @@
             padding: 15px;
             text-align: center;
             border-bottom: 5px solid #FFD700;
-            position: relative;
         }
 
         header h1 {
-            margin: 0;
-            font-size: 3rem;
+            font-family: 'Bangers', cursive;
             color: #FFD700;
+            margin: 0;
         }
 
-        header p {
-            margin: 5px 0 0;
-            font-size: 1.2rem;
-            font-family: 'Press Start 2P', cursive;
-            color: #ffffff;
+        .container {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
         }
 
-        .login-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: #ffffff;
-            color: #ff0033;
-            padding: 10px 20px;
-            font-family: 'Comic Neue', cursive;
-            font-size: 1rem;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            box-shadow: 3px 3px 0px #000;
-            transition: box-shadow 0.3s ease-in-out;
-            text-shadow: 2px 2px 0 #FFD700;
-        }
-
-        .login-button:hover {
-            box-shadow: 0 0 15px #ff0099, 0 0 25px #FFD700;
-        }
-
-        .main-content {
-            flex: 1;
+        .category-section {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: start;
-            padding-top: 50px;
-            gap: 60px;
         }
 
-        .bubble-row {
-            display: flex;
-            gap: 100px;
-        }
-
-        .bubble-container {
-            position: relative;
-            display: inline-block;
-        }
-
-        .bubble-button {
+        .category-button {
             background-color: #ffffff;
-            padding: 25px 50px;
+            padding: 15px 30px;
             border-radius: 30px;
             display: inline-block;
-            font-family: 'Comic Neue', cursive;
-            font-size: 1.8rem;
-            text-decoration: none;
+            font-family: 'Comic Neue', sans-serif;
+            font-size: 1.2rem;
+            text-align: center;
             font-weight: bold;
             box-shadow: 5px 5px 0 #000;
             transition: box-shadow 0.3s ease-in-out;
             color: #ff0033;
             text-shadow: 2px 2px 0 #FFD700;
-            text-align: center;
+            cursor: pointer;
+            border: none;
+            margin-bottom: 5px;
+            position: relative;
         }
 
-        .bubble-button:hover {
-            box-shadow: 0 0 15px #ff0099, 0 0 25px #FFD700;
-        }
-
-        .bubble-tail {
+        .category-button::after {
             content: '';
             position: absolute;
             bottom: -15px;
-            left: 40px;
+            left: 50%;
+            transform: translateX(-50%);
             width: 0;
             height: 0;
             border-left: 15px solid transparent;
@@ -114,73 +78,118 @@
             border-top: 15px solid #ffffff;
         }
 
-        .footer {
-            margin-top: auto;
-            text-align: center;
-            color: #aaa;
-            background: rgba(0, 0, 0, 0.9);
-            padding: 15px 10px;
+        .category-button:hover {
+            box-shadow: 0 0 15px #ff0099, 0 0 25px #FFD700;
         }
 
-        @media (max-width: 768px) {
-            .bubble-row {
-                flex-direction: column;
-                align-items: center;
-                gap: 15px;
-            }
+        .products-container {
+            display: none;
+            margin-top: 10px;
+        }
 
-            .bubble-button {
-                font-size: 1.5rem;
-                padding: 20px 35px;
-            }
+        .product-section {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 3px 3px 0px #000;
+            margin-bottom: 10px;
+        }
+
+        .product-section img {
+            max-width: 150px;
+            height: auto;
+            border-radius: 8px;
+            display: none;
+            margin-top: 10px;
+        }
+
+        .product-details {
+            display: none;
+        }
+
+        .product-name {
+            font-size: 1.2rem;
+            color: #FFD700;
+        }
+
+        .toggle-product-button {
+            background-color: #ffffff;
+            color: #ff0033;
+            font-family: 'Comic Neue', sans-serif;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 3px 3px 0px #000;
+            transition: box-shadow 0.3s ease-in-out;
+            text-shadow: 1px 1px 0 #FFD700;
+        }
+
+        .toggle-product-button:hover {
+            box-shadow: 0 0 10px #ff0099, 0 0 15px #FFD700;
+        }
+
+        .button-group {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .button-link {
+            background-color: #ffffff;
+            padding: 12px 25px;
+            border-radius: 30px;
+            display: inline-block;
+            font-family: 'Bangers', cursive;
+            font-size: 1.3rem;
+            text-decoration: none;
+            font-weight: bold;
+            color: #ff0033;
+            text-shadow: 2px 2px 0 #FFD700;
+            box-shadow: 3px 3px 0 #000;
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        .button-link:hover {
+            box-shadow: 0 0 15px #ff0099, 0 0 25px #FFD700;
+        }
+
+        footer {
+            margin-top: auto;
+            background: rgba(0, 0, 0, 0.9);
+            color: #ffffff;
+            text-align: center;
+            padding: 10px 0;
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <header>
-        <h1>Nerdy Prints</h1>
-        <p>Your Fandom. Your Style.</p>
-        <button id="accountButton" class="login-button">Loading...</button>
+        <h1>Product Details & Guide</h1>
     </header>
 
-    <div class="main-content">
-        <div class="bubble-row">
-            <div class="bubble-container"><a href="/shop/" class="bubble-button">Start Shopping - BOOM!</a>
-                <div class="bubble-tail"></div>
-            </div>
-            <div class="bubble-container"><a href="/account/" class="bubble-button">My Account - WHAM!</a>
-                <div class="bubble-tail"></div>
-            </div>
-        </div>
-        <div class="bubble-container"><a href="/product-details.html" class="bubble-button">Product Details - KAZOOM!</a>
-            <div class="bubble-tail"></div>
-        </div>
-        <div class="bubble-container"><a href="mailto:yourfandomyourstyle@gmail.com" class="bubble-button">Looking for a Custom Design? - ZAP!</a>
-            <div class="bubble-tail"></div>
-        </div>
-        <div class="bubble-container" style="margin-top: -10px;"><a href="/signup/" class="bubble-button">New Here? Sign Up Now! - KAPOW!</a>
-            <div class="bubble-tail"></div>
-        </div>
+    <div class="container" id="product-details-container">
+        <!-- Products will load here -->
     </div>
 
-    <div class="footer">
-        <p>&copy; 2025 Nerdy Prints. All rights reserved. | <a href="/privacy/" style="color:#FFD700;">Privacy Policy</a></p>
+    <div class="button-group">
+        <a href="/" class="button-link">Back to Home</a>
+        <a href="/shop/" class="button-link">Continue to Shop</a>
+        <a href="/members/" class="button-link">Members Area</a>
     </div>
+
+    <footer>
+        <p>&copy; 2025 Nerdy Prints. All rights reserved.</p>
+    </footer>
 
     <script>
-        const accountButton = document.getElementById('accountButton');
-        const userSessionEmail = sessionStorage.getItem('userEmail');
-
-        if (userSessionEmail) {
-            accountButton.textContent = 'Account';
-            accountButton.onclick = () => window.location.href = '/account/';
-        } else {
-            accountButton.textContent = 'Login';
-            accountButton.onclick = () => window.location.href = '/login/';
-        }
+        fetch('/products-data/europe_printful_products.json')
+            .then(response => response.json())
+            .then(data => { /* Your existing script logic here */ })
+            .catch(error => console.error('Error loading product details:', error));
     </script>
 </body>
-
 </html>
