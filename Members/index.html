@@ -106,12 +106,32 @@
             text-align: center;
             padding: 10px 0;
         }
+
+        .back-button {
+            margin-top: 20px;
+            background-color: #ffffff;
+            color: #ff0033;
+            font-family: 'Comic Neue', cursive;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 3px 3px 0px #000;
+            transition: box-shadow 0.3s ease-in-out;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .back-button:hover {
+            box-shadow: 0 0 15px #ff0099, 0 0 25px #FFD700;
+        }
     </style>
 </head>
 
 <body>
     <header>
-        <h1>Members Area</h1>
+        <h1>Welcome to the Members Area, <span id="usernameDisplay">User</span>!</h1>
     </header>
 
     <div class="container">
@@ -152,6 +172,8 @@
             <p>Submit your best designs and vote for your favorites. Prizes to be won!</p>
             <p>Coming Soon!</p>
         </div>
+
+        <a href="/" class="back-button">Back to Home</a>
     </div>
 
     <footer>
@@ -159,6 +181,8 @@
     </footer>
 
     <script>
+        document.getElementById('usernameDisplay').textContent = localStorage.getItem('loggedInUsername') || 'User';
+
         const chatForm = document.getElementById('chatForm');
         const discussionMessages = document.getElementById('discussionMessages');
 
