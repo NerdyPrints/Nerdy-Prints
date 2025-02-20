@@ -102,6 +102,18 @@
             border-radius: 8px;
         }
 
+        .chat-message {
+            margin-bottom: 8px;
+            padding: 6px;
+            background: #444;
+            border-radius: 8px;
+        }
+
+        .chat-reaction {
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
         .chat-input {
             margin-top: 10px;
             display: flex;
@@ -149,13 +161,14 @@
 <body>
     <script>
         const loggedInUser = sessionStorage.getItem('userEmail');
+        const loggedInUsername = localStorage.getItem('loggedInUsername');
         if (!loggedInUser) {
             window.location.href = '/login/';
         }
     </script>
 
     <header>
-        <h1>Welcome to the Members Hub, <span id="displayUsername">User</span>!</h1>
+        <h1>Welcome to the Members Hub, <span id="displayUsername">Loading...</span>!</h1>
     </header>
 
     <div class="container">
@@ -171,6 +184,7 @@
             <div id="chatMessages" class="chat-messages"></div>
             <div class="chat-input">
                 <input type="text" id="chatInput" placeholder="Type your message here..." onkeypress="handleEnterKey(event)">
+                <button class="chat-button" onclick="sendMessage()">😊</button>
                 <button class="chat-button" onclick="sendMessage()">Send</button>
             </div>
             <p class="disclaimer">Please be kind. No links or inappropriate content. Offenders may be banned.</p>
@@ -180,5 +194,45 @@
     <footer>
         <p>&copy; 2025 Nerdy Prints. All rights reserved.</p>
     </footer>
+
+    <script>
+        document.getElementById('displayUsername').textContent = localStorage.getItem('loggedInUsername') || 'User';
+
+        function handleEnterKey(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            let message = input.value.trim();
+
+            if (!message) return;
+            if (message.includes('http://') || message.includes('https://')) {
+                alert('Links are not allowed in the chat.');
+                return;
+            }
+
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('chat-message');
+            messageDiv.innerHTML = `<strong>${localStorage.getItem('loggedInUsername') || 'User'}:</strong> ${message}
+                <span class="chat-reaction" onclick="reactToMessage(this)">❤️</span>
+                <span class="chat-reaction" onclick="reactToMessage(this)">👍</span>`;
+            chatMessages.appendChild(messageDiv);
+
+            input.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function reactToMessage(element) {
+            element.textContent += '✨';
+        }
+
+        function toggleChatWindow(element) {
+            element.classList.toggle('active');
+        }
+    </script>
 </body>
 </html>
