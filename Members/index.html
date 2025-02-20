@@ -1,112 +1,103 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Members Area - Nerdy Prints</title>
-    <style>
-        body {
-            font-family: 'Comic Neue', sans-serif;
-            color: #ffffff;
-            margin: 0;
-            padding: 0;
-            background-image: url('https://github.com/NerdyPrints/Nerdy-Prints/blob/main/assets/comic-colorful-explosions-seamless-pattern_225004-812.jpg?raw=true');
-            background-size: cover;
-            background-attachment: fixed;
-            background-position: center;
-            min-height: 100vh;
+.container {
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            text-align: center;
+            gap: 20px;
         }
 
-        header {
-            background: rgba(0, 0, 0, 0.9);
+        .section {
+            background-color: rgba(0, 0, 0, 0.8);
             padding: 15px;
-            text-align: center;
-            border-bottom: 5px solid #FFD700;
+            border-radius: 12px;
+            box-shadow: 5px 5px 0px #000;
         }
 
-        header h1 {
-            margin: 0;
-            font-size: 3rem;
+        .section h2 {
             font-family: 'Bangers', cursive;
             color: #FFD700;
         }
 
-        #welcomeMessage {
-            display: none; /* Start hidden */
-            margin-top: 20px;
-            font-family: 'Bangers', cursive;
-            font-size: 1.5rem;
+        .upload-form input[type="file"],
+        .upload-form input[type="text"] {
+            margin-bottom: 10px;
         }
 
-        .back-button, #logoutButton {
-            margin-top: 20px;
-            display: inline-block;
+        .upload-form button {
             background-color: #ffffff;
             color: #ff0033;
+            font-family: 'Comic Neue', cursive;
             padding: 10px 20px;
-            text-decoration: none;
-            font-family: 'Bangers', cursive;
-            font-size: 1.2rem;
+            border: none;
             border-radius: 8px;
+            cursor: pointer;
             box-shadow: 3px 3px 0px #000;
             transition: box-shadow 0.3s ease-in-out;
-            text-shadow: 2px 2px 0 #FFD700;
-            cursor: pointer;
-            border: none;
         }
 
-        .back-button:hover, #logoutButton:hover {
+        .upload-form button:hover {
             box-shadow: 0 0 15px #ff0099, 0 0 25px #FFD700;
         }
 
-        .footer {
+        .gallery, .community-designs, .discussion { display: flex; flex-wrap: wrap; gap: 10px; }
+        .gallery img, .community-designs img { max-width: 150px; border-radius: 8px; }
+        .discussion-message { background: #333; padding: 10px; border-radius: 8px; }
+
+        footer {
             margin-top: auto;
-            text-align: center;
-            color: #ffffff;
             background: rgba(0, 0, 0, 0.9);
-            padding: 15px 10px;
+            color: #ffffff;
+            text-align: center;
+            padding: 10px 0;
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <header>
         <h1>Members Area</h1>
-        <p id="welcomeMessage"></p>
     </header>
 
-    <button id="logoutButton">Logout</button>
+    <div class="container">
+        <div class="section">
+            <h2>Gallery - Show Off Your Style!</h2>
+            <form class="upload-form">
+                <input type="file" accept="image/*" required>
+                <input type="text" placeholder="Add a caption...">
+                <button type="submit">Upload Image</button>
+            </form>
+            <div class="gallery">Images will go here...</div>
+        </div>
 
-    <a href="/" class="back-button">Back to Home</a>
+        <div class="section">
+            <h2>Community Designs - Create Together!</h2>
+            <form class="upload-form">
+                <input type="file" accept="image/*" required>
+                <input type="text" placeholder="Design Title" required>
+                <textarea placeholder="Description"></textarea>
+                <button type="submit">Submit Design</button>
+            </form>
+            <div class="community-designs">Designs will go here...</div>
+        </div>
 
-    <div class="footer">
-        <p>&copy; 2025 Nerdy Prints. All rights reserved. | <a href="/privacy/" style="color:#FFD700;">Privacy Policy</a></p>
+        <div class="section">
+            <h2>Nerdy Chat - Join the Discussion!</h2>
+            <form class="upload-form">
+                <input type="text" placeholder="Start a topic or say hi!" required>
+                <button type="submit">Post</button>
+            </form>
+            <div class="discussion">Messages will go here...</div>
+        </div>
+
+        <div class="section">
+            <h2>Design Battle - Monthly Contest!</h2>
+            <p>Submit your best designs and vote for your favorites. Prizes to be won!</p>
+            <p>Coming Soon!</p>
+        </div>
     </div>
 
-    <script>
-        const userEmail = sessionStorage.getItem('userEmail');
-
-        if (!userEmail) {
-            window.location.href = '/login/';
-        } else {
-            const welcomeMessage = document.getElementById('welcomeMessage');
-            welcomeMessage.innerText = `Welcome, ${userEmail}!`;
-            welcomeMessage.style.display = 'block';
-            welcomeMessage.style.opacity = 0;
-
-            setTimeout(() => {
-                welcomeMessage.style.transition = 'opacity 0.5s ease-in-out';
-                welcomeMessage.style.opacity = 1;
-            }, 200);
-        }
-
-        document.getElementById('logoutButton').addEventListener('click', () => {
-            sessionStorage.removeItem('userEmail');
-            window.location.href = '/';
-        });
-    </script>
+    <footer>
+        <p>&copy; 2025 Nerdy Prints. All rights reserved.</p>
+    </footer>
 </body>
+
 </html>
