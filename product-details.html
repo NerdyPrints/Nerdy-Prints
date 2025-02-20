@@ -51,6 +51,7 @@
             max-width: 100%;
             height: auto;
             border-radius: 8px;
+            display: none; /* Hide images by default */
         }
 
         .product-section h2 {
@@ -62,6 +63,10 @@
             display: none;
             text-align: left;
             margin-top: 10px;
+        }
+
+        .product-section.active img {
+            display: block; /* Show image when active */
         }
 
         .product-section.active .product-details {
@@ -151,22 +156,25 @@
                     section.classList.add('product-section');
 
                     section.innerHTML = `
-                        <img src="${product["Product Image"]}" alt="${product["Product Name"]}">
                         <h2>${product["Product Name"]}</h2>
                         <button class="toggle-button">View Details</button>
+                        <img data-src="${product["Product Image"]}" alt="${product["Product Name"]}">
                         <div class="product-details">
                             <p><strong>Type:</strong> ${product["Product Type"]}</p>
                             <p><strong>Color:</strong> ${product["Product Color"] || 'N/A'}</p>
                             <p><strong>Size:</strong> ${product["Product Size"]}</p>
                             <p><strong>Weight (oz):</strong> ${product["Product Weight (oz)"]}</p>
                             <p><strong>Dimensions (in):</strong> ${product["Length (In)"]} x ${product["Width (In)"]} x ${product["Height (In)"]}</p>
-                            <p><strong>Price:</strong> ${product["Product Price"]}</p>
                             <p><strong>Categories:</strong> ${product["Categories"]}</p>
                         </div>
                     `;
 
                     section.querySelector('.toggle-button').addEventListener('click', () => {
                         section.classList.toggle('active');
+                        const img = section.querySelector('img');
+                        if (section.classList.contains('active') && !img.src) {
+                            img.src = img.dataset.src;
+                        }
                     });
 
                     container.appendChild(section);
