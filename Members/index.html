@@ -82,6 +82,7 @@
             max-width: 600px;
             position: relative;
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            cursor: pointer;
         }
 
         .chat-window.active {
@@ -92,7 +93,6 @@
         .chat-window h2 {
             color: #FFD700;
             font-family: 'Bangers', cursive;
-            cursor: pointer;
         }
 
         .chat-messages {
@@ -180,13 +180,13 @@
         <a href="/shop/" class="speech-bubble-button">Shop</a>
         <a href="/" class="speech-bubble-button">Home</a>
 
-        <div class="chat-window">
+        <div class="chat-window" onclick="this.classList.toggle('active')">
             <h2>Live Chat - Nerdy Talk!</h2>
             <div id="chatMessages" class="chat-messages"></div>
             <div class="chat-input">
-                <input type="text" id="chatInput" placeholder="Type your message here...">
-                <button class="emoji-button">😊</button>
-                <button class="chat-button">Send</button>
+                <input type="text" id="chatInput" placeholder="Type your message here..." onkeypress="if(event.key==='Enter') sendMessage()">
+                <button class="emoji-button" onclick="addEmoji('😊')">😊</button>
+                <button class="chat-button" onclick="sendMessage()">Send</button>
             </div>
             <p class="disclaimer">Please be kind. No links or inappropriate content. Offenders may be banned.</p>
         </div>
@@ -198,6 +198,8 @@
 
     <script>
         document.getElementById('displayUsername').textContent = loggedInUsername || 'User';
+        function sendMessage() {/* implementation here */}
+        function addEmoji(emoji) {/* implementation here */}
     </script>
 </body>
 </html>
