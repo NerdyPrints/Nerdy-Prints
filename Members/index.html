@@ -188,4 +188,23 @@
                 <button class="emoji-button" onclick="addEmoji('😊')">😊</button>
                 <button class="chat-button" onclick="sendMessage()">Send</button>
             </div>
+            <p class="disclaimer">Please be kind. No links or inappropriate content. Offenders may be banned.</p>
+        </div>
+    </div>
 
+    <footer>
+        <p>&copy; 2025 Nerdy Prints. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('displayUsername').textContent = localStorage.getItem('loggedInUsername') || 'User';
+
+        function addEmoji(emoji) {
+            document.getElementById('chatInput').value += emoji;
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            let message = input.value.trim();
+
+            if (!message) return;
