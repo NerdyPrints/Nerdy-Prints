@@ -92,6 +92,7 @@
         .chat-window h2 {
             color: #FFD700;
             font-family: 'Bangers', cursive;
+            cursor: pointer;
         }
 
         .chat-messages {
@@ -127,7 +128,7 @@
             border: none;
         }
 
-        .chat-button {
+        .emoji-button, .chat-button {
             background-color: #ffffff;
             color: #ff0033;
             padding: 8px 16px;
@@ -137,7 +138,7 @@
             box-shadow: 3px 3px 0px #000;
         }
 
-        .chat-button:hover {
+        .emoji-button:hover, .chat-button:hover {
             box-shadow: 0 0 10px #ff0099, 0 0 15px #FFD700;
         }
 
@@ -168,7 +169,7 @@
     </script>
 
     <header>
-        <h1>Welcome to the Members Hub, <span id="displayUsername">Loading...</span>!</h1>
+        <h1>Welcome to the Members Hub, <span id="displayUsername"></span>!</h1>
     </header>
 
     <div class="container">
@@ -179,13 +180,13 @@
         <a href="/shop/" class="speech-bubble-button">Shop</a>
         <a href="/" class="speech-bubble-button">Home</a>
 
-        <div class="chat-window" onclick="toggleChatWindow(this)">
+        <div class="chat-window">
             <h2>Live Chat - Nerdy Talk!</h2>
             <div id="chatMessages" class="chat-messages"></div>
             <div class="chat-input">
-                <input type="text" id="chatInput" placeholder="Type your message here..." onkeypress="handleEnterKey(event)">
-                <button class="chat-button" onclick="sendMessage()">😊</button>
-                <button class="chat-button" onclick="sendMessage()">Send</button>
+                <input type="text" id="chatInput" placeholder="Type your message here...">
+                <button class="emoji-button">😊</button>
+                <button class="chat-button">Send</button>
             </div>
             <p class="disclaimer">Please be kind. No links or inappropriate content. Offenders may be banned.</p>
         </div>
@@ -196,43 +197,7 @@
     </footer>
 
     <script>
-        document.getElementById('displayUsername').textContent = localStorage.getItem('loggedInUsername') || 'User';
-
-        function handleEnterKey(event) {
-            if (event.key === 'Enter') {
-                sendMessage();
-            }
-        }
-
-        function sendMessage() {
-            const input = document.getElementById('chatInput');
-            let message = input.value.trim();
-
-            if (!message) return;
-            if (message.includes('http://') || message.includes('https://')) {
-                alert('Links are not allowed in the chat.');
-                return;
-            }
-
-            const chatMessages = document.getElementById('chatMessages');
-            const messageDiv = document.createElement('div');
-            messageDiv.classList.add('chat-message');
-            messageDiv.innerHTML = `<strong>${localStorage.getItem('loggedInUsername') || 'User'}:</strong> ${message}
-                <span class="chat-reaction" onclick="reactToMessage(this)">❤️</span>
-                <span class="chat-reaction" onclick="reactToMessage(this)">👍</span>`;
-            chatMessages.appendChild(messageDiv);
-
-            input.value = '';
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        function reactToMessage(element) {
-            element.textContent += '✨';
-        }
-
-        function toggleChatWindow(element) {
-            element.classList.toggle('active');
-        }
+        document.getElementById('displayUsername').textContent = loggedInUsername || 'User';
     </script>
 </body>
 </html>
