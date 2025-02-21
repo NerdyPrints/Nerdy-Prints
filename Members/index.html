@@ -81,12 +81,11 @@
             width: 80%;
             max-width: 600px;
             position: relative;
+            transform: scale(1);
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-            display: none;
         }
 
         .chat-window.active {
-            display: block;
             transform: scale(1.1);
             box-shadow: 0 0 20px #FFD700;
         }
@@ -182,11 +181,11 @@
         <a href="/shop/" class="speech-bubble-button">Shop</a>
         <a href="/" class="speech-bubble-button">Home</a>
 
-        <h2 onclick="toggleChatWindow()">Live Chat - Nerdy Talk!</h2>
         <div class="chat-window" id="chatWindow">
+            <h2 onclick="toggleChatWindow()">Live Chat - Nerdy Talk!</h2>
             <div id="chatMessages" class="chat-messages"></div>
             <div class="chat-input">
-                <input type="text" id="chatInput" placeholder="Type your message here...">
+                <input type="text" id="chatInput" placeholder="Type your message here..." onkeypress="handleEnterKey(event)">
                 <button class="emoji-button" onclick="addEmoji('😊')">😊</button>
                 <button class="chat-button" onclick="sendMessage()">Send</button>
             </div>
@@ -198,58 +197,4 @@
         <p>&copy; 2025 Nerdy Prints. All rights reserved.</p>
     </footer>
 
-        <script>
-        const loggedInUser = sessionStorage.getItem('userEmail');
-        const loggedInUsername = localStorage.getItem('loggedInUsername');
-        if (!loggedInUser) {
-            window.location.href = '/login/';
-        } else {
-            document.getElementById('displayUsername').textContent = loggedInUsername;
-        }
-
-        function toggleChatWindow() {
-            const chatWindow = document.getElementById('chatWindow');
-            chatWindow.classList.toggle('active');
-        }
-
-        function sendMessage() {
-            const inputField = document.getElementById('chatInput');
-            const message = inputField.value.trim();
-
-            if (!message) return;
-
-            if (message.includes('http://') || message.includes('https://')) {
-                alert('Links are not allowed in the chat.');
-                return;
-            }
-
-            const chatMessages = document.getElementById('chatMessages');
-            const messageDiv = document.createElement('div');
-            messageDiv.classList.add('chat-message');
-            messageDiv.innerHTML = `<strong>${loggedInUsername}:</strong> ${message}
-                <span class="chat-reaction" onclick="reactToMessage(this)">❤️</span>
-                <span class="chat-reaction" onclick="reactToMessage(this)">👍</span>`;
-            chatMessages.appendChild(messageDiv);
-
-            inputField.value = '';
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        function addEmoji(emoji) {
-            const inputField = document.getElementById('chatInput');
-            inputField.value += emoji;
-            inputField.focus();
-        }
-
-        function reactToMessage(element) {
-            element.textContent += '✨';
-        }
-
-        document.getElementById('chatInput').addEventListener('keypress', function (event) {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                sendMessage();
-            }
-        });
-    </script>
-
+    <script>...
