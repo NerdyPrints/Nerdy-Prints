@@ -198,4 +198,58 @@
         <p>&copy; 2025 Nerdy Prints. All rights reserved.</p>
     </footer>
 
-    <script>
+        <script>
+        const loggedInUser = sessionStorage.getItem('userEmail');
+        const loggedInUsername = localStorage.getItem('loggedInUsername');
+        if (!loggedInUser) {
+            window.location.href = '/login/';
+        } else {
+            document.getElementById('displayUsername').textContent = loggedInUsername;
+        }
+
+        function toggleChatWindow() {
+            const chatWindow = document.getElementById('chatWindow');
+            chatWindow.classList.toggle('active');
+        }
+
+        function sendMessage() {
+            const inputField = document.getElementById('chatInput');
+            const message = inputField.value.trim();
+
+            if (!message) return;
+
+            if (message.includes('http://') || message.includes('https://')) {
+                alert('Links are not allowed in the chat.');
+                return;
+            }
+
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('chat-message');
+            messageDiv.innerHTML = `<strong>${loggedInUsername}:</strong> ${message}
+                <span class="chat-reaction" onclick="reactToMessage(this)">❤️</span>
+                <span class="chat-reaction" onclick="reactToMessage(this)">👍</span>`;
+            chatMessages.appendChild(messageDiv);
+
+            inputField.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function addEmoji(emoji) {
+            const inputField = document.getElementById('chatInput');
+            inputField.value += emoji;
+            inputField.focus();
+        }
+
+        function reactToMessage(element) {
+            element.textContent += '✨';
+        }
+
+        document.getElementById('chatInput').addEventListener('keypress', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                sendMessage();
+            }
+        });
+    </script>
+
