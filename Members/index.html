@@ -82,10 +82,11 @@
             max-width: 600px;
             position: relative;
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-            cursor: pointer;
+            display: none;
         }
 
         .chat-window.active {
+            display: block;
             transform: scale(1.1);
             box-shadow: 0 0 20px #FFD700;
         }
@@ -93,6 +94,7 @@
         .chat-window h2 {
             color: #FFD700;
             font-family: 'Bangers', cursive;
+            cursor: pointer;
         }
 
         .chat-messages {
@@ -180,11 +182,11 @@
         <a href="/shop/" class="speech-bubble-button">Shop</a>
         <a href="/" class="speech-bubble-button">Home</a>
 
-        <div class="chat-window" onclick="this.classList.toggle('active')">
-            <h2>Live Chat - Nerdy Talk!</h2>
+        <h2 onclick="toggleChatWindow()">Live Chat - Nerdy Talk!</h2>
+        <div class="chat-window" id="chatWindow">
             <div id="chatMessages" class="chat-messages"></div>
             <div class="chat-input">
-                <input type="text" id="chatInput" placeholder="Type your message here..." onkeypress="if(event.key==='Enter') sendMessage()">
+                <input type="text" id="chatInput" placeholder="Type your message here...">
                 <button class="emoji-button" onclick="addEmoji('😊')">😊</button>
                 <button class="chat-button" onclick="sendMessage()">Send</button>
             </div>
@@ -197,14 +199,3 @@
     </footer>
 
     <script>
-        document.getElementById('displayUsername').textContent = localStorage.getItem('loggedInUsername') || 'User';
-
-        function addEmoji(emoji) {
-            document.getElementById('chatInput').value += emoji;
-        }
-
-        function sendMessage() {
-            const input = document.getElementById('chatInput');
-            let message = input.value.trim();
-
-            if (!message) return;
